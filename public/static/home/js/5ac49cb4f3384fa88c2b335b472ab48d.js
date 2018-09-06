@@ -1,0 +1,1 @@
+function hitokoto(){document.write('任何时候、任何年月、任何时代，事物的发展方式都如出一辙。');}
