@@ -271,7 +271,11 @@ return [
         'css_path' => '/static/home/css',
         'js_path'  => '/static/home/js',
         'img_path'  => '/static/home/img',
-        'picture_path'  => '/static/home/picture'
+        'picture_path'  => '/static/home/picture',
+        'admin_css_path' => '/static/admin/css',
+        'admin_js_path'  => '/static/admin/js',
+        'admin_img_path'  => '/static/admin/img',
+        'admin_picture_path'  => '/static/admin/avatars',
 
 
     ]

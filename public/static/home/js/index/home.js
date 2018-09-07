@@ -1,5 +1,5 @@
 vm = new Vue({
-    el: '.header-nav',
+    el: '.header',
     data: {
         menuList: ''
     },
@@ -28,7 +28,7 @@ vm = new Vue({
 });
 
  new Vue({
-    el: '.site-main',
+    el: '.site-content',
     data: {
         bannerList: ''
     },
