@@ -39,6 +39,17 @@ class Blog extends Controller
         return view('admin@blog/add');
     }
 
+    public function getBlogList(Request $request)
+    {
+        $data =  $request->post();
+        $current_page = $data['current_page'];
+        $pagesize = $data['pagesize'];
+        $start = ($current_page-1)*$pagesize;
+        $list = Db::name('blog')->order('id desc')->limit($pagesize,$start)->select();
+        $this->ajaxReturnMsg(200, 'success', $list);
+
+    }
+
     public function addBlog(Request $request)
     {
         $input= $request->post();
@@ -53,7 +64,7 @@ class Blog extends Controller
             $this->ajaxReturnMsg(202,'上传失败','');
         }
         $param = $data;
-        $param['pic'] = $img;
+        $param['pic'] = config('base_url').$img;
         $param['create_time'] = date('Y-m-d H:i:s',time());
         Db::name('blog')->insert($param);
         $this->ajaxReturnMsg(200, 'success', '');

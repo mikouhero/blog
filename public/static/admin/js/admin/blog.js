@@ -3,9 +3,28 @@ vm = new Vue({
     data: {
         menuList:'',
         child:{},
-        msg:{"recommend":0}
+        msg:{"recommend":0},
+        blogList:{},
+        current_page:1,
+        pagesize:10
     },
     methods: {
+        getBlogList:function () {
+            this.$http.post(ajaxUrl.getBlogList, {
+                pagesize :this.pagesize,
+                current_page:this.current_page
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogList = res.data.data;
+            }, function (res) {
+                alert("程序崩掉了");
+            });
+        },
         getHomeMenu:function () {
             this.$http.post(ajaxUrl.getMenuList, {
             }, {
@@ -17,7 +36,7 @@ vm = new Vue({
                 }
                 this.menuList = res.data.data;
             }, function (res) {
-                alert(res);
+                alert("程序崩掉了");
             });
         },
         mchange:function () {
@@ -85,6 +104,7 @@ vm = new Vue({
     mounted: function () {
         this.$nextTick(function () {
             this.getHomeMenu();
+            this.getBlogList();
         });
     }
 });

@@ -69,18 +69,18 @@
                     </thead>
 
                     <tbody>
-                    <tr style=''>
+                    <tr style='' v-for="blogItem in blogList">
                         <td>
-                            <a href="#">app.com</a>
+                            <a href="#">{{blogItem.title}}</a>
                         </td>
-                        <td>$45</td>
-                        <td><img src="https://phpbasefiles.woaap.com/cmt/upload/Story/201806/20180605193340.png"
-                                 style="height:40px;"/></td>
-                        <td class="hidden-480">3,330</td>
-                        <td>Feb 12</td>
+                        <td>{{blogItem.summary}}</td>
+                        <td><img :src="blogItem.pic"
+                                 style="height:40px;"></td>
+                        <td class="hidden-480">{{blogItem.category_id}}</td>
+                        <td>{{blogItem.create_time}}</td>
 
                         <td class="hidden-480">
-                            <span class="label label-sm label-warning">Expiring</span>
+                            <span class="label label-sm label-warning">{{blogItem.recommend}}</span>
                         </td>
 
                         <td>
