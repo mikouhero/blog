@@ -32,6 +32,7 @@ vm = new Vue({
             this.addParentid= id;
         },
         addMenu:function () {
+
             this.$http.post(ajaxUrl.addMenu, {
                 name:this.addName,
                 url: this.addUrl,
@@ -101,6 +102,7 @@ vm = new Vue({
 
             }, function (res) {
             });
+
         }
 
     },

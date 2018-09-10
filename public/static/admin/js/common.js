@@ -8,4 +8,5 @@ var ajaxUrl = {
     addTag: url + '/tag/addTag',
     banTag:url + "/tag/banTag",
     openTag:url + "/tag/openTag",
+    addBlog:url + "/blog/addBlog",
 };
