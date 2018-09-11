@@ -3,13 +3,13 @@
 <!--################################################# 单独 ########################################################-->
 <!--###############################################################################################################-->
 {block name="header"}
-
+<script src="<?= $js?>/pagination.js"></script>
 {/block}
 {block name="main"}
 <div class="page-content">
     <div class="page-header">
         <h1>
-            发布blog
+            blog List
             <small>
                 <i class="icon-double-angle-right"></i>
                 with selectable items(single &amp; multiple) and custom icons
@@ -44,7 +44,6 @@
                         <option v-for="childItem in child" :value="childItem['id']">{{childItem.name}}</option>
                     </select>
                 </div>
-
                 <div class="col-xs-2 input-group-s" style=" padding-left: 0;">
 
                 </div>
@@ -107,25 +106,25 @@
                                     <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
                                         <li>
                                             <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-																				<span class="blue">
-																					<i class="icon-zoom-in bigger-120"></i>
-																				</span>
+                                                <span class="blue">
+                                                    <i class="icon-zoom-in bigger-120"></i>
+                                                </span>
                                             </a>
                                         </li>
 
                                         <li>
                                             <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																				<span class="green">
-																					<i class="icon-edit bigger-120"></i>
-																				</span>
+                                                <span class="green">
+                                                    <i class="icon-edit bigger-120"></i>
+                                                </span>
                                             </a>
                                         </li>
 
                                         <li>
                                             <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																				<span class="red">
-																					<i class="icon-trash bigger-120"></i>
-																				</span>
+                                                <span class="red">
+                                                    <i class="icon-trash bigger-120"></i>
+                                                </span>
                                             </a>
                                         </li>
                                     </ul>
@@ -136,6 +135,9 @@
 
                     </tbody>
                 </table>
+                <div class="box-footer clearfix">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
             </div>
 
         </div>

@@ -5,14 +5,13 @@ vm = new Vue({
         child:{},
         msg:{"recommend":0},
         blogList:{},
-        current_page:1,
-        pagesize:10
+        pageNo: 1,   // 当前页数
+        pages: 0 ,    //  多少页
     },
     methods: {
         getBlogList:function () {
             this.$http.post(ajaxUrl.getBlogList, {
-                pagesize :this.pagesize,
-                current_page:this.current_page
+                current_page:this.pageNo
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -20,7 +19,8 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.blogList = res.data.data;
+                this.blogList = res.data.data['list'];
+                this.pages  = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");
             });
@@ -99,7 +99,13 @@ vm = new Vue({
                 // result.innerHTML = this.result;
                 // img_area.innerHTML = '<div class="sitetip">图片img标签展示：</div><img src="'+this.result+'" alt=""/>';
             };
-        }
+        },
+        pageList:function(curPage) {
+            //根据当前页获取数据
+            this.pageNo = curPage;
+            this.getBlogList(this.pageNo);
+            // console.log("当前页：" + this.pageNo);
+        },
     },
     mounted: function () {
         this.$nextTick(function () {

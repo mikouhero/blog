@@ -266,7 +266,7 @@ return [
         'RBAC_NODE_TABLE'           =>'think_node',
         'SHOW_PAGE_TRACE'=>1//显示调试信息
     ],
-    'base_url'=>'tp5.com/',
+    'base_url'=>'http://tp5.com/',
     'style_path' => [
         'css_path' => '/static/home/css',
         'js_path'  => '/static/home/js',

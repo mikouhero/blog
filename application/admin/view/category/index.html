@@ -13,6 +13,9 @@
     .tree ul b :hover {
         cursor: pointer
     }
+    [v-cloak] {
+        display: none !important;
+    }
 </style>
 {/block}
 {block name="main"}
@@ -32,7 +35,7 @@
             <!-- PAGE CONTENT BEGINS -->
             <div class="tree well">
                 <ul>
-                    <li v-for="(menuItem,key) in menuList" style="font-size: 20px">
+                    <li v-for="(menuItem,key) in menuList" style="font-size: 20px" v-cloak>
                         <span><i class="icon-folder-open"></i> {{menuItem.name}}     </span>
                         <b class="blue md-trigger" data-toggle="modal" data-target="#layer"
                            @click="addTemp(menuItem.id,menuItem.name)"><i
@@ -41,7 +44,7 @@
                         <!--<b class="red"><i class="icon-trash bigger-120"></i></b>-->
                         <ul v-show="menuItem.child.length > 0">
                             <li v-for=" (menuChildItem,k) in menuItem.child">
-                                <span><i class="icon-leaf"></i> {{menuChildItem.name}}   </span>
+                                <span ><i class="icon-leaf"></i> {{menuChildItem.name}}   </span>
                                 <!--<b  class="blue"><i class="  icon-cloud-upload   bigger-120"></i></b>-->
                                 <b class="green" data-toggle="modal" data-target="#edit" @click="editMenutmp(key,k)" ><i class="icon-edit bigger-120"></i></b>
                                 <b class="red" data-toggle="modal" data-target="#delete" @click="deleteId = menuChildItem['id']" ><i class="icon-trash bigger-120" ></i></b>

@@ -43,10 +43,11 @@ class Blog extends Controller
     {
         $data =  $request->post();
         $current_page = $data['current_page'];
-        $pagesize = $data['pagesize'];
+        $pagesize =10;
         $start = ($current_page-1)*$pagesize;
-        $list = Db::name('blog')->order('id desc')->limit($pagesize,$start)->select();
-        $this->ajaxReturnMsg(200, 'success', $list);
+        $list = Db::name('blog')->order('id desc')->limit($start,$pagesize)->select();
+        $count =Db::name('blog')->count();
+        $this->ajaxReturnMsg(200, 'success', array('list'=>$list,'count'=>ceil($count/$pagesize)));
 
     }
 
@@ -56,10 +57,11 @@ class Blog extends Controller
 
         $data = json_decode($input['msg'],true);
 
-        if(!isset($data['title']) || empty($data['title']) || !isset($data['category_id']) || empty($data['category_id']) || !isset($data['summary']) || empty($data['summary']) || !isset($data['content']) || empty($data['content']) ){
+        if(!isset($data['title']) || empty($data['title']) || !isset($data['category_id']) || empty($data['category_id']) || !isset($data['summary']) || empty($data['summary']) || !isset($data['content']) || empty($data['content']) || !isset($data['pic']) || empty($data['pic']) ){
             $this->ajaxReturnMsg(201,'参数错误','');
         }
-        $img = base64_image_content($data['pic'],'upload/blog/');
+
+        $img = base64_image_content($data['pic'],'upload/blog');
         if(!$img){
             $this->ajaxReturnMsg(202,'上传失败','');
         }
