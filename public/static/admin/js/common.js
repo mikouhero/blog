@@ -18,5 +18,8 @@ var ajaxUrl = {
     addRole:url+"/role/addRole",
     editRole:url+"/role/editRole",
     delRole:url+"/role/delRole",
-
+    getPermissionList:url+"/permission/getPermissionList",
+    addPermission:url+"/permission/addPermission",
+    editPermission:url+"/permission/editPermission",
+    delPermission:url+"/permission/delPermission",
 };

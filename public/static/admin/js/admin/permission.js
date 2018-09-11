@@ -1,7 +1,7 @@
 vm = new Vue({
     el: '.page-content',
     data: {
-        userList: '',
+        permissionList: '',
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
         msg: {},
@@ -12,8 +12,8 @@ vm = new Vue({
         delkey: '',
     },
     methods: {
-        getUserList: function () {
-            this.$http.post(ajaxUrl.getUserList, {
+        getPermissionList: function () {
+            this.$http.post(ajaxUrl.getPermissionList, {
                 current_page: this.pageNo
             }, {
                 emulateJSON: true
@@ -22,15 +22,15 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.userList = res.data.data['list'];
+                this.permissionList = res.data.data['list'];
                 this.pages = res.data.data['count'];
             }, function (res) {
                 alert("程序崩掉了");
             });
         },
-        addUser: function () {
+        addPermission: function () {
             this.msg['status'] = Number(this.msg['status']);
-            this.$http.post(ajaxUrl.addUser, {
+            this.$http.post(ajaxUrl.addPermission, {
                 'msg': JSON.stringify(this.msg)
             }, {
                 emulateJSON: true
@@ -40,7 +40,7 @@ vm = new Vue({
                     return false;
                 }
                 this.msg.id = res.data.data;
-                this.userList.push(this.msg);
+                this.permissionList.push(this.msg);
                 this.msg = {};
                 this.msg.status = 1;
 
@@ -48,20 +48,20 @@ vm = new Vue({
                 alert("程序崩掉了");
             });
         },
-        editUserid: function (id, key) {
+        editPermissionid: function (id, key) {
             this.editid = id;
-            this.editmsg = this.userList[key];
+            this.editmsg = this.permissionList[key];
         },
-        editUser: function () {
+        editPermission: function () {
             this.editmsg['status'] = Number(this.editmsg['status']);
-            this.$http.post(ajaxUrl.editUser, {
+            this.$http.post(ajaxUrl.editPermission, {
                 msg: JSON.stringify(this.editmsg)
             }, {
                 emulateJSON: true
             }).then(function (res) {
                 if (res.data.code != 200) {
                     alert(res.data.msg);
-                    this.getUserList();
+                    this.getPermissionList();
                     return false;
                 }
                 this.editmsg = {};
@@ -73,8 +73,8 @@ vm = new Vue({
             this.delid = id;
             this.delkey = key;
         },
-        delUser: function (id) {
-            this.$http.post(ajaxUrl.delUser, {
+        delPermission: function (id) {
+            this.$http.post(ajaxUrl.delPermission, {
                 id: id
             }, {
                 emulateJSON: true
@@ -83,7 +83,7 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.userList = this.userList.filter(function (item) {
+                this.permissionList = this.permissionList.filter(function (item) {
                     return item.id != id;
                 });
                 this.deleteId = '';
@@ -94,13 +94,13 @@ vm = new Vue({
         pageList: function (curPage) {
             //根据当前页获取数据
             this.pageNo = curPage;
-            this.getUserList(this.pageNo);
+            this.getPermissionList(this.pageNo);
             // console.log("当前页：" + this.pageNo);
         },
     },
     mounted: function () {
         this.$nextTick(function () {
-            this.getUserList();
+            this.getPermissionList();
         });
     }
 });

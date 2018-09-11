@@ -53,8 +53,6 @@ class Role extends Controller
         if (!isset($data['name']) || empty($data['name']) || !isset($data['description']) || empty($data['description']) ||  !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
-
-
         // 判断用户是否存在
         if (Db::name('role')->where('name', $data['name'])->count()) {
             $this->ajaxReturnMsg(202, '角色已存在', '');
@@ -62,8 +60,13 @@ class Role extends Controller
         $param = $data;
         $param['create_time'] = date("Y-m-d H:i:s");
 
-        $id = Db::name('role')->insertGetId($param);
-        $this->ajaxReturnMsg(200, 'success', $id);
+        $rbac = new Rbac();
+        $flag = $rbac->createRole($param);
+        if(!$flag){
+            $this->ajaxReturnMsg(201, '网络错误', '');
+        }
+
+        $this->ajaxReturnMsg(200, 'success',$flag);
 
     }
 
@@ -100,7 +103,7 @@ class Role extends Controller
         }
         $rbac = new Rbac();
         $flag = $rbac->delRole($data['id']);
-        if (!$flag) $this->ajaxReturnMsg(202, '', '');
+        if (!$flag) $this->ajaxReturnMsg(202, '网络错误', '');
         $this->ajaxReturnMsg(200, 'success', '');
     }
 

@@ -42,23 +42,23 @@
                     <thead>
                     <tr>
                         <th>id</th>
-                        <th>user_name</th>
-                        <th>mobile</th>
-                        <th>email</th>
+                        <th>name</th>
+                        <th>path</th>
+                        <th>description</th>
                         <th class="hidden-480">状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(userItem,key) in userList">
-                        <td>{{userItem.id}}</td>
-                        <td>{{userItem.user_name}}</td>
-                        <td>{{userItem.mobile}}</td>
-                        <td>{{userItem.email}}</td>
-                        <td class="hidden-480" v-if="userItem.status == 0">
+                    <tr v-for="(permissionItem,key) in permissionList">
+                        <td>{{permissionItem.id}}</td>
+                        <td>{{permissionItem.name}}</td>
+                        <td>{{permissionItem.path}}</td>
+                        <td>{{permissionItem.description}}</td>
+                        <td class="hidden-480" v-if="permissionItem.status == 0">
                             <span class="label label-sm label-warning ">禁用</span>
                         </td>
-                        <td class="hidden-480" v-if="userItem.status == 1">
+                        <td class="hidden-480" v-if="permissionItem.status == 1">
                             <span class="label label-sm  label-success">启用</span>
                         </td>
 
@@ -68,12 +68,12 @@
                                     <i class="icon-zoom-in bigger-130"></i>
                                 </a>
 
-                                <a class="green" href="#" @click="editUserid(userItem.id,key)" data-toggle="modal" data-target="#edit">
+                                <a class="green" href="#" @click="editPermissionid(permissionItem.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
                                 </a>
 
                                 <a class="red" href="#">
-                                    <i class="icon-trash bigger-130" @click="delTmp(userItem.id,key)" data-toggle="modal" data-target="#delete"></i>
+                                    <i class="icon-trash bigger-130" @click="delTmp(permissionItem.id,key)" data-toggle="modal" data-target="#delete"></i>
                                 </a>
                             </div>
 
@@ -109,34 +109,25 @@
 
                             <div class="col-sm-9">
                                 <input type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5"
-                                       v-model="msg['user_name']">
+                                       v-model="msg['name']">
                             </div>
                         </div>
 
                         <div class="space-4"></div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 密码 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> path </label>
 
                             <div class="col-sm-9">
-                                <input type="password" id="form-field-2" placeholder=""
-                                       class="col-xs-10 col-sm-5" v-model="msg['password']">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="msg['path']">
                                 <span class="help-inline col-xs-12 col-sm-7"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 手机号 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> description </label>
 
                             <div class="col-sm-9">
-                                <input type="text" class="col-xs-10 col-sm-5" v-model="msg['mobile']">
-                                <span class="help-inline col-xs-12 col-sm-7"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 邮箱 </label>
-
-                            <div class="col-sm-9">
-                                <input type="text" class="col-xs-10 col-sm-5" v-model="msg['email']">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="msg['description']">
                                 <span class="help-inline col-xs-12 col-sm-7"></span>
                             </div>
                         </div>
@@ -154,7 +145,7 @@
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
-                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="addUser">确认
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="addPermission">确认
                     </button>
                 </div>
             </div>
@@ -179,7 +170,7 @@
 
                             <div class="col-sm-9">
                                 <input type="text" id="form--1" placeholder="" class="col-xs-10 col-sm-5"
-                                       v-model="editmsg['user_name']">
+                                       v-model="editmsg['name']">
                             </div>
                         </div>
 
@@ -187,18 +178,18 @@
 
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 手机号 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> path </label>
 
                             <div class="col-sm-9">
-                                <input type="text" class="col-xs-10 col-sm-5" v-model="editmsg['mobile']">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="editmsg['path']">
                                 <span class="help-inline col-xs-12 col-sm-7"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 邮箱 </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> description </label>
 
                             <div class="col-sm-9">
-                                <input type="text" class="col-xs-10 col-sm-5" v-model="editmsg['email']">
+                                <input type="text" class="col-xs-10 col-sm-5" v-model="editmsg['description']">
                                 <span class="help-inline col-xs-12 col-sm-7"></span>
                             </div>
                         </div>
@@ -216,7 +207,7 @@
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
-                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="editUser">保存
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="editPermission">保存
                     </button>
                 </div>
             </div>
@@ -234,7 +225,7 @@
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
-                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="delUser(delid)">确定
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="delPermission(delid)">确定
                     </button>
                 </div>
             </div>
@@ -243,6 +234,6 @@
 </div>
 {/block}
 {block name="footer"}
-<script src="<?= $js?>/admin/user.js"></script>
+<script src="<?= $js?>/admin/permission.js"></script>
 
 {/block}

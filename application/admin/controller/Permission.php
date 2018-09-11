@@ -12,7 +12,7 @@ use think\Controller;
 use think\Db;
 use think\Request;
 
-class User extends Controller
+class Permission extends Controller
 {
     public function _initialize()
     {
@@ -31,109 +31,86 @@ class User extends Controller
 
     public function index()
     {
-        return view('admin@user/index');
+        return view('admin@permission/index');
     }
 
-    public function getUserList(Request $request)
+    public function getPermissionList(Request $request)
     {
         $data = $request->post();
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $list = Db::name('user')->field('id,user_name,mobile,email,status')->limit($start, $pagesize)->select();
-        $count = Db::name('user')->count();
+        $list = Db::name('permission')->field('id,name,path,description,status')->limit($start, $pagesize)->select();
+        $count = Db::name('permission')->count();
         $this->ajaxReturnMsg(200, 'success', array('list' => $list, 'count' => ceil($count / $pagesize)));
     }
 
-    public function addUser(Request $request)
+    public function addPermission(Request $request)
     {
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['user_name']) || empty($data['user_name']) || !isset($data['password']) || empty($data['password']) || !isset($data['mobile']) || empty($data['mobile']) || !isset($data['email']) || empty($data['email']) || !isset($data['status'])) {
+        if (!isset($data['name']) || empty($data['name']) || !isset($data['path']) || empty($data['path']) || !isset($data['description']) || empty($data['description']) ||  !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        if (!preg_match('/^1[3456789]{1}\d{9}$/', $data['mobile'])) {
-            $this->ajaxReturnMsg(202, '手机号格式错误', '');
-        }
-
-        if (!preg_match('/^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$/', $data['email'])) {
-            $this->ajaxReturnMsg(202, 'email格式错误', '');
-        }
-
         // 判断用户是否存在
-        if (Db::name('user')->where('user_name', $data['user_name'])->count()) {
+        if (Db::name('permission')->where('name', $data['name'])->count()) {
             $this->ajaxReturnMsg(202, '用户名已存在', '');
         }
 
         // 判断手机号是否存在
-        if (Db::name('user')->where('mobile', $data['mobile'])->count()) {
+        if (Db::name('permission')->where('path', $data['path'])->count()) {
             $this->ajaxReturnMsg(202, '手机号已存在', '');
         }
         //判断邮箱是否存在
-        if (Db::name('user')->where('email', $data['email'])->count()) {
-            $this->ajaxReturnMsg(202, '邮箱已存在', '');
-        }
+
         //加密
         $param = $data;
-        $param['password'] = md5($data['password']);
         $param['create_time'] = date("Y-m-d H:i:s");
 
-        $id = Db::name('user')->insertGetId($param);
+        $id = Db::name('permission')->insertGetId($param);
         $this->ajaxReturnMsg(200, 'success', $id);
 
     }
 
-    public function editUser(Request $request)
+    public function editPermission(Request $request)
     {
 
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['user_name']) || empty($data['user_name']) || !isset($data['mobile']) || empty($data['mobile']) || !isset($data['email']) || empty($data['email']) || !isset($data['status'])) {
+        if (!isset($data['name']) || empty($data['name']) || !isset($data['path']) || empty($data['path']) || !isset($data['description']) || empty($data['description']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        if (!preg_match('/^1[3456789]{1}\d{9}$/', $data['mobile'])) {
-            $this->ajaxReturnMsg(202, '手机号格式错误', '');
-        }
-
-        if (!preg_match('/^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$/', $data['email'])) {
-            $this->ajaxReturnMsg(202, 'email格式错误', '');
-        }
 
         // 判断用户是否存在
-        if (Db::name('user')->where('id', '<>', $data['id'])->where('user_name', $data['user_name'])->count()) {
+        if (Db::name('permission')->where('id', '<>', $data['id'])->where('name', $data['name'])->count()) {
             $this->ajaxReturnMsg(202, '用户名已存在', '');
         }
 
-        // 判断手机号是否存在
-        if (Db::name('user')->where('id', '<>', $data['id'])->where('mobile', $data['mobile'])->count()) {
-            $this->ajaxReturnMsg(202, '手机号已存在', '');
-        }
-        //判断邮箱是否存在
-        if (Db::name('user')->where('id', '<>', $data['id'])->where('email', $data['email'])->count()) {
-            $this->ajaxReturnMsg(202, '邮箱已存在', '');
+        if (Db::name('permission')->where('id', '<>', $data['id'])->where('path', $data['name'])->count()) {
+            $this->ajaxReturnMsg(202, '用户名已存在', '');
         }
         $param = $data;
-        Db::name('user')->where('id', $data['id'])->update($param);
+        Db::name('permission')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');
 
     }
 
-    public function delUser(Request $request)
+    public function delPermission(Request $request)
     {
         $data = $request->post();
         if (!isset($data['id']) || empty($data['id'])) {
             $this->ajaxReturnMsg(201, '缺少参数', '');
         }
-        $falg = Db::name('user')->where('id', $data['id'])->count();
+        $falg = Db::name('permission')->where('id', $data['id'])->count();
         if (!$falg) {
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
         $rbac = new Rbac();
-        $flag = $rbac->delUser($data['id']);
+        $flag = $rbac->delPermission($data['id']);
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');
     }
