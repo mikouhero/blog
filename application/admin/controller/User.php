@@ -41,8 +41,21 @@ class User extends Controller
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
         $list = Db::name('user')->field('id,user_name,mobile,email,status')->limit($start, $pagesize)->select();
+        $newList = $this->getUserRole($list);
+        $roleList = $this->getAllRole();
         $count = Db::name('user')->count();
-        $this->ajaxReturnMsg(200, 'success', array('list' => $list, 'count' => ceil($count / $pagesize)));
+        $res = array(
+            'list' => $newList,
+            'roleList' => $roleList,
+            'count' => ceil($count / $pagesize)
+        );
+        $this->ajaxReturnMsg(200, 'success', $res);
+    }
+
+    public function assignRole()
+    {
+        $rbac = new Rbac();
+        $rbac->assignUserRole(1,[9,10]);
     }
 
     public function addUser(Request $request)
@@ -136,6 +149,26 @@ class User extends Controller
         $flag = $rbac->delUser($data['id']);
         if (!$flag) $this->ajaxReturnMsg(202, '', '');
         $this->ajaxReturnMsg(200, 'success', '');
+    }
+
+    private function getUserRole($list)
+    {
+        foreach($list as $k => $v){
+            $role = Db::name('role')->alias('p1')->field('p1.id,p1.name')
+                ->join('user_role p2','p1.id = p2.role_id','left')
+                ->join('user p3','p2.user_id = p3.id','left')
+                ->where('p3.id',$v['id'])
+                ->where('p1.status',1)
+                ->select();
+           $list[$k]['role'] = $role;
+        }
+        return$list;
+    }
+
+    private function getAllRole()
+    {
+        $data = Db::name('role')->field('id,name')->where('status',1)->select();
+        return $data;
     }
 
     private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)

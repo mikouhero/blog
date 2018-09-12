@@ -46,7 +46,7 @@
             <!-- PAGE CONTENT BEGINS -->
             <div class="col-xs-2"></div>
             <div class="col-xs-8">
-                    <span style="margin: 10px"class="label label-xlg arrowed arrowed-right":class="random[key%random.length]" v-for="(tagItem,key) in tagList"  v-if="tagItem.status==1" data-toggle="modal" data-target="#ban" @click="banId = tagItem.id">{{tagItem.name}}</span>
+                    <span style="margin: 10px"class="label label-xlg arrowed arrowed-right" :class="random[key%random.length]" v-for="(tagItem,key) in tagList"  v-if="tagItem.status==1" data-toggle="modal" data-target="#ban" @click="banId = tagItem.id">{{tagItem.name}}</span>
             </div><!-- /span -->
 
             <!-- PAGE CONTENT ENDS -->

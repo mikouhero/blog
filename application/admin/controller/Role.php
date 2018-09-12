@@ -107,6 +107,7 @@ class Role extends Controller
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
+
     private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {
         //        $this->api->end($api_id,$code,$msg,$data);

@@ -4,6 +4,11 @@
 <!--###############################################################################################################-->
 {block name="header"}
 <script src="<?= $js?>/pagination.js"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
 {/block}
 {block name="main"}
 <div class="page-content">
@@ -45,16 +50,20 @@
                         <th>user_name</th>
                         <th>mobile</th>
                         <th>email</th>
+                        <th>role</th>
                         <th class="hidden-480">状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(userItem,key) in userList">
+                    <tr v-for="(userItem,key) in userList" v-cloak>
                         <td>{{userItem.id}}</td>
                         <td>{{userItem.user_name}}</td>
                         <td>{{userItem.mobile}}</td>
                         <td>{{userItem.email}}</td>
+                        <td>
+                            <span style="margin-right: 10px" class=" badge" v-for="(roleItem,key) in userItem.role"   :class="random[key%random.length]" data-toggle="modal" data-target="#ban" @click="">{{roleItem.name}}</span>
+                        </td>
                         <td class="hidden-480" v-if="userItem.status == 0">
                             <span class="label label-sm label-warning ">禁用</span>
                         </td>
@@ -65,7 +74,7 @@
                         <td>
                             <div class="action-buttons">
                                 <a class="blue" href="#">
-                                    <i class="icon-zoom-in bigger-130"></i>
+                                    <i class="icon-zoom-in bigger-130" @click="tmp(key)" data-toggle="modal" data-target="#role"></i>
                                 </a>
 
                                 <a class="green" href="#" @click="editUserid(userItem.id,key)" data-toggle="modal" data-target="#edit">
@@ -235,6 +244,48 @@
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
                     <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="delUser(delid)">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--role-->
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="role">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" >分配角色</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" role="form">
+                            <!-- PAGE CONTENT BEGINS -->
+                        <div class="form-group">
+                            <div class="col-xs-1"><i class="icon  icon-check "></i></div>
+                            <div class="col-xs-9">
+                                <span style="margin-right: 10px" class=" badge" :class="random[key%random.length]"  v-for="(perItem,key) in hasRole"    @click="">{{perItem.name}}</span>
+
+                            </div><!-- /span -->
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="hr hr-18 hr-double dotted"></div>
+                            </div>
+
+                            <div class="col-xs-1"><i class="icon icon-check-empty  "></i></div>
+                            <div class="col-xs-9">
+                                <span style="margin: 10px" class=" badge" :class="random[key%random.length]"  v-for="(perItem,key) in hasRole"    @click="">{{perItem.name}}</span>
+                            </div><!-- /span -->
+                        </div>
+
+                            <!-- PAGE CONTENT ENDS -->
+                    </div>
+
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">关闭</button>
                     </button>
                 </div>
             </div>

@@ -1,15 +1,20 @@
 vm = new Vue({
     el: '.page-content',
     data: {
+        random: ['label-success', 'label-warning', 'label-danger', 'label-info', 'label-purple', 'label-inverse', 'label-pink', 'label-yellow', 'label-grey', 'label-primary', 'label-light'],
         userList: '',
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
+        roleList: {},
         msg: {},
         msg: {'status': 1},
         editid: '',
         editmsg: {},
         delid: '',
         delkey: '',
+        rolekey:'',
+        hasRole:{},
+        nohasRole:{}
     },
     methods: {
         getUserList: function () {
@@ -24,6 +29,7 @@ vm = new Vue({
                 }
                 this.userList = res.data.data['list'];
                 this.pages = res.data.data['count'];
+                this.roleList = res.data.data['roleList'];
             }, function (res) {
                 alert("程序崩掉了");
             });
@@ -96,6 +102,10 @@ vm = new Vue({
             this.pageNo = curPage;
             this.getUserList(this.pageNo);
             // console.log("当前页：" + this.pageNo);
+        },
+        tmp: function (key) {   //
+            this.rolekey = key;
+            this.hasRole = this.userList[key]['role'];
         },
     },
     mounted: function () {
