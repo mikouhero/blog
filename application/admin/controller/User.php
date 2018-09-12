@@ -52,11 +52,7 @@ class User extends Controller
         $this->ajaxReturnMsg(200, 'success', $res);
     }
 
-    public function assignRole()
-    {
-        $rbac = new Rbac();
-        $rbac->assignUserRole(1,[9,10]);
-    }
+
 
     public function addUser(Request $request)
     {
@@ -151,6 +147,22 @@ class User extends Controller
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
+    public function assignRole(Request $request)
+    {
+        $data = $request->post();
+        if (!isset($data['user_id']) || empty($data['user_id']) || !isset($data['role_id']) || empty($data['role_id'])) {
+            $this->ajaxReturnMsg(201, '缺少参数', '');
+        }
+        $falg = Db::name('user_role')->where('user_id', $data['user_id'])->where('role_id', $data['role_id'])->count();
+        if ($falg) {
+            $this->ajaxReturnMsg(201, '网络错误', '');
+        }
+
+        $rbac = new Rbac();
+        $rbac->assignUserRole($data['user_id'],[$data['role_id']]);
+        $this->ajaxReturnMsg(200, 'success', '');
+    }
+
     private function getUserRole($list)
     {
         foreach($list as $k => $v){
@@ -170,6 +182,7 @@ class User extends Controller
         $data = Db::name('role')->field('id,name')->where('status',1)->select();
         return $data;
     }
+
 
     private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {

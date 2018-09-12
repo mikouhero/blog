@@ -12,9 +12,10 @@ vm = new Vue({
         editmsg: {},
         delid: '',
         delkey: '',
-        rolekey:'',
-        hasRole:{},
-        nohasRole:{}
+        rolekey: '',    // click 用户在列表中的key
+        waitUserId:'',  // 分配角色用户id
+        hasRole: {},   //指定用户的角色 列表
+        nohasRole: {}  // 用户没有的角色列表
     },
     methods: {
         getUserList: function () {
@@ -103,10 +104,51 @@ vm = new Vue({
             this.getUserList(this.pageNo);
             // console.log("当前页：" + this.pageNo);
         },
-        tmp: function (key) {   //
+        roleTmp: function (key) {   //
             this.rolekey = key;
-            this.hasRole = this.userList[key]['role'];
+            this.waitUserId  = this.userList[key]['id'];
+            var tmpuser = this.hasRole = this.userList[key]['role'];
+            var tmpall = this.roleList;
+            this.nohasRole = tmpall.filter(function (item) {
+                return JSON.stringify(tmpuser).indexOf(JSON.stringify(item)) == -1;
+            })
         },
+        assignRole:function (role_id) {
+            this.$http.post(ajaxUrl.assignRole, {
+                user_id: this.waitUserId,
+                role_id:role_id
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.getUserList();
+                console.log(this.roleList.filter(function (item) {
+                    return item.id == role_id;
+                }));
+                this.hasRole.push((this.roleList.filter(function (item) {
+                    return item.id == role_id;
+                }))[0]);
+                var tmpuser = this.hasRole = this.userList[this.rolekey]['role'];
+                var tmpall = this.roleList;
+                this.nohasRole = tmpall.filter(function (item) {
+                    return JSON.stringify(tmpuser).indexOf(JSON.stringify(item)) == -1;
+                })
+                console.log(this.nohasRole);
+                // this.userList = this.userList.filter(function (item) {
+                //     return item.id != id;
+                // });
+                // this.deleteId = '';
+
+            }, function (res) {
+                alert('程序崩掉了');
+            });
+        },
+        deleteRole:function () {
+            
+        }
     },
     mounted: function () {
         this.$nextTick(function () {

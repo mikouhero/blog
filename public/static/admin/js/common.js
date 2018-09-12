@@ -14,6 +14,7 @@ var ajaxUrl = {
     addUser:url+"/user/addUser",
     editUser:url+"/user/editUser",
     delUser:url+"/user/delUser",
+    assignRole:url+"/user/assignRole",
     getRoleList:url+"/role/getRoleList",
     addRole:url+"/role/addRole",
     editRole:url+"/role/editRole",
