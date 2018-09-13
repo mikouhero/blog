@@ -124,10 +124,6 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.getUserList();
-                console.log(this.roleList.filter(function (item) {
-                    return item.id == role_id;
-                }));
                 this.hasRole.push((this.roleList.filter(function (item) {
                     return item.id == role_id;
                 }))[0]);
@@ -136,18 +132,33 @@ vm = new Vue({
                 this.nohasRole = tmpall.filter(function (item) {
                     return JSON.stringify(tmpuser).indexOf(JSON.stringify(item)) == -1;
                 })
-                console.log(this.nohasRole);
-                // this.userList = this.userList.filter(function (item) {
-                //     return item.id != id;
-                // });
-                // this.deleteId = '';
-
             }, function (res) {
                 alert('程序崩掉了');
             });
         },
-        deleteRole:function () {
-            
+        deleteUserRole:function (role_id) {
+            this.$http.post(ajaxUrl.deleteUserRole, {
+                user_id: this.waitUserId,
+                role_id:role_id
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.nohasRole.push((this.roleList.filter(function (item) {
+                    return item.id == role_id;
+                }))[0]);
+                var tmpuser = this.nohasRole ;
+                var tmpall = this.roleList;
+                this.hasRole = tmpall.filter(function (item) {
+                    return JSON.stringify(tmpuser).indexOf(JSON.stringify(item)) == -1;
+                });
+                this.userList[this.rolekey]['role'] = this.hasRole;
+            }, function (res) {
+                alert('程序崩掉了');
+            });
         }
     },
     mounted: function () {

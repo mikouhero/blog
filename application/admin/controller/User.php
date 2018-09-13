@@ -8,11 +8,10 @@
 namespace app\admin\controller;
 
 use gmars\rbac\Rbac;
-use think\Controller;
 use think\Db;
 use think\Request;
 
-class User extends Controller
+class User extends Base
 {
     public function _initialize()
     {
@@ -34,7 +33,7 @@ class User extends Controller
         return view('admin@user/index');
     }
 
-    public function getUserList(Request $request)
+    public function getList(Request $request)
     {
         $data = $request->post();
         $current_page = $data['current_page'];
@@ -52,9 +51,7 @@ class User extends Controller
         $this->ajaxReturnMsg(200, 'success', $res);
     }
 
-
-
-    public function addUser(Request $request)
+    public function add(Request $request)
     {
         $input = $request->post();
         $data = json_decode($input['msg'], true);
@@ -94,7 +91,7 @@ class User extends Controller
 
     }
 
-    public function editUser(Request $request)
+    public function edit(Request $request)
     {
 
         $input = $request->post();
@@ -131,7 +128,7 @@ class User extends Controller
 
     }
 
-    public function delUser(Request $request)
+    public function delete(Request $request)
     {
         $data = $request->post();
         if (!isset($data['id']) || empty($data['id'])) {
@@ -163,6 +160,22 @@ class User extends Controller
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
+    public function deleteUserRole(Request $request)
+    {
+        $data = $request->post();
+        if (!isset($data['user_id']) || empty($data['user_id']) || !isset($data['role_id']) || empty($data['role_id'])) {
+            $this->ajaxReturnMsg(201, '缺少参数', '');
+        }
+        $falg = Db::name('user_role')->where('user_id', $data['user_id'])->where('role_id', $data['role_id'])->count();
+        if (!$falg) {
+            $this->ajaxReturnMsg(201, '网络错误', '');
+        }
+
+        Db::name('user_role')->where('user_id',$data['user_id'])->where('role_id',$data['role_id'])->delete();
+        $this->ajaxReturnMsg(200, 'success', '');
+
+    }
+
     private function getUserRole($list)
     {
         foreach($list as $k => $v){
@@ -182,7 +195,6 @@ class User extends Controller
         $data = Db::name('role')->field('id,name')->where('status',1)->select();
         return $data;
     }
-
 
     private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {

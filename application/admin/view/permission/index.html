@@ -64,15 +64,15 @@
 
                         <td>
                             <div class="action-buttons">
-                                <a class="blue" href="#">
+                                <a class="blue" >
                                     <i class="icon-zoom-in bigger-130"></i>
                                 </a>
 
-                                <a class="green" href="#" @click="editPermissionid(permissionItem.id,key)" data-toggle="modal" data-target="#edit">
+                                <a class="green" @click="editPermissionid(permissionItem.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
                                 </a>
 
-                                <a class="red" href="#">
+                                <a class="red">
                                     <i class="icon-trash bigger-130" @click="delTmp(permissionItem.id,key)" data-toggle="modal" data-target="#delete"></i>
                                 </a>
                             </div>

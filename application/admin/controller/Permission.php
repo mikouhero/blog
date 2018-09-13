@@ -34,7 +34,7 @@ class Permission extends Controller
         return view('admin@permission/index');
     }
 
-    public function getPermissionList(Request $request)
+    public function getList(Request $request)
     {
         $data = $request->post();
         $current_page = $data['current_page'];
@@ -45,7 +45,7 @@ class Permission extends Controller
         $this->ajaxReturnMsg(200, 'success', array('list' => $list, 'count' => ceil($count / $pagesize)));
     }
 
-    public function addPermission(Request $request)
+    public function add(Request $request)
     {
         $input = $request->post();
         $data = json_decode($input['msg'], true);
@@ -74,7 +74,7 @@ class Permission extends Controller
 
     }
 
-    public function editPermission(Request $request)
+    public function edit(Request $request)
     {
 
         $input = $request->post();
@@ -99,7 +99,7 @@ class Permission extends Controller
 
     }
 
-    public function delPermission(Request $request)
+    public function delete(Request $request)
     {
         $data = $request->post();
         if (!isset($data['id']) || empty($data['id'])) {

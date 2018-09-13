@@ -73,15 +73,15 @@
 
                         <td>
                             <div class="action-buttons">
-                                <a class="blue" href="#">
+                                <a class="blue" >
                                     <i class="icon-zoom-in bigger-130" @click="roleTmp(key)" data-toggle="modal" data-target="#role"></i>
                                 </a>
 
-                                <a class="green" href="#" @click="editUserid(userItem.id,key)" data-toggle="modal" data-target="#edit">
+                                <a class="green"  @click="editUserid(userItem.id,key)" data-toggle="modal" data-target="#edit">
                                     <i class="icon-pencil bigger-130"></i>
                                 </a>
 
-                                <a class="red" href="#">
+                                <a class="red" >
                                     <i class="icon-trash bigger-130" @click="delTmp(userItem.id,key)" data-toggle="modal" data-target="#delete"></i>
                                 </a>
                             </div>
@@ -265,7 +265,7 @@
                         <div class="form-group">
                             <div class="col-xs-1"><i class="icon  icon-check "></i></div>
                             <div class="col-xs-9">
-                                <a href="javascript:void(0)"><span style="margin-right: 10px" class=" badge" :class="random[key%random.length]"  v-for="(perItem,key) in hasRole"    @click="deleteRole()">{{perItem.name}}</span></a>
+                                <a href="javascript:void(0)"><span style="margin-right: 10px" class=" badge" :class="random[key%random.length]"  v-for="(perItem,key) in hasRole"    @click="deleteUserRole(perItem.id)">{{perItem.name}}</span></a>
 
                             </div><!-- /span -->
                         </div>
@@ -279,7 +279,6 @@
                                 <a href="javascript:void(0)"><span style="margin: 10px" class=" badge"   v-for="(nohasRoleItem,key) in nohasRole"    @click="assignRole(nohasRoleItem.id)">{{nohasRoleItem.name}}</span></a>
                             </div><!-- /span -->
                         </div>
-
                             <!-- PAGE CONTENT ENDS -->
                     </div>
 
