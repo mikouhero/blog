@@ -12,7 +12,7 @@ use think\Controller;
 use think\Db;
 use think\Request;
 
-class Blog extends Controller
+class Blog extends Base
 {
     public function _initialize()
     {

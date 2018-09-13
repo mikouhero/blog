@@ -12,7 +12,7 @@ use think\Controller;
 use think\Db;
 use think\Request;
 
-class Permission extends Controller
+class Permission extends Base
 {
     public function _initialize()
     {

@@ -12,7 +12,7 @@ use think\Controller;
 use think\Db;
 use think\Request;
 
-class Role extends Controller
+class Role extends Base
 {
     public function _initialize()
     {

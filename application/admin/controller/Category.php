@@ -11,7 +11,7 @@ use think\Controller;
 use think\Db;
 use think\Request;
 
-class Category extends Controller
+class Category extends Base
 {
     public function _initialize()
     {
