@@ -267,6 +267,9 @@ return [
         'SHOW_PAGE_TRACE'=>1//显示调试信息
     ],
     'base_url'=>'http://tp5.com/',
+
+    'user_lock_times'=>5,  // 错误次数限制
+
     'style_path' => [
         'css_path' => '/static/home/css',
         'js_path'  => '/static/home/js',

@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>µÇÂ¼Ò³Ãæ - BootstrapºóÌ¨¹ÜÀíÏµÍ³Ä£°æAceÏÂÔØ</title>
-    <meta name="keywords" content="BootstrapÄ£°æ,BootstrapÄ£°æÏÂÔØ,Bootstrap½Ì³Ì,BootstrapÖÐÎÄ" />
-    <meta name="description" content="Õ¾³¤ËØ²ÄÌá¹©BootstrapÄ£°æ,Bootstrap½Ì³Ì,BootstrapÖÐÎÄ·­ÒëµÈÏà¹ØBootstrap²å¼þÏÂÔØ" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="" />
 
     <!-- basic styles -->
 
@@ -39,6 +39,9 @@
     <script src="/static/admin/js/html5shiv.js"></script>
     <script src="/static/admin/js/respond.min.js"></script>
     <![endif]-->
+    <script src="/static/admin/js/vue.js"></script>
+    <script src="/static/admin/js/vue-resource.js"></script>
+    <script src="/static/admin/js/common.js"></script>
 </head>
 
 <body class="login-layout">
@@ -73,14 +76,14 @@
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" class="form-control" placeholder="Username" v-model="user_name"/>
 															<i class="icon-user"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" class="form-control" placeholder="Password" v-model="password"/>
 															<i class="icon-lock"></i>
 														</span>
                                             </label>
@@ -93,7 +96,7 @@
                                                     <span class="lbl"> Remember Me</span>
                                                 </label>
 
-                                                <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                <button type="button" class="width-35 pull-right btn btn-sm btn-primary" @click="login">
                                                     <i class="icon-key"></i>
                                                     Login
                                                 </button>
@@ -131,10 +134,10 @@
                                     </div>
 
                                     <div>
-                                        <a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
-                                            I want to register
-                                            <i class="icon-arrow-right"></i>
-                                        </a>
+                                        <!--<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">-->
+                                            <!--I want to register-->
+                                            <!--<i class="icon-arrow-right"></i>-->
+                                        <!--</a>-->
                                     </div>
                                 </div>
                             </div><!-- /widget-body -->
@@ -266,12 +269,10 @@
 
 <!--[if !IE]> -->
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <!-- <![endif]-->
 
 <!--[if IE]>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <![endif]-->
 
 <!--[if !IE]> -->
@@ -300,6 +301,7 @@
         jQuery('#'+id).addClass('visible');
     }
 </script>
-<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+
+<script src="/static/admin/js/admin/login.js"></script>
 </body>
 </html>

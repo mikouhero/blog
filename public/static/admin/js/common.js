@@ -26,4 +26,5 @@ var ajaxUrl = {
     addPermission:url+"/permission/add",
     editPermission:url+"/permission/edit",
     delPermission:url+"/permission/delete",
+    login:url+"/login/dologin"
 };
