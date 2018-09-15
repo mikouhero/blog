@@ -2,7 +2,8 @@ vm = new Vue({
     el: '.main-content',
     data: {
         user_name:'',
-        password:''
+        password:'',
+        status : ''
 
     },
     methods:{
@@ -11,7 +12,8 @@ vm = new Vue({
             if(!this.password) {alert('密码为空');return false;}
             this.$http.post(ajaxUrl.login, {
                 "user_name":this.user_name,
-                'password':this.password
+                'password':this.password,
+                'status' :this.status
             }, {
                 emulateJSON: true
             }).then(function (res) {

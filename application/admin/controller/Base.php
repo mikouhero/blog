@@ -12,6 +12,7 @@ use gmars\rbac\Rbac;
 use think\Controller;
 use think\Session;
 use think\Request;
+use think\Cookie;
 
 class Base extends Controller
 {
@@ -21,6 +22,9 @@ class Base extends Controller
 
         //权限过滤
 //         Session::set('manger_user',array('id'=>1,'user_name'=>'admin'));
+       if(empty(Session::get('manger_user')['link'])){
+           $this->redirect("/admin/login/doCookie");die;
+       };
         if(!$user_msg = Session::get('manger_user')){
             $this->redirect('/admin/login');
         }
