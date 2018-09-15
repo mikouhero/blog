@@ -46,6 +46,9 @@ class Tag extends Base
         if (!isset($data['name']) || empty($data['name'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
+        if(Db::name('tag')->where('name',$data['name'])->count()){
+            $this->ajaxReturnMsg(201, 'tag已经存在', '');
+        }
         $param['name']= $data['name'];
         $param['status'] = 1;
         Db::name('tag')->insert($param);

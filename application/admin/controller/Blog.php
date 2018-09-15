@@ -39,6 +39,12 @@ class Blog extends Base
         return view('admin@blog/add');
     }
 
+    public function edit()
+    {
+        return view('admin@blog/edit');
+    }
+
+
     public function getBlogList(Request $request)
     {
         $data =  $request->post();

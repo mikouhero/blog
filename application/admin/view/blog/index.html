@@ -40,9 +40,10 @@
                         </option>
                     </select>
                     <select id="categorychild" v-show="child.length>0" @change="mchange()">
-                        <option value="">Chose</option>
+                        <option value="">Choose</option>
                         <option v-for="childItem in child" :value="childItem['id']">{{childItem.name}}</option>
                     </select>
+                    <a style="margin-left:20px" href="/admin/blog/add"><i class="icon  icon-cloud-upload bigger-180"></i></a>
                 </div>
                 <div class="col-xs-2 input-group-s" style=" padding-left: 0;">
 
@@ -68,7 +69,7 @@
                     </thead>
 
                     <tbody>
-                    <tr style='' v-for="blogItem in blogList">
+                    <tr style='' v-for="(blogItem,key) in blogList">
                         <td>
                             <a href="#">{{blogItem.title}}</a>
                         </td>
@@ -83,13 +84,13 @@
                         </td>
 
                         <td>
-                            <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                            <div class="">
                                 <a class="blue" href="#">
-                                    <i class="icon-zoom-in bigger-130"></i>
+                                    <i class="icon-zoom-in bigger-130"  data-toggle="modal" data-target="#layer" @click="tmp(key)"></i>
                                 </a>
 
-                                <a class="green" href="#">
-                                    <i class="icon-pencil bigger-130"></i>
+                                <a class="green" >
+                                    <i class="icon-pencil bigger-130"  @click="edit(blogItem.id,key)"></i>
                                 </a>
 
                                 <a class="red" href="#">
@@ -97,39 +98,6 @@
                                 </a>
                             </div>
 
-                            <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                <div class="inline position-relative">
-                                    <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-caret-down icon-only bigger-120"></i>
-                                    </button>
-
-                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-                                        <li>
-                                            <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                <span class="blue">
-                                                    <i class="icon-zoom-in bigger-120"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                <span class="green">
-                                                    <i class="icon-edit bigger-120"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                <span class="red">
-                                                    <i class="icon-trash bigger-120"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                         </td>
                     </tr>
 
@@ -142,6 +110,27 @@
 
         </div>
     </div>
+
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="gridSystemModalLabel">[blog details]</h2>
+                </div>
+                <div class="modal-body">
+                    <div v-html="this.div"></div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">close</button>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {/block}
 {block name="footer"}
