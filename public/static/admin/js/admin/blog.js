@@ -5,7 +5,7 @@ vm = new Vue({
         menuList: '',
         child: {},
         msg: {"recommend": 0},
-        blogList: {},
+        blogList: '',
         tagList:{},
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
@@ -175,13 +175,14 @@ vm = new Vue({
             this.waitBlogId  = this.blogList[key]['id'];
             var tmpblog = this.hasTag = this.blogList[key]['tag'];
             var tmpall = this.tagList;
+
             this.nohasTag = tmpall.filter(function (item) {
                 return JSON.stringify(tmpblog).indexOf(JSON.stringify(item)) == -1;
             })
         },
         assignTag:function (tag_id) {
             this.$http.post(ajaxUrl.assignTag, {
-                blog_id: this.waitTBlogId,
+                blog_id: this.waitBlogId,
                 tag_id:tag_id
             }, {
                 emulateJSON: true
@@ -190,10 +191,13 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.hasTag.push((this.TagList.filter(function (item) {
+                this.tagList.filter(function (item) {
+                    return item.id == tag_id;
+                })
+                this.hasTag.push((this.tagList.filter(function (item) {
                     return item.id == tag_id;
                 }))[0]);
-                var tmpblog = this.hasTag = this.tagList[this.tagkey]['tag'];
+                var tmpblog = this.hasTag = this.blogList[this.tagkey]['tag'];
                 var tmpall = this.tagList;
                 this.nohasTag = tmpall.filter(function (item) {
                     return JSON.stringify(tmpblog).indexOf(JSON.stringify(item)) == -1;
@@ -202,10 +206,10 @@ vm = new Vue({
                 alert('程序崩掉了');
             });
         },
-        deleteTag:function (role_id) {
-            this.$http.post(ajaxUrl.deleteUserRole, {
-                user_id: this.waitUserId,
-                role_id:role_id
+        deleteTag:function (tag_id) {
+            this.$http.post(ajaxUrl.deleteTag, {
+                blog_id: this.waitBlogId,
+                tag_id:tag_id
             }, {
                 emulateJSON: true
             }).then(function (res) {
@@ -213,15 +217,15 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                this.nohasRole.push((this.roleList.filter(function (item) {
-                    return item.id == role_id;
+                this.nohasTag.push((this.tagList.filter(function (item) {
+                    return item.id == tag_id;
                 }))[0]);
-                var tmpuser = this.nohasRole ;
-                var tmpall = this.roleList;
-                this.hasRole = tmpall.filter(function (item) {
+                var tmpuser = this.nohasTag ;
+                var tmpall = this.tagList;
+                this.hasTag = tmpall.filter(function (item) {
                     return JSON.stringify(tmpuser).indexOf(JSON.stringify(item)) == -1;
                 });
-                this.userList[this.rolekey]['role'] = this.hasRole;
+                this.blogList[this.tagkey]['tag'] = this.hasTag;
             }, function (res) {
                 alert('程序崩掉了');
             });

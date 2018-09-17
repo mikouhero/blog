@@ -11,8 +11,10 @@ var ajaxUrl = {
     addBlog:adminUrl + "/blog/insert",             // blog
     editBlog:adminUrl + "/blog/update",
     getBlogList:adminUrl+"/blog/getList",
-    getUserList:adminUrl+"/user/getList",
-    addUser:adminUrl+"/user/add",              //user
+    assignTag:adminUrl+"/blog/assignTag",
+    deleteTag:adminUrl+"/blog/deleteTag",
+    getUserList:adminUrl+"/user/getList", //user
+    addUser:adminUrl+"/user/add",
     editUser:adminUrl+"/user/edit",
     delUser:adminUrl+"/user/delete",
     assignRole:adminUrl+"/user/assignRole",

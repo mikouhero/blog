@@ -141,7 +141,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h2 class="modal-title" id="">[blog details]</h2>
+                    <h2 class="modal-title" id="">[blog Tag]</h2>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal" role="form">
@@ -149,7 +149,7 @@
                         <div class="form-group">
                             <div class="col-xs-1"><i class="icon  icon-check "></i></div>
                             <div class="col-xs-9">
-                                <a href="javascript:void(0)"><span style="margin-right: 10px" class=" badge"    @click="">{{}}</span></a>
+                                <a href="javascript:void(0)"><span style="margin-right: 10px" class=" badge" :class="random[key%random.length]"  v-for="(tagItem,key) in hasTag"   @click="deleteTag(tagItem.id)">{{tagItem.name}}</span></a>
 
                             </div><!-- /span -->
                         </div>
@@ -160,7 +160,7 @@
 
                             <div class="col-xs-1"><i class="icon icon-check-empty  "></i></div>
                             <div class="col-xs-9">
-                                <a href="javascript:void(0)"><span style="margin: 10px" class=" badge"    @click="">{{}}</span></a>
+                                <a href="javascript:void(0)"><span style="margin: 10px" class=" badge"   v-for="(tagItem,key) in nohasTag"   @click="assignTag(tagItem.id)">{{tagItem.name}}</span></a>
                             </div><!-- /span -->
                         </div>
                         <!-- PAGE CONTENT ENDS -->

@@ -118,9 +118,39 @@ class Blog extends Base
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
+    public function assignTag(Request $request)
+    {
+        $data = $request->post();
+        if (!isset($data['blog_id']) || empty($data['blog_id']) || !isset($data['tag_id']) || empty($data['tag_id'])) {
+            $this->ajaxReturnMsg(201, '缺少参数', '');
+        }
+        $falg = Db::name('blog_tag')->where('blog_id', $data['blog_id'])->where('tag_id', $data['tag_id'])->count();
+        if ($falg) {
+            $this->ajaxReturnMsg(201, '网络错误', '');
+        }
+        Db::name('blog_tag')->insert($data);
+        $this->ajaxReturnMsg(200, 'success', '');
+    }
+
+    public function deleteTag(Request $request)
+    {
+        $data = $request->post();
+        if (!isset($data['blog_id']) || empty($data['blog_id']) || !isset($data['tag_id']) || empty($data['tag_id'])) {
+            $this->ajaxReturnMsg(201, '缺少参数', '');
+        }
+        $falg = Db::name('blog_tag')->where('blog_id', $data['blog_id'])->where('tag_id', $data['tag_id'])->count();
+        if (!$falg) {
+            $this->ajaxReturnMsg(201, '网络错误', '');
+        }
+
+        Db::name('blog_tag')->where('blog_id', $data['blog_id'])->where('tag_id', $data['tag_id'])->delete();
+        $this->ajaxReturnMsg(200, 'success', '');
+
+    }
+
     private function getAllTag()
     {
-        return Db::name('tag')->where('status',1)->select();
+        return Db::name('tag')->field('id,name')->where('status',1)->select();
     }
     private function getTag($id)
     {
