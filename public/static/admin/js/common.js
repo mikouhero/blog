@@ -1,30 +1,31 @@
-var url = 'http://tp5.com/admin';
+var adminUrl = 'http://tp5.com/admin';
 var ajaxUrl = {
-    getMenuList: url + '/category/getMenuList',  // 菜单
-    addMenu: url + '/category/addMenu',
-    editMenu: url + '/category/editMenu',
-    deleteMenu: url + '/category/deleteMenu',
-    getTagList:url + '/tag/getTagList',           // 标签
-    addTag: url + '/tag/addTag',
-    banTag:url + "/tag/banTag",
-    openTag:url + "/tag/openTag",
-    addBlog:url + "/blog/addBlog",             // blog
-    getBlogList:url+"/blog/getBlogList",
-    getUserList:url+"/user/getList",
-    addUser:url+"/user/add",              //user
-    editUser:url+"/user/edit",
-    delUser:url+"/user/delete",
-    assignRole:url+"/user/assignRole",
-    deleteUserRole:url+"/user/deleteUserRole",
-    getRoleList:url+"/role/getList",       // role
-    addRole:url+"/role/add",
-    editRole:url+"/role/edit",
-    delRole:url+"/role/delete",
-    assignPermission:url+"/role/assignPermission",
-    deleteRolePermission:url+"/role/deleteRolePermission",
-    getPermissionList:url+"/permission/getList",   // permission
-    addPermission:url+"/permission/add",
-    editPermission:url+"/permission/edit",
-    delPermission:url+"/permission/delete",
-    login:url+"/login/dologin"
+    getMenuList: adminUrl + '/category/getMenuList',  // 菜单
+    addMenu: adminUrl + '/category/addMenu',
+    editMenu: adminUrl + '/category/editMenu',
+    deleteMenu: adminUrl + '/category/deleteMenu',
+    getTagList:adminUrl + '/tag/getTagList',           // 标签
+    addTag: adminUrl + '/tag/addTag',
+    banTag:adminUrl + "/tag/banTag",
+    openTag:adminUrl + "/tag/openTag",
+    addBlog:adminUrl + "/blog/insert",             // blog
+    editBlog:adminUrl + "/blog/update",
+    getBlogList:adminUrl+"/blog/getList",
+    getUserList:adminUrl+"/user/getList",
+    addUser:adminUrl+"/user/add",              //user
+    editUser:adminUrl+"/user/edit",
+    delUser:adminUrl+"/user/delete",
+    assignRole:adminUrl+"/user/assignRole",
+    deleteUserRole:adminUrl+"/user/deleteUserRole",
+    getRoleList:adminUrl+"/role/getList",       // role
+    addRole:adminUrl+"/role/add",
+    editRole:adminUrl+"/role/edit",
+    delRole:adminUrl+"/role/delete",
+    assignPermission:adminUrl+"/role/assignPermission",
+    deleteRolePermission:adminUrl+"/role/deleteRolePermission",
+    getPermissionList:adminUrl+"/permission/getList",   // permission
+    addPermission:adminUrl+"/permission/add",
+    editPermission:adminUrl+"/permission/edit",
+    delPermission:adminUrl+"/permission/delete",
+    login:adminUrl+"/login/dologin"
 };

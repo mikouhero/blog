@@ -9,6 +9,7 @@ namespace app\admin\controller;
 
 
 use gmars\rbac\Rbac;
+use org\bovigo\vfs\vfsStreamResolveIncludePathTestCase;
 use think\Controller;
 use think\Session;
 use think\Request;
@@ -22,32 +23,33 @@ class Base extends Controller
 
         //权限过滤
 //         Session::set('manger_user',array('id'=>1,'user_name'=>'admin'));
-       if(empty(Session::get('manger_user')['link'])){
-           $this->redirect("/admin/login/doCookie");die;
-       };
-        if(!$user_msg = Session::get('manger_user')){
+        if (isset(Session::get('manger_user')['link']) && empty(Session::get('manger_user')['link'])) {
+            $this->redirect("/admin/login/doCookie");
+            die;
+        };
+        if (!$user_msg = Session::get('manger_user')) {
             $this->redirect('/admin/login');
         }
-        $request= \think\Request::instance();
+        $request = \think\Request::instance();
         $path = $request->url();
-        if(substr_count($path,'\/') <3){
-            $path    = $path . '/index';;
+        if (substr_count($path, '/') < 3) {
+            $path = $path . '/index';;
         };
-        if($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin'){
+        if ($user_msg['id'] != 1 || $user_msg['user_name'] != 'admin') {
             $rbac = new Rbac();
-            $rbac ->cachePermission($user_msg['id']);
-            if(!$rbac->can($path)){
-                if(strrchr($path,'/index')){
-                    $this->ajaxReturnMsg('200','无权限操作','tmp');
+            $rbac->cachePermission($user_msg['id']);
+            if (!$rbac->can($path)) {
+                //判断 无需认证的操作
+                if (!in_array($request->action(), config('rbac.NOT_AUTH_ACTION'))) {
+                    $this->ajaxReturnMsg('100', '无权限操作', '');
+                    exit;
                 }
-                $this->ajaxReturnMsg('100','无权限操作','');
-                exit;
             }
         }
     }
 
 
-    private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
+    protected function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {
         //        $this->api->end($api_id,$code,$msg,$data);
         header('Access-Control-Allow-Origin: *');//跨域

@@ -21,7 +21,7 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
-                location.href= url;
+                location.href = adminUrl;
             }, function (res) {
                 alert("程序崩掉了");
             });

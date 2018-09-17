@@ -399,7 +399,6 @@ class Rbac
                 $newPermission[$v['path']] = $v;
             }
         }
-
         cache("permission", $newPermission);
         return true;
     }

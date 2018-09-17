@@ -44,48 +44,95 @@ class Blog extends Base
         return view('admin@blog/edit');
     }
 
-
-    public function getBlogList(Request $request)
+    public function getList(Request $request)
     {
-        $data =  $request->post();
+        $data = $request->post();
         $current_page = $data['current_page'];
-        $pagesize =10;
-        $start = ($current_page-1)*$pagesize;
-        $list = Db::name('blog')->order('id desc')->limit($start,$pagesize)->select();
-        $count =Db::name('blog')->count();
-        $this->ajaxReturnMsg(200, 'success', array('list'=>$list,'count'=>ceil($count/$pagesize)));
+        $pagesize = 10;
+        $start = ($current_page - 1) * $pagesize;
+        $list = Db::name('blog')->order('id desc')->limit($start, $pagesize)->select();
+        foreach ($list as $k => $v) {
+            $list[$k]['tag'] = $this->getTag($v['id']);
+        }
+        $count = Db::name('blog')->count();
+        $allTag = $this->getAllTag();
+        $this->ajaxReturnMsg(200, 'success', array('list' => $list, 'count' => ceil($count / $pagesize),'tag'=>$allTag));
 
     }
 
-    public function addBlog(Request $request)
+    public function insert(Request $request)
     {
-        $input= $request->post();
+        $input = $request->post();
 
-        $data = json_decode($input['msg'],true);
+        $data = json_decode($input['msg'], true);
 
-        if(!isset($data['title']) || empty($data['title']) || !isset($data['category_id']) || empty($data['category_id']) || !isset($data['summary']) || empty($data['summary']) || !isset($data['content']) || empty($data['content']) || !isset($data['pic']) || empty($data['pic']) ){
-            $this->ajaxReturnMsg(201,'参数错误','');
+        if (!isset($data['title']) || empty($data['title']) || !isset($data['category_id']) || empty($data['category_id']) || !isset($data['summary']) || empty($data['summary']) || !isset($data['content']) || empty($data['content']) || !isset($data['pic']) || empty($data['pic'])) {
+            $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
-        $img = base64_image_content($data['pic'],'upload/blog');
-        if(!$img){
-            $this->ajaxReturnMsg(202,'上传失败','');
+        $img = base64_image_content($data['pic'], 'upload/blog');
+        if (!$img) {
+            $this->ajaxReturnMsg(202, '上传失败', '');
         }
         $param = $data;
-        $param['pic'] = config('base_url').$img;
-        $param['create_time'] = date('Y-m-d H:i:s',time());
+        $param['pic'] = config('base_url') . $img;
+        $param['create_time'] = date('Y-m-d H:i:s', time());
         Db::name('blog')->insert($param);
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
-
-    private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
+    public function update(Request $request)
     {
-        //        $this->api->end($api_id,$code,$msg,$data);
-        header('Access-Control-Allow-Origin: *');//跨域
-        header('Content-type: application/json');
-        echo json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
-        die;
+        $input = $request->post();
+
+        $data = json_decode($input['msg'], true);
+
+        if (!isset($data['title']) || empty($data['title']) || !isset($data['summary']) || empty($data['summary']) || !isset($data['content']) || empty($data['content']) || !isset($data['newpic'])) {
+            $this->ajaxReturnMsg(201, '参数错误', '');
+        }
+
+        $param = array(
+            'id' => $data['id'],
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'summary' => $data['summary'],
+            'mackdown' => $data['mackdown'],
+            'recommend' => $data['recommend']
+        );
+
+        if ($data['newpic']) {
+            $img = base64_image_content($data['newpic'], 'upload/blog');
+            if (!$img) {
+                $this->ajaxReturnMsg(202, '上传失败', '');
+            }
+            $param['pic'] = config('base_url') . $img;
+            // 删除原来的图片
+            $len = strlen(Request::instance()->domain());
+            $path = substr($data['pic'], $len + 1); // 图片路径
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
+        $param['update_time'] = date('Y-m-d H:i:s', time());
+        Db::name('blog')->where('id', $param['id'])->update($param);
+        $this->ajaxReturnMsg(200, 'success', '');
     }
+
+    private function getAllTag()
+    {
+        return Db::name('tag')->where('status',1)->select();
+    }
+    private function getTag($id)
+    {
+        if(empty($id)) return [];
+        return Db::name('blog_tag')
+            ->alias('p1')
+            ->field('p2.id,p2.name')
+            ->join('tag p2', 'p1.tag_id = p2.id','left')
+            ->where('p1.blog_id',$id)
+            ->where('p2.status',1)
+            ->select();
+    }
+
 
 }

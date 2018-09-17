@@ -79,10 +79,12 @@
                         <td class="hidden-480">{{blogItem.category_id}}</td>
                         <td>{{blogItem.create_time}}</td>
 
-                        <td class="hidden-480">
-                            <span class="label label-sm label-warning">{{blogItem.recommend}}</span>
+                        <td class="hidden-480" v-show="blogItem.recommend == 1 ">
+                            <span class="label label-sm label-warning" >推荐</span>
                         </td>
-
+                        <td class="hidden-480" v-show="blogItem.recommend != 1" >
+                            <span class="label label-sm label-warning" >不推荐</span>
+                        </td>
                         <td>
                             <div class="">
                                 <a class="blue" href="#">
@@ -93,9 +95,10 @@
                                     <i class="icon-pencil bigger-130"  @click="edit(blogItem.id,key)"></i>
                                 </a>
 
-                                <a class="red" href="#">
-                                    <i class="icon-trash bigger-130"></i>
+                                <a class="purple" href="#">
+                                    <i class=" icon-bookmark  bigger-130"  data-toggle="modal" data-target="#tag" @click="tagtmp(key)"></i>
                                 </a>
+
                             </div>
 
                         </td>
@@ -122,6 +125,46 @@
                 </div>
                 <div class="modal-body">
                     <div v-html="this.div"></div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">close</button>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div role="dialog" class="modal fade bs-example-modal-sm " id="tag">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h2 class="modal-title" id="">[blog details]</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" role="form">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="form-group">
+                            <div class="col-xs-1"><i class="icon  icon-check "></i></div>
+                            <div class="col-xs-9">
+                                <a href="javascript:void(0)"><span style="margin-right: 10px" class=" badge"    @click="">{{}}</span></a>
+
+                            </div><!-- /span -->
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="hr hr-18 hr-double dotted"></div>
+                            </div>
+
+                            <div class="col-xs-1"><i class="icon icon-check-empty  "></i></div>
+                            <div class="col-xs-9">
+                                <a href="javascript:void(0)"><span style="margin: 10px" class=" badge"    @click="">{{}}</span></a>
+                            </div><!-- /span -->
+                        </div>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div>
                 </div>
                 <div class="modal-footer text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">close</button>

@@ -57,7 +57,7 @@ class Role extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['name']) || empty($data['name']) || !isset($data['description']) || empty($data['description']) ||  !isset($data['status'])) {
+        if (!isset($data['name']) || empty($data['name']) || !isset($data['description']) || empty($data['description']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         // 判断用户是否存在
@@ -69,11 +69,11 @@ class Role extends Base
 
         $rbac = new Rbac();
         $flag = $rbac->createRole($param);
-        if(!$flag){
+        if (!$flag) {
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
 
-        $this->ajaxReturnMsg(200, 'success',$flag);
+        $this->ajaxReturnMsg(200, 'success', $flag);
 
     }
 
@@ -83,7 +83,7 @@ class Role extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['name']) || empty($data['name']) || !isset($data['description']) || empty($data['description']) ||  !isset($data['status'])) {
+        if (!isset($data['name']) || empty($data['name']) || !isset($data['description']) || empty($data['description']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
@@ -126,7 +126,7 @@ class Role extends Base
         }
 
         $rbac = new Rbac();
-        $rbac->assignRolePermission($data['role_id'],[$data['permission_id']]);
+        $rbac->assignRolePermission($data['role_id'], [$data['permission_id']]);
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
@@ -141,37 +141,30 @@ class Role extends Base
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
 
-        Db::name('role_permission')->where('role_id',$data['role_id'])->where('permission_id',$data['permission_id'])->delete();
+        Db::name('role_permission')->where('role_id', $data['role_id'])->where('permission_id', $data['permission_id'])->delete();
         $this->ajaxReturnMsg(200, 'success', '');
 
     }
 
     private function getRolePermission($list)
     {
-        foreach($list as $k => $v){
+        foreach ($list as $k => $v) {
             $permission = Db::name('permission')->alias('p1')->field('p1.id,p1.name')
-                ->join('role_permission p2','p1.id = p2.permission_id','left')
-                ->join('role p3','p2.role_id = p3.id','left')
-                ->where('p3.id',$v['id'])
-                ->where('p1.status',1)
+                ->join('role_permission p2', 'p1.id = p2.permission_id', 'left')
+                ->join('role p3', 'p2.role_id = p3.id', 'left')
+                ->where('p3.id', $v['id'])
+                ->where('p1.status', 1)
                 ->select();
             $list[$k]['permission'] = $permission;
         }
-        return$list;
+        return $list;
     }
 
     private function getAllPermission()
     {
-        $data = Db::name('permission')->field('id,name')->where('status',1)->select();
+        $data = Db::name('permission')->field('id,name')->where('status', 1)->select();
         return $data;
     }
 
-    private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
-    {
-        //        $this->api->end($api_id,$code,$msg,$data);
-        header('Access-Control-Allow-Origin: *');//跨域
-        header('Content-type: application/json');
-        echo json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
-        die;
-    }
+
 }

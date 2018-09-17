@@ -46,10 +46,10 @@ class Tag extends Base
         if (!isset($data['name']) || empty($data['name'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
-        if(Db::name('tag')->where('name',$data['name'])->count()){
+        if (Db::name('tag')->where('name', $data['name'])->count()) {
             $this->ajaxReturnMsg(201, 'tag已经存在', '');
         }
-        $param['name']= $data['name'];
+        $param['name'] = $data['name'];
         $param['status'] = 1;
         Db::name('tag')->insert($param);
         $this->ajaxReturnMsg(200, 'success', '');
@@ -63,7 +63,7 @@ class Tag extends Base
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         $param['status'] = 0;
-        Db::name('tag')->where('id',$data['id'])->update($param);
+        Db::name('tag')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
@@ -74,18 +74,9 @@ class Tag extends Base
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
         $param['status'] = 1;
-        Db::name('tag')->where('id',$data['id'])->update($param);
+        Db::name('tag')->where('id', $data['id'])->update($param);
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
-
-    private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
-    {
-        //        $this->api->end($api_id,$code,$msg,$data);
-        header('Access-Control-Allow-Origin: *');//跨域
-        header('Content-type: application/json');
-        echo json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
-        die;
-    }
 
 }

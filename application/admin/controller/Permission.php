@@ -50,7 +50,7 @@ class Permission extends Base
         $input = $request->post();
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['name']) || empty($data['name']) || !isset($data['path']) || empty($data['path']) || !isset($data['description']) || empty($data['description']) ||  !isset($data['status'])) {
+        if (!isset($data['name']) || empty($data['name']) || !isset($data['path']) || empty($data['path']) || !isset($data['description']) || empty($data['description']) || !isset($data['status'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
@@ -115,12 +115,5 @@ class Permission extends Base
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
-    private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
-    {
-        //        $this->api->end($api_id,$code,$msg,$data);
-        header('Access-Control-Allow-Origin: *');//跨域
-        header('Content-type: application/json');
-        echo json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
-        die;
-    }
+
 }

@@ -156,7 +156,7 @@ class User extends Base
         }
 
         $rbac = new Rbac();
-        $rbac->assignUserRole($data['user_id'],[$data['role_id']]);
+        $rbac->assignUserRole($data['user_id'], [$data['role_id']]);
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
@@ -171,37 +171,29 @@ class User extends Base
             $this->ajaxReturnMsg(201, '网络错误', '');
         }
 
-        Db::name('user_role')->where('user_id',$data['user_id'])->where('role_id',$data['role_id'])->delete();
+        Db::name('user_role')->where('user_id', $data['user_id'])->where('role_id', $data['role_id'])->delete();
         $this->ajaxReturnMsg(200, 'success', '');
 
     }
 
     private function getUserRole($list)
     {
-        foreach($list as $k => $v){
+        foreach ($list as $k => $v) {
             $role = Db::name('role')->alias('p1')->field('p1.id,p1.name')
-                ->join('user_role p2','p1.id = p2.role_id','left')
-                ->join('user p3','p2.user_id = p3.id','left')
-                ->where('p3.id',$v['id'])
-                ->where('p1.status',1)
+                ->join('user_role p2', 'p1.id = p2.role_id', 'left')
+                ->join('user p3', 'p2.user_id = p3.id', 'left')
+                ->where('p3.id', $v['id'])
+                ->where('p1.status', 1)
                 ->select();
-           $list[$k]['role'] = $role;
+            $list[$k]['role'] = $role;
         }
-        return$list;
+        return $list;
     }
 
     private function getAllRole()
     {
-        $data = Db::name('role')->field('id,name')->where('status',1)->select();
+        $data = Db::name('role')->field('id,name')->where('status', 1)->select();
         return $data;
     }
 
-    private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
-    {
-        //        $this->api->end($api_id,$code,$msg,$data);
-        header('Access-Control-Allow-Origin: *');//跨域
-        header('Content-type: application/json');
-        echo json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
-        die;
-    }
 }

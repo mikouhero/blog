@@ -1,14 +1,20 @@
 vm = new Vue({
     el: '.page-content',
     data: {
+        random: ['label-success', 'label-warning', 'label-danger', 'label-info', 'label-purple', 'label-inverse', 'label-pink', 'label-yellow', 'label-grey', 'label-primary', 'label-light'],
         menuList: '',
         child: {},
         msg: {"recommend": 0},
         blogList: {},
+        tagList:{},
         pageNo: 1,   // 当前页数
         pages: 0,    //  多少页
         div: '',
         editItem: {},
+        tagkey: '',    // click 用户在列表中的key
+        waitBlogId:'',  // 分配角色用户id
+        hasTag: {},   //指定用户的角色 列表
+        nohasTag: {}  // 用户没有的角色列表
     },
     methods: {
         getBlogList: function () {
@@ -23,6 +29,7 @@ vm = new Vue({
                 }
                 this.blogList = res.data.data['list'];
                 this.pages = res.data.data['count'];
+                this.tagList = res.data.data['tag'];
             }, function (res) {
                 alert("程序崩掉了");
             });
@@ -76,6 +83,7 @@ vm = new Vue({
                     alert(res.data.msg);
                     return false;
                 }
+                location.href =adminUrl + '/blog';
 
             }, function (res) {
                 alert("程序崩掉了");
@@ -111,15 +119,36 @@ vm = new Vue({
             this.div = this.blogList[key].content;
         },
         edit: function (id, key) {
+            //点击的存存储在缓存中
            localStorage.setItem(key,JSON.stringify(this.blogList[key]));
-
-            console.log(JSON.parse(localStorage.getItem(key)));
-
-            location.href = url + '/blog/edit?id=' + id + '&key=' + key;
+           location.href = adminUrl + '/blog/edit?id=' + id + '&key=' + key;
         },
         editmsg: function () {
             var key =this.getKey('key');
             this.editItem=JSON.parse(localStorage.getItem(key));
+        },
+        update:function () {
+            var content = $('.markdown-body').html();
+            var mackdown = $('#mackdown').val();
+            var pic = $('#result').val();
+            this.editItem['content'] = content;
+            this.editItem['mackdown'] = mackdown;
+            this.editItem['newpic'] = pic;
+            this.editItem['recommend'] = Number(this.msg['recommend']);
+            this.$http.post(ajaxUrl.editBlog, {
+                'msg': JSON.stringify(this.editItem)
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+            location.href =adminUrl + '/blog';
+            }, function (res) {
+                alert("程序崩掉了");
+            });
+
         },
         getKey: function (paraName) {
 
@@ -140,6 +169,62 @@ vm = new Vue({
             else {
                 return false;
             }
+        },
+        tagtmp: function (key) {
+            this.tagkey = key;
+            this.waitBlogId  = this.blogList[key]['id'];
+            var tmpblog = this.hasTag = this.blogList[key]['tag'];
+            var tmpall = this.tagList;
+            this.nohasTag = tmpall.filter(function (item) {
+                return JSON.stringify(tmpblog).indexOf(JSON.stringify(item)) == -1;
+            })
+        },
+        assignTag:function (tag_id) {
+            this.$http.post(ajaxUrl.assignTag, {
+                blog_id: this.waitTBlogId,
+                tag_id:tag_id
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.hasTag.push((this.TagList.filter(function (item) {
+                    return item.id == tag_id;
+                }))[0]);
+                var tmpblog = this.hasTag = this.tagList[this.tagkey]['tag'];
+                var tmpall = this.tagList;
+                this.nohasTag = tmpall.filter(function (item) {
+                    return JSON.stringify(tmpblog).indexOf(JSON.stringify(item)) == -1;
+                })
+            }, function (res) {
+                alert('程序崩掉了');
+            });
+        },
+        deleteTag:function (role_id) {
+            this.$http.post(ajaxUrl.deleteUserRole, {
+                user_id: this.waitUserId,
+                role_id:role_id
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.nohasRole.push((this.roleList.filter(function (item) {
+                    return item.id == role_id;
+                }))[0]);
+                var tmpuser = this.nohasRole ;
+                var tmpall = this.roleList;
+                this.hasRole = tmpall.filter(function (item) {
+                    return JSON.stringify(tmpuser).indexOf(JSON.stringify(item)) == -1;
+                });
+                this.userList[this.rolekey]['role'] = this.hasRole;
+            }, function (res) {
+                alert('程序崩掉了');
+            });
         }
     },
     mounted: function () {

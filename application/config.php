@@ -210,6 +210,8 @@ return [
         'type'           => '',
         // 是否自动开启 SESSION
         'auto_start'     => true,
+        // session 过期时间
+        'expire'         => 2*3600,
     ],
 
     // +----------------------------------------------------------------------
@@ -253,9 +255,9 @@ return [
         'USER_AUTH_MODEL'           =>'User',    // 默认验证数据表模型
         'AUTH_PWD_ENCODER'          =>'md5',    // 用户认证密码加密方式
         'USER_AUTH_GATEWAY'         =>'/Public/login',// 默认认证网关
-        'NOT_AUTH_MODULE'           =>'Public',    // 默认无需认证模块
+        'NOT_AUTH_MODULE'           =>'/admin/index',    // 默认无需认证模块
         'REQUIRE_AUTH_MODULE'       =>'',        // 默认需要认证模块
-        'NOT_AUTH_ACTION'           =>'',        // 默认无需认证操作
+        'NOT_AUTH_ACTION'           =>['index'],        // 默认无需认证操作
         'REQUIRE_AUTH_ACTION'       =>'',        // 默认需要认证操作
         'GUEST_AUTH_ON'             =>false,    // 是否开启游客授权访问
         'GUEST_AUTH_ID'             =>0,        // 游客的用户ID
@@ -268,7 +270,7 @@ return [
     ],
     'base_url'=>'http://tp5.com/',
 
-    'user_lock_times'=>5,  // 错误次数限制
+    'user_lock_times'=>5,  // 后台错误次数限制
 
     'style_path' => [
         'css_path' => '/static/home/css',
