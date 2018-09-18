@@ -50,7 +50,13 @@ class Blog extends Base
         $current_page = $data['current_page'];
         $pagesize = 10;
         $start = ($current_page - 1) * $pagesize;
-        $list = Db::name('blog')->order('id desc')->limit($start, $pagesize)->select();
+        $list = Db::name('blog')
+                ->alias('p1')
+                ->field('p1.*,p2.name as category_name')
+                ->join('category p2','p2.id = p1.category_id','left')
+                ->order('p1.id desc')
+                ->limit($start, $pagesize)
+                ->select();
         foreach ($list as $k => $v) {
             $list[$k]['tag'] = $this->getTag($v['id']);
         }
@@ -158,10 +164,12 @@ class Blog extends Base
 
     }
 
+
     private function getAllTag()
     {
         return Db::name('tag')->field('id,name')->where('status',1)->select();
     }
+
     private function getTag($id)
     {
         if(empty($id)) return [];

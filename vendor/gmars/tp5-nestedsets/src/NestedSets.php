@@ -168,7 +168,7 @@ class NestedSets
                 $key = 1;
             }else{
                 $key = Db::table($this->tableName)
-                    ->max("{$this->rightKey}")+1;
+                        ->max("{$this->rightKey}")+1;
             }
         }else{
             $key = ($position == "top")? $parent[$this->leftKey]+1:$parent[$this->rightKey];
@@ -370,37 +370,37 @@ class NestedSets
             $sql = "UPDATE {$this->tableName}
                     SET 
                     {$this->rightKey} = IF(
-						{$this->leftKey} >= {$item[$this->leftKey]},
-						{$this->rightKey} + {$treeEdit},
-						IF(
-							{$this->rightKey} < {$item[$this->leftKey]},
-							{$this->rightKey} + {$keyWidth},
-							{$this->rightKey}
-						)
-					),
-					{$this->levelKey} = IF(
-						{$this->leftKey} >= {$item[$this->leftKey]},
-						{$this->levelKey} + {$levelWidth},
-						{$this->levelKey}
-					),
-					{$this->leftKey} = IF(
-						{$this->leftKey} >= {$item[$this->leftKey]},
-						{$this->leftKey} + {$treeEdit},
-						IF(
-							{$this->leftKey} > {$nearKey},
-							{$this->leftKey} + {$keyWidth},
-							{$this->leftKey}
-						)
-					),
-					{$this->parentKey} = IF(
-						{$this->primaryKey} = {$id},
-						{$parentId},
-						{$this->parentKey}
-					)
-					WHERE
-					{$this->rightKey} > {$nearKey}
-					AND
-					{$this->leftKey} < {$item[$this->rightKey]}";
+                        {$this->leftKey} >= {$item[$this->leftKey]},
+                        {$this->rightKey} + {$treeEdit},
+                        IF(
+                            {$this->rightKey} < {$item[$this->leftKey]},
+                            {$this->rightKey} + {$keyWidth},
+                            {$this->rightKey}
+                        )
+                    ),
+                    {$this->levelKey} = IF(
+                        {$this->leftKey} >= {$item[$this->leftKey]},
+                        {$this->levelKey} + {$levelWidth},
+                        {$this->levelKey}
+                    ),
+                    {$this->leftKey} = IF(
+                        {$this->leftKey} >= {$item[$this->leftKey]},
+                        {$this->leftKey} + {$treeEdit},
+                        IF(
+                            {$this->leftKey} > {$nearKey},
+                            {$this->leftKey} + {$keyWidth},
+                            {$this->leftKey}
+                        )
+                    ),
+                    {$this->parentKey} = IF(
+                        {$this->primaryKey} = {$id},
+                        {$parentId},
+                        {$this->parentKey}
+                    )
+                    WHERE
+                    {$this->rightKey} > {$nearKey}
+                    AND
+                    {$this->leftKey} < {$item[$this->rightKey]}";
             Db::table($this->tableName)->query($sql);
         }
 
@@ -418,9 +418,9 @@ class NestedSets
         if (!isset(self::$itemCache[$id])) {
             self::$itemCache[$id] =
                 Db::table($this->tableName)
-                ->field([$this->leftKey, $this->rightKey, $this->parentKey, $this->levelKey])
-                ->where($this->primaryKey, '=', $id)
-                ->find();
+                    ->field([$this->leftKey, $this->rightKey, $this->parentKey, $this->levelKey])
+                    ->where($this->primaryKey, '=', $id)
+                    ->find();
         }
 
         return self::$itemCache[$id];

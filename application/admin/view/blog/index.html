@@ -76,7 +76,7 @@
                         <td>{{blogItem.summary}}</td>
                         <td><img :src="blogItem.pic"
                                  style="height:40px;"></td>
-                        <td class="hidden-480">{{blogItem.category_id}}</td>
+                        <td class="hidden-480">{{blogItem.category_name}}</td>
                         <td>{{blogItem.create_time}}</td>
 
                         <td class="hidden-480" v-show="blogItem.recommend == 1 ">
@@ -87,15 +87,15 @@
                         </td>
                         <td>
                             <div class="">
-                                <a class="blue" href="#">
+                                <a class="blue" href="#" title="详细内容">
                                     <i class="icon-zoom-in bigger-130"  data-toggle="modal" data-target="#layer" @click="tmp(key)"></i>
                                 </a>
 
-                                <a class="green" >
+                                <a class="green" href="#" title="编辑">
                                     <i class="icon-pencil bigger-130"  @click="edit(blogItem.id,key)"></i>
                                 </a>
 
-                                <a class="purple" href="#">
+                                <a class="purple" href="#" title="添加标签">
                                     <i class=" icon-bookmark  bigger-130"  data-toggle="modal" data-target="#tag" @click="tagtmp(key)"></i>
                                 </a>
 
