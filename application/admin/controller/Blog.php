@@ -118,6 +118,11 @@ class Blog extends Base
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
+    /**
+     * Decription :添加标签
+     * @author: Mikou.hu
+     * Date: 2018/9/18
+     */
     public function assignTag(Request $request)
     {
         $data = $request->post();
