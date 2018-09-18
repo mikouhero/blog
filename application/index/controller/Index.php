@@ -23,10 +23,4 @@ class Index extends Controller
         return view('index@index/index');
     }
 
-    public function test()
-    {
-        $rbacObj = new Rbac();
-        $data = ['user_name' => 'zhangsan', 'status' => 1, 'password' => md5('zhangsan')];
-        $rbacObj->createUser($data);
-    }
 }

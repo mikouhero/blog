@@ -55,3 +55,32 @@ vm = new Vue({
         });
     }
 });
+
+new Vue({
+    el: '.deanpol',
+    data: {
+        blogrecommendList: ''
+    },
+    methods: {
+        getHomeBanner:function () {
+            this.$http.post(ajaxUrl.getBannerList, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.bannerList = res.data.data;
+                console.log(this.bannerList);
+            }, function (res) {
+                alert(res);
+            });
+        }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.getHomeBanner();
+        });
+    }
+});

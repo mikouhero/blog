@@ -73,7 +73,7 @@
                         <td>
                             <a href="#">{{blogItem.title}}</a>
                         </td>
-                        <td>{{blogItem.summary}}</td>
+                        <td style=" max-width: 250px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis; ">{{blogItem.summary}}</td>
                         <td><img :src="blogItem.pic"
                                  style="height:40px;"></td>
                         <td class="hidden-480">{{blogItem.category_name}}</td>
