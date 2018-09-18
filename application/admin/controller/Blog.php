@@ -137,6 +137,11 @@ class Blog extends Base
         $this->ajaxReturnMsg(200, 'success', '');
     }
 
+    /**
+     * Decription :删除标签
+     * @author: Mikou.hu
+     * Date: 2018/9/18
+     */
     public function deleteTag(Request $request)
     {
         $data = $request->post();
