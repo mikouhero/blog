@@ -113,7 +113,9 @@
             background-color: #FFFFFF;
             border-top: 1px solid #ddd;
         }
-
+        [v-cloak] {
+            display: none !important;
+        }
     </style>
     <script src="<?= $js ?>/ds.js"></script>
     <!--[if lte IE 7]>
@@ -226,11 +228,12 @@
                 <aside class="mobile_aside mobile_nav">
                     <div class="mobile-menu">
                         <ul id="nav" class="nav-pills">
-                            <li id="nvabar-item-index" v-for=" menuItem in menuList"><a :href="menuItem.url"><i
-                                    class="fa" :class="menuItem.font"></i>{{menuItem.name}}</a>
+                            <li id="nvabar-item-index" v-for=" menuItem in menuList" v-cloak>
+                                <a :href="menuItem.url">
+                                    <i class="fa" :class="menuItem.font"></i>{{menuItem.name}}
+                                </a>
                                 <ul class="dropdown-menu sub-menu" v-show="menuItem.child.length > 0">
-                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category"
-                                        v-for="childItem in menuItem.child"><a
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category" v-for="childItem in menuItem.child"><a
                                             href="/">{{childItem.name}}</a></li>
                                 </ul>
                             </li>
@@ -286,244 +289,92 @@
 
             <!--重要部分-->
             <div class="deanpol aiv cl">
-                <div class="article-item">
+                <div class="article-item" v-cloak>
                     <div class="item-pic pull-left">
-                        <a href="https://www.talklee.com/blog/290.html" title="Z-blogPHP常见问题答疑">
-                            <img src="" width="200" height="120" alt="Z-blogPHP常见问题答疑">
+                        <a href="" :title="blogrecommendList[0].title">
+                            <img :src="blogrecommendList[0].pic" width="200" height="120" :alt="blogrecommendList[0].title">
                         </a>
                     </div>
                     <div class="item-intro">
-                        <a href="https://www.talklee.com/blog/290.html" class="item-title"><i class="fa fa-gitlab"></i>Z-blogPHP常见问题答疑</a>
-                        <p class="item-desc">
-                            最新整理了一下zblog程序的思路，把过去遇到的zblogphp问题总结一下，都是一些常见的或者有网友不太明白的，仅供大家参考，老司机请绕行。分类页面首先说一些分类问题，有些童鞋反映，无论点击分类的哪个页面打开的都是首页，有的以为是程序出错...</p>
+                        <a href="" class="item-title"><i class="fa fa-gitlab"></i>{{blogrecommendList[0].title}}</a>
+                        <p class="item-desc" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">
+                            {{blogrecommendList[0].content}}
+                        </p>
                         <div class="item-push-info">
                             <i class="fa fa-user"></i>Mikou |
-                            <time><i class="fa fa-calendar"></i>10个月前 (10-26)</time>
+                            <time><i class="fa fa-calendar"></i> ({{blogrecommendList[0].create_time}})</time>
                         </div>
                     </div>
                 </div>
                 <ul class="jxnr cl">
-                    <li>
-                        <em class="color-2">2</em>
-                        <a href="https://www.talklee.com/blog/362.html" title="详细阅读：zblogphp怎么设置二级导航菜单(图文教程)">zblogphp怎么设置二级导航菜单(图文教程)
+                    <li v-for="(item,key) in blogrecommendList" v-show="key>0 && key<7" v-cloak>
+                        <em >{{key+1}}</em>
+                        <a href="" :title="item.title">{{item.title}}
                         </a>
-                        <span class="list-date">07-13</span>
+                        <span class="list-date">{{item.create_time}}</span>
                     </li>
-                    <li><em class="color-3">3</em><a href="https://www.talklee.com/blog/363.html"
-                                                     title="详细阅读：zblog博客怎么给导航加图标图文教程">zblog博客怎么给导航加图标图文教程</a><span
-                            class="list-date">07-31</span></li>
-                    <li><em class="color-4">4</em><a href="https://www.talklee.com/blog/328.html"
-                                                     title="详细阅读：zblogphp评论倒序出错的解决办法">zblogphp评论倒序出错的解决办法</a><span
-                            class="list-date">01-12</span></li>
-                    <li><em class="color-5">5</em><a href="https://www.talklee.com/blog/319.html"
-                                                     title="详细阅读：宝塔Linux控制面板FTP无法连接的解决办法">宝塔Linux控制面板FTP无法连接的解决办法</a><span
-                            class="list-date">12-06</span></li>
-                    <li><em class="color-6">6</em><a href="https://www.talklee.com/blog/333.html"
-                                                     title="详细阅读：zblogphp热门文章、热评文章调用代码">zblogphp热门文章、热评文章调用代码</a><span
-                            class="list-date">02-28</span></li>
-                    <li><em class="color-7">7</em><a href="https://www.talklee.com/blog/335.html"
-                                                     title="详细阅读：zblogphp调用置顶文章的教程">zblogphp调用置顶文章的教程</a><span
-                            class="list-date">03-07</span></li>
                 </ul>
                 <span class="jxwz"><i class="fa fa-paper-plane"></i>精选导读</span>
             </div>
 
             <!--重要部分 end -->
 
+            <!--最近更新start-->
             <section class="widget-box home-layout">
-                <h3 class="post_box_title"><span class="ttcolor"><i class="fa fa-cube"></i>今日头条</span></h3>
-                <article class="post_box wow fadeInDown" id="post_box1">
+                <h3 class="post_box_title"><span class="ttcolor"><i class="fa fa-cube"></i>最近更新</span></h3>
+                <article class="post_box wow fadeInDown" v-for="(item2,key) in recentblog" >
                     <div class="post-img col-xs-4">
-                        <a href="https://www.talklee.com/blog/365.html">
-                            <img class="img-responsive img-rounded imgs" src=""
-                                 alt="Google回归中国对SEO们意味着什么？" title="详细阅读：Google回归中国对SEO们意味着什么？"><em></em>
+                        <a href="">
+                            <img class="img-responsive img-rounded imgs" :src="item2.pic"
+                                 :alt="item2.title" :title="item2.title"><em></em>
                         </a>
                     </div>
                     <div class="post-left">
-                        <h3><a href="https://www.talklee.com/blog/365.html" title="Google回归中国对SEO们意味着什么？">Google回归中国对SEO们意味着什么？</a>
+                        <h3><a href="" :title="item2.title">{{item2.title}}</a>
                         </h3>
-                        <div class="post-con"><a href="https://www.talklee.com/blog/365.html"
-                                                 title="查看《Google回归中国对SEO们意味着什么？》全文">最新互联网相关行业最大的新闻莫过于Google回归中国的传言。时间过得真快，Google退出中国已经近8年了，抗战都快打完了。8年来，时不时有Google即将回归的传言，但也只是传言。IT行业经常有Google和百度搜索结果质量哪个好的讨论，最后往往成为吐槽百度的讨论。SEO行业也经常有人怀念Goo...</a>
+                        <div class="post-con">
+                            <a href="" :title="item2.title" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">
+                                {{item2.content}}
+                            </a>
                         </div>
                         <div class="item-meta">
-                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/info/">互联网</a></span>
-                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>2018-08-24</span>
-                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>192次浏览</span>
+                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/info/">{{item2.category}}</a></span>
+                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>{{item2.create_time}}</span>
+                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>{{item2.see_count}}次浏览</span>
                             <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
-                                    href="https://www.talklee.com/blog/365.html#comments">12条评论</a></span>
-                            <a class="read-more right" href="https://www.talklee.com/blog/365.html"
+                                    href="https://www.talklee.com/blog/365.html#comments">{{item2.comment_count}}条评论</a></span>
+                            <a class="read-more right" href=""
                                title="详细阅读：Google回归中国对SEO们意味着什么？">阅读全文</a>
                         </div>
                     </div>
                 </article>
-                <article class="post_box wow fadeInDown" id="post_box2">
-                    <div class="post-img col-xs-4">
-                        <a href="https://www.talklee.com/blog/364.html">
-                            <img class="img-responsive img-rounded imgs"
-                                 alt="Z-Blog首款微商企业类型主题模板--微商互联（Wslee）"
-                                 title="详细阅读：Z-Blog首款微商企业类型主题模板--微商互联（Wslee）"><em></em>
-                        </a>
-                    </div>
-                    <div class="post-left">
-                        <h3><a href="https://www.talklee.com/blog/364.html" title="Z-Blog首款微商企业类型主题模板--微商互联（Wslee）">Z-Blog首款微商企业类型主题模板--微商互联（Wslee）</a>
-                        </h3>
-                        <div class="post-con"><a href="https://www.talklee.com/blog/364.html"
-                                                 title="查看《Z-Blog首款微商企业类型主题模板--微商互联（Wslee）》全文">Z-blogPHP倾力打造响应式主题（微商互联·非李莫属）Z-Blog首款微商企业类型主题模板-磅礴大气，浑然一体，此款主题是我加入微商后制作的首款微商主题，此款主题作为企业类型模板，更可以免费获得此主题，是免费，真的是免费，需要了解以下（Q我）主题采用三种分类模板，可以按照要求自定义修改。演示地址...</a>
-                        </div>
-                        <div class="item-meta">
-                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/zhuti/">主题展示</a></span>
-                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>2018-08-13</span>
-                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>353次浏览</span>
-                            <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
-                                    href="https://www.talklee.com/blog/364.html#comments">2条评论</a></span>
-                            <a class="read-more right" href="https://www.talklee.com/blog/364.html"
-                               title="详细阅读：Z-Blog首款微商企业类型主题模板--微商互联（Wslee）">阅读全文</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="post_box wow fadeInDown" id="post_box3">
-                    <div class="post-img col-xs-4">
-                        <a href="https://www.talklee.com/blog/363.html">
-                            <img class="img-responsive img-rounded imgs" src=""
-                                 alt="zblog博客怎么给导航加图标图文教程" title="详细阅读：zblog博客怎么给导航加图标图文教程"><em></em>
-                        </a>
-                    </div>
-                    <div class="post-left">
-                        <h3><a href="https://www.talklee.com/blog/363.html" title="zblog博客怎么给导航加图标图文教程">zblog博客怎么给导航加图标图文教程</a>
-                        </h3>
-                        <div class="post-con"><a href="https://www.talklee.com/blog/363.html"
-                                                 title="查看《zblog博客怎么给导航加图标图文教程》全文">最近一直在忙新主题模板的制作，因为刚刚做了一个洗发水的微商代理，效果很不错，所以打算制作一个小网站，推广优化一下，所以没怎么更新博客文章，有朋友反应想给导航加上图标，类似我现在这样，我的主题教程有简单的说明，但是小白还是不太会，今天抽空写个教程，手把手（这是重点）教你怎么给导航加上图标。哦对了，还有...</a>
-                        </div>
-                        <div class="item-meta">
-                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/tech/">新鲜科技</a></span>
-                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>2018-07-31</span>
-                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>451次浏览</span>
-                            <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
-                                    href="https://www.talklee.com/blog/363.html#comments">10条评论</a></span>
-                            <a class="read-more right" href="https://www.talklee.com/blog/363.html"
-                               title="详细阅读：zblog博客怎么给导航加图标图文教程">阅读全文</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="post_box wow fadeInDown" id="post_box4">
-                    <div class="post-img col-xs-4">
-                        <a href="https://www.talklee.com/blog/362.html">
-                            <img class="img-responsive img-rounded imgs" src=""
-                                 alt="zblogphp怎么设置二级导航菜单(图文教程)" title="详细阅读：zblogphp怎么设置二级导航菜单(图文教程)"><em></em>
-                        </a>
-                    </div>
-                    <div class="post-left">
-                        <h3><a href="https://www.talklee.com/blog/362.html" title="zblogphp怎么设置二级导航菜单(图文教程)">zblogphp怎么设置二级导航菜单(图文教程)</a>
-                        </h3>
-                        <div class="post-con"><a href="https://www.talklee.com/blog/362.html"
-                                                 title="查看《zblogphp怎么设置二级导航菜单(图文教程)》全文">说真的，接触了不少开源程序，很多都是自动生成二级菜单的，可是我们的zbp却得我们自己手动，我的每个主题都有设置二级菜单的代码，很简单，我以为写主题说明的时候一笔带过就好，这里应该无需浪费时间的。可是，我以为的毕竟是我以为的，最近购买主题的基本都是几个小白（当然，我说的小白不是小白痴，而是菜鸟，新手的...</a>
-                        </div>
-                        <div class="item-meta">
-                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/tech/">新鲜科技</a></span>
-                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>2018-07-13</span>
-                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>1237次浏览</span>
-                            <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
-                                    href="https://www.talklee.com/blog/362.html#comments">8条评论</a></span>
-                            <a class="read-more right" href="https://www.talklee.com/blog/362.html"
-                               title="详细阅读：zblogphp怎么设置二级导航菜单(图文教程)">阅读全文</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="post_box wow fadeInDown" id="post_box5">
-                    <div class="post-img col-xs-4">
-                        <a href="https://www.talklee.com/blog/361.html">
-                            <img class="img-responsive img-rounded imgs" src=""
-                                 alt="负载均衡和CDN技术有什么区别" title="详细阅读：负载均衡和CDN技术有什么区别"><em></em>
-                        </a>
-                    </div>
-                    <div class="post-left">
-                        <h3><a href="https://www.talklee.com/blog/361.html" title="负载均衡和CDN技术有什么区别">负载均衡和CDN技术有什么区别</a>
-                        </h3>
-                        <div class="post-con"><a href="https://www.talklee.com/blog/361.html"
-                                                 title="查看《负载均衡和CDN技术有什么区别》全文">不知道你们是否也有疑问，至少在这篇文章之前我还是混淆的，那么到底负载均衡和CDN有什么区别呢？跟我一样不懂的来一起探索，老司机出门右拐，不送~~~首先什么是负载均衡（load
-                            balance)举个例子：领导交给我好多项任务，但是我发现怎么安排时间也做不完，于是乎我就盯上了在旁边偷偷看电影的小李，李突...</a>
-                        </div>
-                        <div class="item-meta">
-                                <span class="mu-ml"><i class="fa fa-list-alt"></i><a
-                                        href="https://www.talklee.com/talklee/">胡言乱语</a></span>
-                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>2018-06-29</span>
-                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>1607次浏览</span>
-                            <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
-                                    href="https://www.talklee.com/blog/361.html#comments">7条评论</a></span>
-                            <a class="read-more right" href="https://www.talklee.com/blog/361.html"
-                               title="详细阅读：负载均衡和CDN技术有什么区别">阅读全文</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="post_box wow fadeInDown" id="post_box6">
-                    <div class="post-img col-xs-4">
-                        <a href="https://www.talklee.com/blog/360.html">
-                            <img class="img-responsive img-rounded imgs"
-                                 alt="网站怎么防止SQL注入" title="详细阅读：网站怎么防止SQL注入"><em></em>
-                        </a>
-                    </div>
-                    <div class="post-left">
-                        <h3><a href="https://www.talklee.com/blog/360.html" title="网站怎么防止SQL注入">网站怎么防止SQL注入</a></h3>
-                        <div class="post-con"><a href="https://www.talklee.com/blog/360.html" title="查看《网站怎么防止SQL注入》全文">一、SQL注入简介SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。二、SQL注入攻击的总体思路1.寻找到SQL注入的位置2.判断服务器类型和后台数据库类型3.针对不通的服务器和数据库特点进行SQ...</a>
-                        </div>
-                        <div class="item-meta">
-                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/info/">互联网</a></span>
-                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>2018-06-28</span>
-                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>1382次浏览</span>
-                            <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
-                                    href="https://www.talklee.com/blog/360.html#comments">4条评论</a></span>
-                            <a class="read-more right" href="https://www.talklee.com/blog/360.html"
-                               title="详细阅读：网站怎么防止SQL注入">阅读全文</a>
-                        </div>
-                    </div>
-                </article>
-            </section>
 
+            </section>
+            <!--最近更新end-->
             <!--php 部分-->
             <section class="home_shop shadow-box wow fadeInDown">
-                <h2><i class="icon-cart-plus"></i><a href="https://www.talklee.com/zhuti/" class="shop_button"
-                                                     title="查看更多">主题展示</a><a class="cat-angle cat-move"
-                                                                             href="https://www.talklee.com/zhuti/"
-                                                                             rel="category"><i
-                        class="fa fa-angle-right"></i></a></h2>
+                <h2>
+                    <i class="icon-cart-plus"></i>
+                    <a href="" class="shop_button" title="查看更多">PHP模块</a>
+                    <a class="cat-angle cat-move" href="" rel="category">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </h2>
                 <ul>
-                    <li class="shop_main">
-                        <a href="https://www.talklee.com/blog/364.html" title="Z-Blog首款微商企业类型主题模板--微商互联（Wslee）"
-                           rel="bookmark" class="shopthumb"><img
-                                alt="Z-Blog首款微商企业类型主题模板--微商互联（Wslee）"></a>
-                        <h3><a href="https://www.talklee.com/blog/364.html" title="Z-Blog首款微商企业类型主题模板--微商互联（Wslee）">Z-Blog首款微商企业类型主题模板--微商互联（Wslee）</a>
+                    <li class="shop_main" v-for="(item3,key) in phpBlog" v-cloak>
+                        <a href="https://www.talklee.com/blog/364.html" :title="item3.title"
+                           rel="bookmark" class="shopthumb"><img :src="item3.pic"
+                                :title="item3.title"></a>
+                        <h3><a href="" :title="item3.title">{{item3.title}}</a>
                         </h3>
-                        <p>Z-blogPHP倾力打造响应式主题（微商互联·非李莫属）Z-Blog首...</p>
+                        <p style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">
+                            {{item3.content}}
+                        </p>
                         <div class="shop_btn">
-                            <span class="price">2018-08-13</span><a class="zzxq"
-                                                                    href="https://www.talklee.com/blog/364.html"><i
-                                class="fa fa-chain"></i>查看详情</a>
-                        </div>
-                    </li>
-                    <li class="shop_main">
-                        <a href="https://www.talklee.com/blog/279.html" title="李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）"
-                           rel="bookmark" class="shopthumb"><img
-                                alt="李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）"></a>
-                        <h3><a href="https://www.talklee.com/blog/279.html" title="李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）">李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）</a>
-                        </h3>
-                        <p>主题名称：李洋博客《mxlee》zblog主题主题作者：李洋博客适用版本...</p>
-                        <div class="shop_btn">
-                            <span class="price">2017-09-28</span><a class="zzxq"
-                                                                    href="https://www.talklee.com/blog/279.html"><i
-                                class="fa fa-chain"></i>查看详情</a>
-                        </div>
-                    </li>
-                    <li class="shop_main">
-                        <a href="https://www.talklee.com/blog/254.html" title="Brieflee主题-把最好的送给你（9月更新）" rel="bookmark"
-                           class="shopthumb"><img
-                                alt="Brieflee主题-把最好的送给你（9月更新）"></a>
-                        <h3><a href="https://www.talklee.com/blog/254.html" title="Brieflee主题-把最好的送给你（9月更新）">Brieflee主题-把最好的送给你（9月更新）</a>
-                        </h3>
-                        <p>简约设计Brieflee响应式主题，完美兼容所有移动设备。模板页介绍：4...</p>
-                        <div class="shop_btn">
-                            <span class="price">2017-07-07</span><a class="zzxq"
-                                                                    href="https://www.talklee.com/blog/254.html"><i
-                                class="fa fa-chain"></i>查看详情</a>
+                            <span class="price">{{item3.create_time}}</span>
+                            <a class="zzxq" href="https://www.talklee.com/blog/364.html">
+                                <i class="fa fa-chain"></i>查看详情
+                            </a>
                         </div>
                     </li>
                 </ul>

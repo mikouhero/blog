@@ -72,7 +72,7 @@ class Blog extends Base
 
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['title']) || empty($data['title']) || !isset($data['category_id']) || empty($data['category_id']) || !isset($data['summary']) || empty($data['summary']) || !isset($data['content']) || empty($data['content']) || !isset($data['pic']) || empty($data['pic'])) {
+        if (!isset($data['title']) || empty($data['title']) || !isset($data['category_id']) || empty($data['category_id'])  || !isset($data['content']) || empty($data['content']) || !isset($data['pic']) || empty($data['pic'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
@@ -93,7 +93,7 @@ class Blog extends Base
 
         $data = json_decode($input['msg'], true);
 
-        if (!isset($data['title']) || empty($data['title']) || !isset($data['summary']) || empty($data['summary']) || !isset($data['content']) || empty($data['content']) || !isset($data['newpic'])) {
+        if (!isset($data['title']) || empty($data['title'])  || !isset($data['content']) || empty($data['content']) || !isset($data['newpic'])) {
             $this->ajaxReturnMsg(201, '参数错误', '');
         }
 
@@ -101,7 +101,6 @@ class Blog extends Base
             'id' => $data['id'],
             'title' => $data['title'],
             'content' => $data['content'],
-            'summary' => $data['summary'],
             'mackdown' => $data['mackdown'],
             'recommend' => $data['recommend']
         );
