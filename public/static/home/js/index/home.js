@@ -36,6 +36,18 @@ vm = new Vue({
         },
         recentblog:{},
         phpBlog:{},
+        mysqlBlog:{
+            0:{'title':{}}
+        },
+        jsBlog:{
+            0:{'title':{}}
+        },
+        linuxBlog:{
+            0:{'title':{}}
+        },
+        ciBlog:{
+            0:{'title':{}}
+        },
     },
     methods: {
         getHomeBanner:function () {
@@ -96,6 +108,63 @@ vm = new Vue({
                 alert('系统崩掉了');
             });
         },
+        getMySQLBlog:function () {
+            this.$http.post(ajaxUrl.getMySQLBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.mysqlBlog = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+        getJsBlog:function () {
+            this.$http.post(ajaxUrl.getJsBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.jsBlog = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+        getLinuxBlog:function () {
+            this.$http.post(ajaxUrl.getLinuxBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.linuxBlog = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+        getCiBlog:function () {
+            this.$http.post(ajaxUrl.getCiBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.ciBlog = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+
     },
     mounted: function () {
         this.$nextTick(function () {
@@ -103,6 +172,10 @@ vm = new Vue({
             this.getBlogRecommendList();
             this.getRecontBlog();
             this.getPhpBlog();
+            this.getMySQLBlog();
+            this.getJsBlog();
+            this.getLinuxBlog();
+            this.getCiBlog();
 
         });
     }

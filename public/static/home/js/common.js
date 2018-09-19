@@ -5,4 +5,8 @@ var ajaxUrl = {
     getBlogRecommendList: url + '/index/getRecommend',
     getRecontBlog: url + '/index/getRecontBlog',
     getPhpBlog:url+'/index/getPhpBlog',
+    getMySQLBlog:url+'/index/getMySQLBlog',
+    getJsBlog:url+'/index/getJsBlog',
+    getLinuxBlog:url+'/index/getLinuxBlog',
+    getCiBlog:url+'/index/getCiBlog',
 };

@@ -96,6 +96,73 @@ class Index extends Controller
 
         $this->ajaxReturnMsg(200, 'success', $list);
     }
+
+    public function getMySQLBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(6)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+    }
+
+    public function getJsBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(6)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+    }
+    public function getLinuxBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(6)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+    }
+    public function getCiBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(6)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+    }
+
     private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {
         //        $this->api->end($api_id,$code,$msg,$data);

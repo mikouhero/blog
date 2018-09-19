@@ -333,7 +333,7 @@
                         <h3><a href="" :title="item2.title">{{item2.title}}</a>
                         </h3>
                         <div class="post-con">
-                            <a href="" :title="item2.title" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">
+                            <a href="" :title="item2.title" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:4;overflow: hidden;">
                                 {{item2.content}}
                             </a>
                         </div>
@@ -342,9 +342,9 @@
                             <span class="mu-ml-clock"><i class="fa fa-calendar"></i>{{item2.create_time}}</span>
                             <span class="mu-ml-eye"><i class="fa fa-paw"></i>{{item2.see_count}}次浏览</span>
                             <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
-                                    href="https://www.talklee.com/blog/365.html#comments">{{item2.comment_count}}条评论</a></span>
+                                    href="">{{item2.comment_count}}条评论</a></span>
                             <a class="read-more right" href=""
-                               title="详细阅读：Google回归中国对SEO们意味着什么？">阅读全文</a>
+                               :title="item2.title">阅读全文</a>
                         </div>
                     </div>
                 </article>
@@ -362,7 +362,7 @@
                 </h2>
                 <ul>
                     <li class="shop_main" v-for="(item3,key) in phpBlog" v-cloak>
-                        <a href="https://www.talklee.com/blog/364.html" :title="item3.title"
+                        <a href="" :title="item3.title"
                            rel="bookmark" class="shopthumb"><img :src="item3.pic"
                                 :title="item3.title"></a>
                         <h3><a href="" :title="item3.title">{{item3.title}}</a>
@@ -372,7 +372,7 @@
                         </p>
                         <div class="shop_btn">
                             <span class="price">{{item3.create_time}}</span>
-                            <a class="zzxq" href="https://www.talklee.com/blog/364.html">
+                            <a class="zzxq" href="">
                                 <i class="fa fa-chain"></i>查看详情
                             </a>
                         </div>
@@ -385,194 +385,144 @@
             <div class="cms">
                 <article class="cms-cate shadow-box wow fadeInDown" data-wow-delay="0.3s">
                     <div class="cms-main">
-                        <h3 class="cms-title"><i class="fa fa-bars"></i><a href="https://www.talklee.com/tech/"
-                                                                           rel="category">新鲜科技</a><a class="cat-angle"
-                                                                                                     href="https://www.talklee.com/tech/"
-                                                                                                     rel="category"><i
-                                class="fa fa-angle-right"></i></a></h3>
+                        <h3 class="cms-title">
+                            <i class="fa fa-bars"></i>
+                            <a href="" rel="category"></a>
+                            <a class="cat-angle" href="" rel="category">MySQL
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </h3>
                         <div class="clear"></div>
                         <div class="cms-post">
-                            <h2 class="entry-title"><a href="https://www.talklee.com/blog/363.html"
-                                                       title="阅读：zblog博客怎么给导航加图标图文教程"
-                                                       rel="bookmark">zblog博客怎么给导航加图标图文教程</a></h2>
-                            <figure class="thumbnail"><a href="https://www.talklee.com/blog/363.html"><img width="600"
-                                                                                                           height="348"
-
-                                                                                                           class="size-post-image"
-                                                                                                           alt="zblog博客怎么给导航加图标图文教程"
-                                                                                                           title="详细阅读：zblog博客怎么给导航加图标图文教程"></a>
+                            <h2 class="entry-title">
+                                <a href="" :title="mysqlBlog[0].title" rel="bookmark">{{mysqlBlog[0].title}}</a>
+                            </h2>
+                            <figure class="thumbnail">
+                                <a href="">
+                                    <img width="600" height="348" :src="mysqlBlog[0].pic" class="size-post-image" :alt="mysqlBlog[0].title" :title="mysqlBlog[0].title">
+                                </a>
                             </figure>
-                            <div class="cat-main"><a href="https://www.talklee.com/blog/363.html"
-                                                     title="详细阅读：zblog博客怎么给导航加图标图文教程" rel="bookmark">最近一直在忙新主题模板的制作，因为刚刚做了一个洗发水的微商代理，效果很不错，所以打算制作一个小网站，推广优化一下，所以没...</a>
+                            <div class="cat-main">
+                                <a href="" title="mysqlBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{mysqlBlog[0].content}}
+                                </a>
                             </div>
                             <div class="clear"></div>
                             <ul class="cms-grid">
-                                <li class="list-date">07-13</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/362.html" rel="bookmark"
-                                        title="详细阅读：zblogphp怎么设置二级导航菜单(图文教程)">zblogphp怎么设置二级导航菜单(图文教程)</a></li>
-                                <li class="list-date">06-25</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/359.html" rel="bookmark"
-                                        title="详细阅读：记录下Windows2008服务器转Linux无法加载数据盘的情况">记录下Windows2008服务器转Linux无法加载数据盘的情况</a>
+                                <span v-for="(item4,k4) in mysqlBlog" v-cloak v-show="k4>0">
+                                    <li class="list-date">{{item4.create_time}}</li>
+                                <li class="list-title">
+                                    <i class="fa fa-angle-right"></i>
+                                    <a href="" rel="bookmark" :title="item4.title">{{item4.title}}</a>
                                 </li>
-                                <li class="list-date">05-11</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/350.html" rel="bookmark"
-                                        title="详细阅读：个人博客怎么做好优化">个人博客怎么做好优化</a></li>
-                                <li class="list-date">05-07</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/348.html" rel="bookmark"
-                                        title="详细阅读：zblogphp最新版本退出时出现错误的临时解决办法">zblogphp最新版本退出时出现错误的临时解决办法</a></li>
-                                <li class="list-date">04-25</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/345.html" rel="bookmark"
-                                        title="详细阅读：做SEO多久才能看到效果？">做SEO多久才能看到效果？</a></li>
+                                </span>
                             </ul>
                         </div>
                     </div>
                 </article>
                 <article class="cms-cate shadow-box wow fadeInDown" data-wow-delay="0.3s">
                     <div class="cms-main">
-                        <h3 class="cms-title"><i class="fa fa-bars"></i><a href="https://www.talklee.com/talklee/"
-                                                                           rel="category">胡言乱语</a><a class="cat-angle"
-                                                                                                     href="https://www.talklee.com/talklee/"
-                                                                                                     rel="category"><i
-                                class="fa fa-angle-right"></i></a></h3>
+                        <h3 class="cms-title">
+                            <i class="fa fa-bars"></i>
+                            <a href="" rel="category"></a>
+                            <a class="cat-angle" href="" rel="category">JavaScript
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </h3>
                         <div class="clear"></div>
                         <div class="cms-post">
-                            <h2 class="entry-title"><a href="https://www.talklee.com/blog/361.html"
-                                                       title="阅读：负载均衡和CDN技术有什么区别" rel="bookmark">负载均衡和CDN技术有什么区别</a>
+                            <h2 class="entry-title">
+                                <a href="" :title="jsBlog[0].title" rel="bookmark">{{jsBlog[0].title}}</a>
                             </h2>
-                            <figure class="thumbnail"><a href="https://www.talklee.com/blog/361.html"><img width="600"
-                                                                                                           height="348"
-                                                                                                           class="size-post-image"
-                                                                                                           alt="负载均衡和CDN技术有什么区别"
-                                                                                                           title="详细阅读：负载均衡和CDN技术有什么区别"></a>
+                            <figure class="thumbnail">
+                                <a href="">
+                                    <img width="600" height="348" :src="jsBlog[0].pic" class="size-post-image" :alt="jsBlog[0].title" :title="jsBlog[0].title">
+                                </a>
                             </figure>
-                            <div class="cat-main"><a href="https://www.talklee.com/blog/361.html"
-                                                     title="详细阅读：负载均衡和CDN技术有什么区别" rel="bookmark">不知道你们是否也有疑问，至少在这篇文章之前我还是混淆的，那么到底负载均衡和CDN有什么区别呢？跟我一样不懂的来一起探索，...</a>
+                            <div class="cat-main">
+                                <a href="" title="jsBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{jsBlog[0].content}}
+                                </a>
                             </div>
                             <div class="clear"></div>
                             <ul class="cms-grid">
-                                <li class="list-date">06-21</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/358.html" rel="bookmark"
-                                        title="详细阅读：玉林荔枝狗肉节：是美味还是罪恶？">玉林荔枝狗肉节：是美味还是罪恶？</a></li>
-                                <li class="list-date">06-05</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/356.html" rel="bookmark"
-                                        title="详细阅读：你的烦恼太多，其实都是想的太多">你的烦恼太多，其实都是想的太多</a></li>
-                                <li class="list-date">05-25</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/353.html" rel="bookmark"
-                                        title="详细阅读：聊聊梦想家（mxlee）主题盗版的情况">聊聊梦想家（mxlee）主题盗版的情况</a></li>
-                                <li class="list-date">05-19</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/351.html" rel="bookmark"
-                                        title="详细阅读：一张图弄明白从零维到十维空间！你能看懂几维？">一张图弄明白从零维到十维空间！你能看懂几维？</a></li>
-                                <li class="list-date">05-03</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/347.html" rel="bookmark"
-                                        title="详细阅读：销毁电脑硬盘数据的方法">销毁电脑硬盘数据的方法</a></li>
+                                <span v-for="(item4,k4) in jsBlog" v-cloak v-show="k4>0">
+                                    <li class="list-date">{{item4.create_time}}</li>
+                                <li class="list-title">
+                                    <i class="fa fa-angle-right"></i>
+                                    <a href="" rel="bookmark" :title="item4.title">{{item4.title}}</a>
+                                </li>
+                                </span>
                             </ul>
                         </div>
                     </div>
                 </article>
                 <article class="cms-cate shadow-box wow fadeInDown" data-wow-delay="0.3s">
                     <div class="cms-main">
-                        <h3 class="cms-title"><i class="fa fa-bars"></i><a href="https://www.talklee.com/info/"
-                                                                           rel="category">互联网</a><a class="cat-angle"
-                                                                                                    href="https://www.talklee.com/info/"
-                                                                                                    rel="category"><i
-                                class="fa fa-angle-right"></i></a></h3>
+                        <h3 class="cms-title">
+                            <i class="fa fa-bars"></i>
+                            <a href="" rel="category"></a>
+                            <a class="cat-angle" href="" rel="category">Linux
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </h3>
                         <div class="clear"></div>
                         <div class="cms-post">
-                            <h2 class="entry-title"><a href="https://www.talklee.com/blog/365.html"
-                                                       title="阅读：Google回归中国对SEO们意味着什么？" rel="bookmark">Google回归中国对SEO们意味着什么？</a>
+                            <h2 class="entry-title">
+                                <a href="" :title="linuxBlog[0].title" rel="bookmark">{{linuxBlog[0].title}}</a>
                             </h2>
-                            <figure class="thumbnail"><a href="https://www.talklee.com/blog/365.html"><img width="600"
-                                                                                                           height="348"
-                                                                                                           class="size-post-image"
-                                                                                                           alt="Google回归中国对SEO们意味着什么？"
-                                                                                                           title="详细阅读：Google回归中国对SEO们意味着什么？"></a>
+                            <figure class="thumbnail">
+                                <a href="">
+                                    <img width="600" height="348" :src="linuxBlog[0].pic" class="size-post-image" :alt="linuxBlog[0].title" :title="linuxBlog[0].title">
+                                </a>
                             </figure>
-                            <div class="cat-main"><a href="https://www.talklee.com/blog/365.html"
-                                                     title="详细阅读：Google回归中国对SEO们意味着什么？" rel="bookmark">最新互联网相关行业最大的新闻莫过于Google回归中国的传言。时间过得真快，Google退出中国已经近8年了，抗战都快打...</a>
+                            <div class="cat-main">
+                                <a href="" title="linuxBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{linuxBlog[0].content}}
+                                </a>
                             </div>
                             <div class="clear"></div>
                             <ul class="cms-grid">
-                                <li class="list-date">06-28</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/360.html" rel="bookmark"
-                                        title="详细阅读：网站怎么防止SQL注入">网站怎么防止SQL注入</a></li>
-                                <li class="list-date">06-08</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/357.html" rel="bookmark"
-                                        title="详细阅读：百度SEO和谷歌SEO的区别是什么">百度SEO和谷歌SEO的区别是什么</a></li>
-                                <li class="list-date">06-04</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/355.html" rel="bookmark"
-                                        title="详细阅读：网站被DDOS攻击的防御方法">网站被DDOS攻击的防御方法</a></li>
-                                <li class="list-date">06-01</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/354.html" rel="bookmark"
-                                        title="详细阅读：zblogPHP备份迁移的图文教程">zblogPHP备份迁移的图文教程</a></li>
-                                <li class="list-date">05-23</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/352.html" rel="bookmark"
-                                        title="详细阅读：罗永浩回应一切：关于TNT 你们的质疑都是错的">罗永浩回应一切：关于TNT 你们的质疑都是错的</a></li>
+                                <span v-for="(item4,k4) in linuxBlog" v-cloak v-show="k4>0">
+                                    <li class="list-date">{{item4.create_time}}</li>
+                                <li class="list-title">
+                                    <i class="fa fa-angle-right"></i>
+                                    <a href="" rel="bookmark" :title="item4.title">{{item4.title}}</a>
+                                </li>
+                                </span>
                             </ul>
                         </div>
                     </div>
                 </article>
                 <article class="cms-cate shadow-box wow fadeInDown" data-wow-delay="0.3s">
                     <div class="cms-main">
-                        <h3 class="cms-title"><i class="fa fa-bars"></i><a href="https://www.talklee.com/zhuti/"
-                                                                           rel="category">主题展示</a><a class="cat-angle"
-                                                                                                     href="https://www.talklee.com/zhuti/"
-                                                                                                     rel="category"><i
-                                class="fa fa-angle-right"></i></a></h3>
+                        <h3 class="cms-title">
+                            <i class="fa fa-bars"></i>
+                            <a href="" rel="category"></a>
+                            <a class="cat-angle" href="" rel="category">Codelgniter
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </h3>
                         <div class="clear"></div>
                         <div class="cms-post">
-                            <h2 class="entry-title"><a href="https://www.talklee.com/blog/364.html"
-                                                       title="阅读：Z-Blog首款微商企业类型主题模板--微商互联（Wslee）" rel="bookmark">Z-Blog首款微商企业类型主题模板--微商互联（Wslee）</a>
+                            <h2 class="entry-title">
+                                <a href="" :title="ciBlog[0].title" rel="bookmark">{{ciBlog[0].title}}</a>
                             </h2>
-                            <figure class="thumbnail"><a href="https://www.talklee.com/blog/364.html"><img width="600"
-                                                                                                           height="348"
-
-                                                                                                           class="size-post-image"
-                                                                                                           alt="Z-Blog首款微商企业类型主题模板--微商互联（Wslee）"
-                                                                                                           title="详细阅读：Z-Blog首款微商企业类型主题模板--微商互联（Wslee）"></a>
+                            <figure class="thumbnail">
+                                <a href="">
+                                    <img width="600" height="348" :src="ciBlog[0].pic" class="size-post-image" :alt="ciBlog[0].title" :title="ciBlog[0].title">
+                                </a>
                             </figure>
-                            <div class="cat-main"><a href="https://www.talklee.com/blog/364.html"
-                                                     title="详细阅读：Z-Blog首款微商企业类型主题模板--微商互联（Wslee）" rel="bookmark">Z-blogPHP倾力打造响应式主题（微商互联·非李莫属）Z-Blog首款微商企业类型主题模板-磅礴大气，浑然一体，此款...</a>
+                            <div class="cat-main">
+                                <a href="" title="ciBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{ciBlog[0].content}}
+                                </a>
                             </div>
                             <div class="clear"></div>
                             <ul class="cms-grid">
-                                <li class="list-date">09-28</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/279.html" rel="bookmark"
-                                        title="详细阅读：李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）">李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）</a>
+                                <span v-for="(item4,k4) in ciBlog" v-cloak v-show="k4>0">
+                                    <li class="list-date">{{item4.create_time}}</li>
+                                <li class="list-title">
+                                    <i class="fa fa-angle-right"></i>
+                                    <a href="" rel="bookmark" :title="item4.title">{{item4.title}}</a>
                                 </li>
-                                <li class="list-date">07-07</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/254.html" rel="bookmark"
-                                        title="详细阅读：Brieflee主题-把最好的送给你（9月更新）">Brieflee主题-把最好的送给你（9月更新）</a></li>
-                                <li class="list-date">07-15</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/162.html" rel="bookmark"
-                                        title="详细阅读：filmlee主题：首款免费zbp主题">filmlee主题：首款免费zbp主题</a></li>
-                                <li class="list-date">06-24</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/155.html" rel="bookmark"
-                                        title="详细阅读：zbp响应式两栏黑色风格主题,完美兼容所有移动设备（2018/01更新）">zbp响应式两栏黑色风格主题,完美兼容所有移动设备（2018/01更新）</a>
-                                </li>
-                                <li class="list-date">06-15</li>
-                                <li class="list-title"><i class="fa fa-angle-right"></i><a
-                                        href="https://www.talklee.com/blog/152.html" rel="bookmark"
-                                        title="详细阅读：zblogPHP最新clublee主题，全网首发（地址更新）">zblogPHP最新clublee主题，全网首发（地址更新）</a>
-                                </li>
+                                </span>
                             </ul>
                         </div>
                     </div>
