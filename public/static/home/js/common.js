@@ -14,5 +14,5 @@ var ajaxUrl = {
     getImageBlog:url+'/index/getImageBlog',
     getToolsBlog:url+'/index/getToolsBlog',
     getOtherBlog:url+'/index/getOtherBlog',
-
+    getAllPhpList:url+'/details/getAllPhpList',
 };

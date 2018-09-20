@@ -2,7 +2,6 @@
 {block name="header"}
 {/block}
 {block name="main"}
-
         <nav class="navcates">
             当前位置：<i class="fa fa-home"></i><a href="https://www.talklee.com/">首页</a><i class="fa fa-angle-right"></i><a
                 href="https://www.talklee.com/info/">互联网</a></nav>
@@ -37,8 +36,7 @@
                     <div class="post-left">
                         <h3><a href="https://www.talklee.com/blog/365.html" title="Google回归中国对SEO们意味着什么？">Google回归中国对SEO们意味着什么？</a>
                         </h3>
-                        <div class="post-con"><a href="https://www.talklee.com/blog/365.html"
-                                                 title="查看《Google回归中国对SEO们意味着什么？》全文">最新互联网相关行业最大的新闻莫过于Google回归中国的传言。时间过得真快，Google退出中国已经近8年了，抗战都快打完了。8年来，时不时有Google即将回归的传言，但也只是传言。IT行业经常有Google和百度搜索结果质量哪个好的讨论，最后往往成为吐槽百度的讨论。SEO行业也经常有人怀念Goo...</a>
+                        <div class="post-con"><a href="https://www.talklee.com/blog/365.html" title="查看《Google回归中国对SEO们意味着什么？》全文">最新互联网相关行业最大的新闻莫过于Google回归中国的传言。时间过得真快，Google退出中国已经近8年了，抗战都快打完了。8年来，时不时有Google即将回归的传言，但也只是传言。IT行业经常有Google和百度搜索结果质量哪个好的讨论，最后往往成为吐槽百度的讨论。SEO行业也经常有人怀念Goo...</a>
                         </div>
                         <aside class="item-meta">
                             <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/info/">互联网</a></span>
@@ -327,17 +325,11 @@
                     </div>
                 </article>
                 <!--页码-->
-                <div class="pagination">
-                    <div class="page-list">
-                        <a class="on">1</a>
-                        <a href="https://www.talklee.com/info/2/" title="第2页">2</a>
-                        <a href="https://www.talklee.com/info/3/" title="第3页">3</a>
-                        <a href="https://www.talklee.com/info/4/" title="第4页">4</a>
-                        <a href="https://www.talklee.com/info/5/" title="第5页">5</a>
-                        <a href="https://www.talklee.com/info/6/" title="第6页">6</a>
-                        <a href="https://www.talklee.com/info/2/" title="下一页" class="c-nav next ease xyy">下一页</a>
-                        <a href="https://www.talklee.com/info/14/" class="c-nav ease moye" title="末页">末页 </a>
-                    </div>
+
+            </div>
+            <div class="clear" style="margin-top: 10px" >
+                <div class="page-list">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
                 </div>
             </div>
         </div>
@@ -346,4 +338,5 @@
 {block name="main-footer"}
 {/block}
 {block name="footer"}
+<script src="<?= $js?>/detail/details.js"></script>
 {/block}

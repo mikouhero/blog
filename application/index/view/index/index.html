@@ -56,6 +56,8 @@
     <script src="<?= $js ?>/vue.js"></script>
     <script src="<?= $js ?>/vue-resource.js"></script>
     <script src="<?= $js ?>/common.js"></script>
+    <script src="<?= $js ?>/pagination.js"></script>
+
     <script src="<?= $js ?>/3dtag.js"></script>
     {block name="header"}
     {/block}
@@ -1002,7 +1004,7 @@
         </div>
     </div>
     <!--个人 end -->
-        {/block}
+
 </div>
 <!--友情链接-->
     <div class="container-fluid links  wow fadeInDown">
@@ -1014,6 +1016,7 @@
     </div>
 </div>
 <!--友情链接 end -->
+    {/block}
 
 <!--底部-->
     <footer class="footer">
@@ -1103,8 +1106,8 @@
     }
     ;translateInitilization();</script>
 </div>
-    <script src="<?= $js?>/index/home.js"></script>
     {block name="footer"}
+    <script src="<?= $js?>/index/home.js"></script>
     {/block}
 </body>
 </html>
