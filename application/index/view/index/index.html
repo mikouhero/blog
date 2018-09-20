@@ -56,6 +56,7 @@
     <script src="<?= $js ?>/vue.js"></script>
     <script src="<?= $js ?>/vue-resource.js"></script>
     <script src="<?= $js ?>/common.js"></script>
+    <script src="<?= $js ?>/3dtag.js"></script>
     {block name="header"}
     {/block}
     <link rel="alternate" type="application/rss+xml" href="https://www.talklee.com/feed.php" title="Mikou个人博客">
@@ -684,35 +685,212 @@
             </div>
             <!--推广end-->
             <!--保留-->
-            <!--<div class="widget-box widget wow fadeInDown" id="readers">-->
-            <!--<h3 class="widget-title"><i class="fa fa-th"></i>读者墙</h3>-->
-            <!--<ul class="widget-content readers">-->
-            <!--<li><a title="邹鹏"><img alt="邹鹏">邹鹏</a></li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"-->
-            <!--target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"-->
-            <!--target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"-->
-            <!--target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5saXVib3dhbmcuY29t" title="榴博网 点评"-->
-            <!--target="_blank" rel="external nofollow"><img alt="榴博网">榴博网</a></li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuYmFuZ3Rhb2xpLmNvbS8="-->
-            <!--title="老薛主机永久七折码 点评" target="_blank" rel="external nofollow"><img-->
-            <!--alt="老薛主机永久七折码">老薛主机</a>-->
-            <!--</li>-->
-            <!--<li><a title="shenj520"><img alt="shenj520">shen</a></li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5ndWFueXV3b21lbi5jb20="-->
-            <!--title="关于我们 点评" target="_blank" rel="external nofollow"><img alt="关于我们">关于我们</a>-->
-            <!--</li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5jcWJjYy5jb20v" title="重庆整形 点评"-->
-            <!--target="_blank" rel="external nofollow"><img alt="重庆整形">重庆整形</a></li>-->
-            <!--<li><a title="靠"><img alt="靠">靠</a></li>-->
-            <!--<li><a title="66"><img alt="66">66</a></li>-->
-            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cueXh0NTIxLmNvbQ==" title="简单生活 点评"-->
-            <!--target="_blank" rel="external nofollow"><img alt="简单生活">简单生活</a></li>-->
-            <!--</ul>-->
-            <!--</div>-->
-            <!---->
+            <div class="widget-box widget wow fadeInDown" id="readers">
+                <aside id="tag_cloud-2" class="widget widget_tag_cloud">
+                    <h3 class="widget-title"><i class="fa fa-th"></i>标签云</h3>
+                    <div id="tag_cloud_widget">
+                        <a href="/tag-js操作cookie.html" class='tag-link-140 tag-link-position-100' title='js操作cookie'
+                           style="background:#337ab7">js操作cookie</a>
+                        <a href="/tag-Ajax.html" class='tag-link-140 tag-link-position-100' title='Ajax'
+                           style="background:#337ab7">Ajax</a>
+                        <a href="/tag-Bootstrap.html" class='tag-link-140 tag-link-position-100' title='Bootstrap'
+                           style="background:#777">Bootstrap</a>
+                        <a href="/tag-js倒计时.html" class='tag-link-140 tag-link-position-100' title='js倒计时'
+                           style="background:#f0ad4e">js倒计时</a>
+                        <a href="/tag-Validform.html" class='tag-link-140 tag-link-position-100' title='Validform'
+                           style="background:#777">Validform</a>
+                        <a href="/tag-图片放大镜.html" class='tag-link-140 tag-link-position-100' title='图片放大镜'
+                           style="background:#B433FF">图片放大镜</a>
+                        <a href="/tag-织梦CMS.html" class='tag-link-140 tag-link-position-100' title='织梦CMS'
+                           style="background:#5cb85c">织梦CMS</a>
+                        <a href="/tag-批处理生成文件夹.html" class='tag-link-140 tag-link-position-100' title='批处理生成文件夹'
+                           style="background:#337ab7">批处理生成文件夹</a>
+                        <a href="/tag-RFID.html" class='tag-link-140 tag-link-position-100' title='RFID'
+                           style="background:#777">RFID</a>
+                        <a href="/tag-Navicat.html" class='tag-link-140 tag-link-position-100' title='Navicat'
+                           style="background:#d9534f">Navicat</a>
+                        <a href="/tag-Mysql触发器.html" class='tag-link-140 tag-link-position-100' title='Mysql触发器'
+                           style="background:#5bc0de">Mysql触发器</a>
+                        <a href="/tag-导入Excel.html" class='tag-link-140 tag-link-position-100' title='导入Excel'
+                           style="background:#d9534f">导入Excel</a>
+                        <a href="/tag-表单验证.html" class='tag-link-140 tag-link-position-100' title='表单验证'
+                           style="background:#5bc0de">表单验证</a>
+                        <a href="/tag-Linux.html" class='tag-link-140 tag-link-position-100' title='Linux'
+                           style="background:#d9534f">Linux</a>
+                        <a href="/tag-小程序公共方法.html" class='tag-link-140 tag-link-position-100' title='小程序公共方法'
+                           style="background:#777">小程序公共方法</a>
+                        <a href="/tag-Wamp.html" class='tag-link-140 tag-link-position-100' title='Wamp'
+                           style="background:#d9534f">Wamp</a>
+                        <a href="/tag-百度编辑器.html" class='tag-link-140 tag-link-position-100' title='百度编辑器'
+                           style="background:#d9534f">百度编辑器</a>
+                        <a href="/tag-Sitemap.html" class='tag-link-140 tag-link-position-100' title='Sitemap'
+                           style="background:#5cb85c">Sitemap</a>
+                        <a href="/tag-window.open.html" class='tag-link-140 tag-link-position-100' title='window.open'
+                           style="background:#B433FF">window.open</a>
+                        <a href="/tag-iframe.html" class='tag-link-140 tag-link-position-100' title='iframe'
+                           style="background:#d9534f">iframe</a>
+                        <a href="/tag-七牛上传.html" class='tag-link-140 tag-link-position-100' title='七牛上传'
+                           style="background:#00ABA9">七牛上传</a>
+                        <a href="/tag-图片无缝滚动.html" class='tag-link-140 tag-link-position-100' title='图片无缝滚动'
+                           style="background:#5bc0de">图片无缝滚动</a>
+                        <a href="/tag-base64.html" class='tag-link-140 tag-link-position-100' title='base64'
+                           style="background:#5bc0de">base64</a>
+                        <a href="/tag-正则表达式.html" class='tag-link-140 tag-link-position-100' title='正则表达式'
+                           style="background:#5cb85c">正则表达式</a>
+                        <a href="/tag-Juqery.html" class='tag-link-140 tag-link-position-100' title='Juqery'
+                           style="background:#00ABA9">Juqery</a>
+                        <a href="/tag-日期插件.html" class='tag-link-140 tag-link-position-100' title='日期插件'
+                           style="background:#d9534f">日期插件</a>
+                        <a href="/tag-进度条.html" class='tag-link-140 tag-link-position-100' title='进度条'
+                           style="background:#5bc0de">进度条</a>
+                        <a href="/tag-实用工具.html" class='tag-link-140 tag-link-position-100' title='实用工具'
+                           style="background:#5cb85c">实用工具</a>
+                        <a href="/tag-Git图形界面.html" class='tag-link-140 tag-link-position-100' title='Git图形界面'
+                           style="background:#d9534f">Git图形界面</a>
+                        <a href="/tag-百度搜索定位.html" class='tag-link-140 tag-link-position-100' title='百度搜索定位'
+                           style="background:#777">百度搜索定位</a>
+                        <a href="/tag-柱状图.html" class='tag-link-140 tag-link-position-100' title='柱状图'
+                           style="background:#5cb85c">柱状图</a>
+                        <a href="/tag-小程序定位.html" class='tag-link-140 tag-link-position-100' title='小程序定位'
+                           style="background:#B433FF">小程序定位</a>
+                        <a href="/tag-安卓.html" class='tag-link-140 tag-link-position-100' title='安卓'
+                           style="background:#00ABA9">安卓</a>
+                        <a href="/tag-Laravel框架.html" class='tag-link-140 tag-link-position-100' title='Laravel框架'
+                           style="background:#337ab7">Laravel框架</a>
+                        <a href="/tag-Node.js.html" class='tag-link-140 tag-link-position-100' title='Node.js'
+                           style="background:#777">Node.js</a>
+                        <a href="/tag-城市选择.html" class='tag-link-140 tag-link-position-100' title='城市选择'
+                           style="background:#777">城市选择</a>
+                        <a href="/tag-PHPQuery.html" class='tag-link-140 tag-link-position-100' title='PHPQuery'
+                           style="background:#f0ad4e">PHPQuery</a>
+                        <a href="/tag-Jquery.html" class='tag-link-140 tag-link-position-100' title='Jquery'
+                           style="background:#777">Jquery</a>
+                        <a href="/tag-phpstorm代码.html" class='tag-link-140 tag-link-position-100' title='phpstorm代码'
+                           style="background:#f0ad4e">phpstorm代码</a>
+                        <a href="/tag-Dialog弹窗插件.html" class='tag-link-140 tag-link-position-100' title='Dialog弹窗插件'
+                           style="background:#f0ad4e">Dialog弹窗插件</a>
+                        <a href="/tag-FIND_IN_SET.html" class='tag-link-140 tag-link-position-100' title='FIND_IN_SET'
+                           style="background:#5bc0de">FIND_IN_SET</a>
+                        <a href="/tag-图片裁剪.html" class='tag-link-140 tag-link-position-100' title='图片裁剪'
+                           style="background:#777">图片裁剪</a>
+                        <a href="/tag-php生成二维码.html" class='tag-link-140 tag-link-position-100' title='php生成二维码'
+                           style="background:#B433FF">php生成二维码</a>
+                        <a href="/tag-sublime代码片段.html" class='tag-link-140 tag-link-position-100' title='sublime代码片段'
+                           style="background:#5bc0de">sublime代码片段</a>
+                        <a href="/tag-延迟加载.html" class='tag-link-140 tag-link-position-100' title='延迟加载'
+                           style="background:#777">延迟加载</a>
+                        <a href="/tag-城市联动.html" class='tag-link-140 tag-link-position-100' title='城市联动'
+                           style="background:#777">城市联动</a>
+                        <a href="/tag-phpstorm编辑器.html" class='tag-link-140 tag-link-position-100' title='phpstorm编辑器'
+                           style="background:#5cb85c">phpstorm编辑器</a>
+                        <a href="/tag-Dreamweaver.html" class='tag-link-140 tag-link-position-100' title='Dreamweaver'
+                           style="background:#337ab7">Dreamweaver</a>
+                        <a href="/tag-SEO优化.html" class='tag-link-140 tag-link-position-100' title='SEO优化'
+                           style="background:#337ab7">SEO优化</a>
+                        <a href="/tag-导航菜单.html" class='tag-link-140 tag-link-position-100' title='导航菜单'
+                           style="background:#5bc0de">导航菜单</a>
+                        <a href="/tag-HTML网站后台模板.html" class='tag-link-140 tag-link-position-100' title='HTML网站后台模板'
+                           style="background:#f0ad4e">HTML网站后台模板</a>
+                        <a href="/tag-编程工程师.html" class='tag-link-140 tag-link-position-100' title='编程工程师'
+                           style="background:#f0ad4e">编程工程师</a>
+                        <a href="/tag-Javascript.html" class='tag-link-140 tag-link-position-100' title='Javascript'
+                           style="background:#f0ad4e">Javascript</a>
+                        <a href="/tag-小程序倒计时.html" class='tag-link-140 tag-link-position-100' title='小程序倒计时'
+                           style="background:#00ABA9">小程序倒计时</a>
+                        <a href="/tag-在线客服.html" class='tag-link-140 tag-link-position-100' title='在线客服'
+                           style="background:#5cb85c">在线客服</a>
+                        <a href="/tag-小数位取整.html" class='tag-link-140 tag-link-position-100' title='小数位取整'
+                           style="background:#5cb85c">小数位取整</a>
+                        <a href="/tag-微信.html" class='tag-link-140 tag-link-position-100' title='微信'
+                           style="background:#777">微信</a>
+                        <a href="/tag-SublimeText.html" class='tag-link-140 tag-link-position-100' title='SublimeText'
+                           style="background:#777">SublimeText</a>
+                        <a href="/tag-排序算法.html" class='tag-link-140 tag-link-position-100' title='排序算法'
+                           style="background:#777">排序算法</a>
+                        <a href="/tag-mui加载.html" class='tag-link-140 tag-link-position-100' title='mui加载'
+                           style="background:#d9534f">mui加载</a>
+                        <a href="/tag-Wordpress.html" class='tag-link-140 tag-link-position-100' title='Wordpress'
+                           style="background:#777">Wordpress</a>
+                        <a href="/tag-Win10系统.html" class='tag-link-140 tag-link-position-100' title='Win10系统'
+                           style="background:#337ab7">Win10系统</a>
+                        <a href="/tag-删除七牛文件.html" class='tag-link-140 tag-link-position-100' title='删除七牛文件'
+                           style="background:#d9534f">删除七牛文件</a>
+                        <a href="/tag-CI框架.html" class='tag-link-140 tag-link-position-100' title='CI框架'
+                           style="background:#5cb85c">CI框架</a>
+                        <a href="/tag-SVN版本控制.html" class='tag-link-140 tag-link-position-100' title='SVN版本控制'
+                           style="background:#5cb85c">SVN版本控制</a>
+                        <a href="/tag-ThinkPHP框架.html" class='tag-link-140 tag-link-position-100' title='ThinkPHP框架'
+                           style="background:#5bc0de">ThinkPHP框架</a>
+                        <a href="/tag-dede百度推送.html" class='tag-link-140 tag-link-position-100' title='dede百度推送'
+                           style="background:#f0ad4e">dede百度推送</a>
+                        <a href="/tag-百度地图定位.html" class='tag-link-140 tag-link-position-100' title='百度地图定位'
+                           style="background:#f0ad4e">百度地图定位</a>
+                        <a href="/tag-弹出层.html" class='tag-link-140 tag-link-position-100' title='弹出层'
+                           style="background:#B433FF">弹出层</a>
+                        <a href="/tag-django框架.html" class='tag-link-140 tag-link-position-100' title='django框架'
+                           style="background:#f0ad4e">django框架</a>
+                        <a href="/tag-Phpcms.html" class='tag-link-140 tag-link-position-100' title='Phpcms'
+                           style="background:#337ab7">Phpcms</a>
+                        <a href="/tag-CSS3.html" class='tag-link-140 tag-link-position-100' title='CSS3'
+                           style="background:#d9534f">CSS3</a>
+                        <a href="/tag-Everything-up-to-date.html" class='tag-link-140 tag-link-position-100'
+                           title='Everything-up-to-date' style="background:#d9534f">Everything-up-to-date</a>
+                        <a href="/tag-JS_SDK.html" class='tag-link-140 tag-link-position-100' title='JS_SDK'
+                           style="background:#5bc0de">JS_SDK</a>
+                        <a href="/tag-支付宝.html" class='tag-link-140 tag-link-position-100' title='支付宝'
+                           style="background:#d9534f">支付宝</a>
+                        <a href="/tag-字符串截取.html" class='tag-link-140 tag-link-position-100' title='字符串截取'
+                           style="background:#5cb85c">字符串截取</a>
+                        <a href="/tag-Yii框架.html" class='tag-link-140 tag-link-position-100' title='Yii框架'
+                           style="background:#337ab7">Yii框架</a>
+                        <a href="/tag-ZendStudio.html" class='tag-link-140 tag-link-position-100' title='ZendStudio'
+                           style="background:#f0ad4e">ZendStudio</a>
+                        <a href="/tag-jquery操作cookie.html" class='tag-link-140 tag-link-position-100' title='jquery操作cookie'
+                           style="background:#f0ad4e">jquery操作cookie</a>
+                        <a href="/tag-HTML5.html" class='tag-link-140 tag-link-position-100' title='HTML5'
+                           style="background:#B433FF">HTML5</a>
+                        <a href="/tag-thinkphp5.html" class='tag-link-140 tag-link-position-100' title='thinkphp5'
+                           style="background:#00ABA9">thinkphp5</a>
+                        <a href="/tag-PHP.html" class='tag-link-140 tag-link-position-100' title='PHP'
+                           style="background:#777">PHP</a>
+                        <a href="/tag-图片轮播.html" class='tag-link-140 tag-link-position-100' title='图片轮播'
+                           style="background:#5cb85c">图片轮播</a>
+                        <a href="/tag-Ubuntu.html" class='tag-link-140 tag-link-position-100' title='Ubuntu'
+                           style="background:#00ABA9">Ubuntu</a>
+                        <a href="/tag-uploadify无刷新上传.html" class='tag-link-140 tag-link-position-100' title='uploadify无刷新上传'
+                           style="background:#337ab7">uploadify无刷新上传</a>
+                        <a href="/tag-瀑布流.html" class='tag-link-140 tag-link-position-100' title='瀑布流'
+                           style="background:#00ABA9">瀑布流</a>
+                        <a href="/tag-Excel表格.html" class='tag-link-140 tag-link-position-100' title='Excel表格'
+                           style="background:#337ab7">Excel表格</a>
+                        <a href="/tag-APP.html" class='tag-link-140 tag-link-position-100' title='APP'
+                           style="background:#d9534f">APP</a>
+                        <a href="/tag-Mysql.html" class='tag-link-140 tag-link-position-100' title='Mysql'
+                           style="background:#5cb85c">Mysql</a>
+                        <a href="/tag-Mysql事件.html" class='tag-link-140 tag-link-position-100' title='Mysql事件'
+                           style="background:#777">Mysql事件</a>
+                        <a href="/tag-拖动排序.html" class='tag-link-140 tag-link-position-100' title='拖动排序'
+                           style="background:#d9534f">拖动排序</a>
+                        <a href="/tag-CSS.html" class='tag-link-140 tag-link-position-100' title='CSS'
+                           style="background:#5bc0de">CSS</a>
+                        <a href="/tag-数组排序.html" class='tag-link-140 tag-link-position-100' title='数组排序'
+                           style="background:#5bc0de">数组排序</a>
+                        <a href="/tag-SQLite工具.html" class='tag-link-140 tag-link-position-100' title='SQLite工具'
+                           style="background:#f0ad4e">SQLite工具</a>
+                        <a href="/tag-IT工程师.html" class='tag-link-140 tag-link-position-100' title='IT工程师'
+                           style="background:#777">IT工程师</a>
+                        <a href="/tag-标签.html" class='tag-link-140 tag-link-position-100' title='标签'
+                           style="background:#B433FF">标签</a>
+                        <a href="/tag-高德定位.html" class='tag-link-140 tag-link-position-100' title='高德定位'
+                           style="background:#337ab7">高德定位</a>
+
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                </aside>
+            </div>
+
         </aside>
     </div>
     <div class="clear"></div>
