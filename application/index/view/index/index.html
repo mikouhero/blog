@@ -56,6 +56,8 @@
     <script src="<?= $js ?>/vue.js"></script>
     <script src="<?= $js ?>/vue-resource.js"></script>
     <script src="<?= $js ?>/common.js"></script>
+    {block name="header"}
+    {/block}
     <link rel="alternate" type="application/rss+xml" href="https://www.talklee.com/feed.php" title="Mikou个人博客">
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.talklee.com/zb_system/xml-rpc/?rsd">
     <link rel="wlwmanifest" type="application/wlwmanifest+xml"
@@ -113,6 +115,7 @@
             background-color: #FFFFFF;
             border-top: 1px solid #ddd;
         }
+
         [v-cloak] {
             display: none !important;
         }
@@ -125,7 +128,7 @@
     <script src="<?= $js ?>/html5.js"></script><![endif]-->
 </head>
 <body class="home-index">
-<header class="site-header">
+    <header class="site-header">
     <div id="header" class="navbar fixed-nav">
         <nav id="top-header">
             <div class="top-nav">
@@ -201,8 +204,8 @@
         </nav>
         <div class="header">
             <h1 id="logo">
-                <a href="https://www.talklee.com/"><img src="/static/home/picture/logo.png" title="Mikou个人博客"
-                                                        alt="Mikou个人博客"></a>
+                <a href="">
+                    <img src="/static/home/picture/logo.png" title="Mikou个人博客" alt="Mikou个人博客"></a>
             </h1>
             <div class="search">
                 <form method="post" name="search" action=""
@@ -228,12 +231,13 @@
                 <aside class="mobile_aside mobile_nav">
                     <div class="mobile-menu">
                         <ul id="nav" class="nav-pills">
-                            <li id="nvabar-item-index" v-for=" menuItem in menuList" v-cloak>
-                                <a :href="menuItem.url">
+                            <li id="nvabar-item-index" v-for=" (menuItem,key) in menuList" v-cloak>
+                                <a :href="menuItem.url" @click=addmenuclass(key) :class="{on:tmpclass==key}">
                                     <i class="fa" :class="menuItem.font"></i>{{menuItem.name}}
                                 </a>
                                 <ul class="dropdown-menu sub-menu" v-show="menuItem.child.length > 0">
-                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category" v-for="childItem in menuItem.child"><a
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category"
+                                        v-for="childItem in menuItem.child"><a
                                             href="/">{{childItem.name}}</a></li>
                                 </ul>
                             </li>
@@ -244,8 +248,14 @@
         </div>
     </div>
 </header>
-<div class="container-fluid home-fluid">
+    <!--###############################################################################################################-->
+    <!--################################################# 单独 ########################################################-->
+    <!--###############################################################################################################-->
+
+
+    <div class="container-fluid home-fluid">
     <div class="site-content">
+        {block name="main"}
         <!--小广告区域 -->
         <nav class="gonggao navcates">
             <div class="bull"><i class="fa fa-volume-up"></i></div>
@@ -292,12 +302,14 @@
                 <div class="article-item" v-cloak>
                     <div class="item-pic pull-left">
                         <a href="" :title="blogrecommendList[0].title">
-                            <img :src="blogrecommendList[0].pic" width="200" height="120" :alt="blogrecommendList[0].title">
+                            <img :src="blogrecommendList[0].pic" width="200" height="120"
+                                 :alt="blogrecommendList[0].title">
                         </a>
                     </div>
                     <div class="item-intro">
                         <a href="" class="item-title"><i class="fa fa-gitlab"></i>{{blogrecommendList[0].title}}</a>
-                        <p class="item-desc" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">
+                        <p class="item-desc"
+                           style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">
                             {{blogrecommendList[0].content}}
                         </p>
                         <div class="item-push-info">
@@ -308,7 +320,7 @@
                 </div>
                 <ul class="jxnr cl">
                     <li v-for="(item,key) in blogrecommendList" v-show="key>0 && key<7" v-cloak>
-                        <em >{{key+1}}</em>
+                        <em>{{key+1}}</em>
                         <a href="" :title="item.title">{{item.title}}
                         </a>
                         <span class="list-date">{{item.create_time}}</span>
@@ -322,7 +334,7 @@
             <!--最近更新start-->
             <section class="widget-box home-layout">
                 <h3 class="post_box_title"><span class="ttcolor"><i class="fa fa-cube"></i>最近更新</span></h3>
-                <article class="post_box wow fadeInDown" v-for="(item2,key) in recentblog" >
+                <article class="post_box wow fadeInDown" v-for="(item2,key) in recentblog">
                     <div class="post-img col-xs-4">
                         <a href="">
                             <img class="img-responsive img-rounded imgs" :src="item2.pic"
@@ -333,7 +345,8 @@
                         <h3><a href="" :title="item2.title">{{item2.title}}</a>
                         </h3>
                         <div class="post-con">
-                            <a href="" :title="item2.title" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:4;overflow: hidden;">
+                            <a href="" :title="item2.title"
+                               style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:4;overflow: hidden;">
                                 {{item2.content}}
                             </a>
                         </div>
@@ -364,7 +377,7 @@
                     <li class="shop_main" v-for="(item3,key) in phpBlog" v-cloak>
                         <a href="" :title="item3.title"
                            rel="bookmark" class="shopthumb"><img :src="item3.pic"
-                                :title="item3.title"></a>
+                                                                 :title="item3.title"></a>
                         <h3><a href="" :title="item3.title">{{item3.title}}</a>
                         </h3>
                         <p style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">
@@ -399,11 +412,13 @@
                             </h2>
                             <figure class="thumbnail">
                                 <a href="">
-                                    <img width="600" height="348" :src="mysqlBlog[0].pic" class="size-post-image" :alt="mysqlBlog[0].title" :title="mysqlBlog[0].title">
+                                    <img width="600" height="348" :src="mysqlBlog[0].pic" class="size-post-image"
+                                         :alt="mysqlBlog[0].title" :title="mysqlBlog[0].title">
                                 </a>
                             </figure>
                             <div class="cat-main">
-                                <a href="" title="mysqlBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{mysqlBlog[0].content}}
+                                <a href="" title="mysqlBlog[0].title" rel="bookmark"
+                                   style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{mysqlBlog[0].content}}
                                 </a>
                             </div>
                             <div class="clear"></div>
@@ -435,11 +450,13 @@
                             </h2>
                             <figure class="thumbnail">
                                 <a href="">
-                                    <img width="600" height="348" :src="jsBlog[0].pic" class="size-post-image" :alt="jsBlog[0].title" :title="jsBlog[0].title">
+                                    <img width="600" height="348" :src="jsBlog[0].pic" class="size-post-image"
+                                         :alt="jsBlog[0].title" :title="jsBlog[0].title">
                                 </a>
                             </figure>
                             <div class="cat-main">
-                                <a href="" title="jsBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{jsBlog[0].content}}
+                                <a href="" title="jsBlog[0].title" rel="bookmark"
+                                   style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{jsBlog[0].content}}
                                 </a>
                             </div>
                             <div class="clear"></div>
@@ -471,11 +488,13 @@
                             </h2>
                             <figure class="thumbnail">
                                 <a href="">
-                                    <img width="600" height="348" :src="linuxBlog[0].pic" class="size-post-image" :alt="linuxBlog[0].title" :title="linuxBlog[0].title">
+                                    <img width="600" height="348" :src="linuxBlog[0].pic" class="size-post-image"
+                                         :alt="linuxBlog[0].title" :title="linuxBlog[0].title">
                                 </a>
                             </figure>
                             <div class="cat-main">
-                                <a href="" title="linuxBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{linuxBlog[0].content}}
+                                <a href="" title="linuxBlog[0].title" rel="bookmark"
+                                   style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{linuxBlog[0].content}}
                                 </a>
                             </div>
                             <div class="clear"></div>
@@ -507,11 +526,13 @@
                             </h2>
                             <figure class="thumbnail">
                                 <a href="">
-                                    <img width="600" height="348" :src="ciBlog[0].pic" class="size-post-image" :alt="ciBlog[0].title" :title="ciBlog[0].title">
+                                    <img width="600" height="348" :src="ciBlog[0].pic" class="size-post-image"
+                                         :alt="ciBlog[0].title" :title="ciBlog[0].title">
                                 </a>
                             </figure>
                             <div class="cat-main">
-                                <a href="" title="ciBlog[0].title" rel="bookmark" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{ciBlog[0].content}}
+                                <a href="" title="ciBlog[0].title" rel="bookmark"
+                                   style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:5;overflow: hidden;">{{ciBlog[0].content}}
                                 </a>
                             </div>
                             <div class="clear"></div>
@@ -531,20 +552,22 @@
             <!--四个小分类-->
 
         </div>
+        {/block}
         <!--侧栏-->
         <aside class="sidebar-right">
             <!--个人信息部分-->
             <div class="widget-box widget" id="zzxx-box">
-                <div class="topauthor"><img alt="博客主人：非李莫属" class="avatar-photo" alt="非李莫属"
-                                            title="非李莫属" height="100" width="100">
-                    <span class="intag" title="非李莫属">博 主：</span>
-                    <span class="names"><a href="https://www.talklee.com/author-1.html" title="查看 非李莫属 发布的文章"
-                                           rel="author">非李莫属</a></span>
-                    <span class="talk">李洋个人博客，是一个记录自己生活点滴、互联网技术的原创独立博客（Talklee.Com）。</span>
+                <div class="topauthor"><img alt="博客主人：Mikou" class="avatar-photo" alt="Mikou"
+                                            title="Mikou" height="100" width="100">
+                    <span class="intag" title="Mikou">博 主：</span>
+                    <span class="names"><a href="" title="查看 Mikou 历史"
+                                           rel="author">Mikou</a></span>
+                    <span class="talk">Mikou个人博客，是一个记录自己学习经验、互联网技术的博客。</span>
                 </div>
                 <ul>
-                    <li class="tsina"><a title="新浪微博" rel="nofollow" href="http://weibo.com/523912300/" target="_blank"><i
-                            class="fa fa-weibo"></i></a></li>
+                    <li class="tgithub"><a title="Github" rel="nofollow" href="https://github.com/mikou"
+                                           target="_blank"><i
+                            class="fa fa-github"></i></a></li>
                     <li class="weixin"><a title="微信"><i class="fa fa-weixin"></i><span
                             style="background-image:url(images/wxlogo_example.png);"></span></a></li>
                     <li class="tqq"><a title="QQ临时对话" rel="nofollow"
@@ -573,99 +596,22 @@
                     </li>
                     <li id="con_one" class="con_one_list">
                         <ul id="con_one_1" style="display:block;">
-                            <li><span class="li-icon li-icon-1">1</span><a href="https://www.talklee.com/blog/279.html"
-                                                                           title="李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）">李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）</a>
-                            </li>
-                            <li><span class="li-icon li-icon-2">2</span><a href="https://www.talklee.com/blog/362.html"
-                                                                           title="zblogphp怎么设置二级导航菜单(图文教程)">zblogphp怎么设置二级导航菜单(图文教程)</a>
-                            </li>
-                            <li><span class="li-icon li-icon-3">3</span><a href="https://www.talklee.com/blog/363.html"
-                                                                           title="zblog博客怎么给导航加图标图文教程">zblog博客怎么给导航加图标图文教程</a>
-                            </li>
-                            <li><span class="li-icon li-icon-4">4</span><a href="https://www.talklee.com/blog/286.html"
-                                                                           title="zblogphp随机显示文章的教程">zblogphp随机显示文章的教程</a>
-                            </li>
-                            <li><span class="li-icon li-icon-5">5</span><a href="https://www.talklee.com/blog/290.html"
-                                                                           title="Z-blogPHP常见问题答疑">Z-blogPHP常见问题答疑</a>
-                            </li>
-                            <li><span class="li-icon li-icon-6">6</span><a href="https://www.talklee.com/blog/328.html"
-                                                                           title="zblogphp评论倒序出错的解决办法">zblogphp评论倒序出错的解决办法</a>
-                            </li>
-                            <li><span class="li-icon li-icon-7">7</span><a href="https://www.talklee.com/blog/319.html"
-                                                                           title="宝塔Linux控制面板FTP无法连接的解决办法">宝塔Linux控制面板FTP无法连接的解决办法</a>
-                            </li>
-                            <li><span class="li-icon li-icon-8">8</span><a href="https://www.talklee.com/blog/333.html"
-                                                                           title="zblogphp热门文章、热评文章调用代码">zblogphp热门文章、热评文章调用代码</a>
-                            </li>
-                            <li><span class="li-icon li-icon-9">9</span><a href="https://www.talklee.com/blog/335.html"
-                                                                           title="zblogphp调用置顶文章的教程">zblogphp调用置顶文章的教程</a>
+                            <li v-for="(item5,key) in blogrecommendList">
+                                <span class="li-icon " :class="'li-icon-'+(key + 1) ">{{key+1}}</span>
+                                <a href="" :title="item5.title">{{item5.title}}</a>
                             </li>
                         </ul>
+
                         <ul id="con_one_2" style="display:none">
-                            <li><span class="li-icon li-icon-1">1</span><a href="https://www.talklee.com/blog/361.html"
-                                                                           title="负载均衡和CDN技术有什么区别(7条评论)"
-                                                                           target="_blank">负载均衡和CDN技术有什么区别</a></li>
-                            <li><span class="li-icon li-icon-2">2</span><a href="https://www.talklee.com/blog/360.html"
-                                                                           title="网站怎么防止SQL注入(4条评论)" target="_blank">网站怎么防止SQL注入</a>
-                            </li>
-                            <li><span class="li-icon li-icon-3">3</span><a href="https://www.talklee.com/blog/362.html"
-                                                                           title="zblogphp怎么设置二级导航菜单(图文教程)(8条评论)"
-                                                                           target="_blank">zblogphp怎么设置二级导航菜单(图文教程)</a>
-                            </li>
-                            <li><span class="li-icon li-icon-4">4</span><a href="https://www.talklee.com/blog/359.html"
-                                                                           title="记录下Windows2008服务器转Linux无法加载数据盘的情况(4条评论)"
-                                                                           target="_blank">记录下Windows2008服务器转Linux无法加载数据盘的情况</a>
-                            </li>
-                            <li><span class="li-icon li-icon-5">5</span><a href="https://www.talklee.com/blog/357.html"
-                                                                           title="百度SEO和谷歌SEO的区别是什么(15条评论)"
-                                                                           target="_blank">百度SEO和谷歌SEO的区别是什么</a></li>
-                            <li><span class="li-icon li-icon-6">6</span><a href="https://www.talklee.com/blog/358.html"
-                                                                           title="玉林荔枝狗肉节：是美味还是罪恶？(8条评论)"
-                                                                           target="_blank">玉林荔枝狗肉节：是美味还是罪恶？</a></li>
-                            <li><span class="li-icon li-icon-7">7</span><a href="https://www.talklee.com/blog/363.html"
-                                                                           title="zblog博客怎么给导航加图标图文教程(10条评论)"
-                                                                           target="_blank">zblog博客怎么给导航加图标图文教程</a></li>
-                            <li><span class="li-icon li-icon-8">8</span><a href="https://www.talklee.com/blog/364.html"
-                                                                           title="Z-Blog首款微商企业类型主题模板--微商互联（Wslee）(2条评论)"
-                                                                           target="_blank">Z-Blog首款微商企业类型主题模板--微商互联（Wslee）</a>
-                            </li>
-                            <li><span class="li-icon li-icon-9">9</span><a href="https://www.talklee.com/blog/365.html"
-                                                                           title="Google回归中国对SEO们意味着什么？(12条评论)"
-                                                                           target="_blank">Google回归中国对SEO们意味着什么？</a>
+                            <li v-for="(item5,key) in blogHotList">
+                                <span class="li-icon " :class="'li-icon-'+(key + 1) ">{{key+1}}</span>
+                                <a href="" :title="item5.title">{{item5.title}}</a>
                             </li>
                         </ul>
                         <ul id="con_one_3" style="display:none">
-                            <li><span class="li-icon li-icon-1">1</span><a href="https://www.talklee.com/blog/162.html"
-                                                                           title="filmlee主题：首款免费zbp主题" target="_blank">filmlee主题：首款免费zbp主题</a>
-                            </li>
-                            <li><span class="li-icon li-icon-2">2</span><a href="https://www.talklee.com/blog/279.html"
-                                                                           title="李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）"
-                                                                           target="_blank">李洋博客《mxlee》zblog主题-梦想家（重大更新，必看）</a>
-                            </li>
-                            <li><span class="li-icon li-icon-3">3</span><a href="https://www.talklee.com/blog/254.html"
-                                                                           title="Brieflee主题-把最好的送给你（9月更新）"
-                                                                           target="_blank">Brieflee主题-把最好的送给你（9月更新）</a>
-                            </li>
-                            <li><span class="li-icon li-icon-4">4</span><a href="https://www.talklee.com/blog/290.html"
-                                                                           title="Z-blogPHP常见问题答疑" target="_blank">Z-blogPHP常见问题答疑</a>
-                            </li>
-                            <li><span class="li-icon li-icon-5">5</span><a href="https://www.talklee.com/blog/155.html"
-                                                                           title="zbp响应式两栏黑色风格主题,完美兼容所有移动设备（2018/01更新）"
-                                                                           target="_blank">zbp响应式两栏黑色风格主题,完美兼容所有移动设备（2018/01更新）</a>
-                            </li>
-                            <li><span class="li-icon li-icon-6">6</span><a href="https://www.talklee.com/blog/350.html"
-                                                                           title="个人博客怎么做好优化"
-                                                                           target="_blank">个人博客怎么做好优化</a></li>
-                            <li><span class="li-icon li-icon-7">7</span><a href="https://www.talklee.com/blog/319.html"
-                                                                           title="宝塔Linux控制面板FTP无法连接的解决办法"
-                                                                           target="_blank">宝塔Linux控制面板FTP无法连接的解决办法</a>
-                            </li>
-                            <li><span class="li-icon li-icon-8">8</span><a href="https://www.talklee.com/blog/190.html"
-                                                                           title="zblogphp更新到1.5啦，blacklee主题模板也更新了。"
-                                                                           target="_blank">zblogphp更新到1.5啦，blacklee主题模板也更新了。</a>
-                            </li>
-                            <li><span class="li-icon li-icon-9">9</span><a href="https://www.talklee.com/blog/345.html"
-                                                                           title="做SEO多久才能看到效果？" target="_blank">做SEO多久才能看到效果？</a>
+                            <li v-for="(item5,key) in blogHotCommentList">
+                                <span class="li-icon " :class="'li-icon-'+(key + 1) ">{{key+1}}</span>
+                                <a href="" :title="item5.title">{{item5.title}}</a>
                             </li>
                         </ul>
                     </li>
@@ -677,32 +623,29 @@
             <div class="widget-box widget wow fadeInDown" id="side_randimg">
                 <h3 class="widget-title"><i class="fa fa-th"></i>图文推荐</h3>
                 <ul class="widget-content side_randimg">
-                    <li><a href="https://www.talklee.com/blog/322.html" title="宝宝出生0~12个月需要注意的事项，新手爸妈一定要知道">
-                        <div class="hotpost-img"><img
-                                alt="宝宝出生0~12个月需要注意的事项，新手爸妈一定要知道" class="randsimg"></div>
-                        <div class="hotpost-left"><span class="hot-post-title">宝宝出生0~12个月需要注意的事项，新手爸妈一定要知道</span><span
-                                class="hot-post-clock"><i class="fa fa-clock-o"></i> 2017-12-22</span><span
-                                class="hot-post-info"><i class="fa fa-comment"></i> 2</span></div>
-                    </a></li>
-                    <li><a href="https://www.talklee.com/blog/312.html" title="阿里员工：“大润发”不支持用支付宝！马云：把它买了不就行了？">
-                        <div class="hotpost-img"><img
-                                alt="阿里员工：“大润发”不支持用支付宝！马云：把它买了不就行了？" class="randsimg"></div>
-                        <div class="hotpost-left"><span
-                                class="hot-post-title">阿里员工：“大润发”不支持用支付宝！马云：把它买了不就行了？</span><span
-                                class="hot-post-clock"><i class="fa fa-clock-o"></i> 2017-11-25</span><span
-                                class="hot-post-info"><i class="fa fa-comment"></i> 2</span></div>
-                    </a></li>
-                    <li><a href="https://www.talklee.com/blog/281.html" title="什么样的域名才具备投资价值">
-                        <div class="hotpost-img"><img alt="什么样的域名才具备投资价值"
-                                                      class="randsimg"></div>
-                        <div class="hotpost-left"><span class="hot-post-title">什么样的域名才具备投资价值</span><span
-                                class="hot-post-clock"><i class="fa fa-clock-o"></i> 2017-10-09</span><span
-                                class="hot-post-info"><i class="fa fa-comment"></i> 2</span></div>
-                    </a></li>
+                    <li v-for="item in blogImageList">
+                        <a href="" :title="item.title">
+                            <div class="hotpost-img">
+                                <img :alt="item.title" :src="item.pic" class="randsimg">
+                            </div>
+                            <div class="hotpost-left">
+                                <span class="hot-post-title">{{item.title}}</span>
+                                <span class="hot-post-clock">
+                                    <i class="fa fa-clock-o"></i>
+                                    {{item.create_time}}
+                                </span>
+                                <span class="hot-post-info">
+                                    <i class="fa fa-comment"></i>
+                                    {{item.comment_count}}
+                                </span>
+                            </div>
+                        </a>
+                    </li>
+
                     <li class="baiduad">
                         <!--<script type="text/javascript">-->
-                            <!--/*300*80 创建于 2017/11/20*/-->
-                            <!--var cpro_id = "u3140170";-->
+                        <!--/*300*80 创建于 2017/11/20*/-->
+                        <!--var cpro_id = "u3140170";-->
                         <!--</script>-->
                         <!--<script type="text/javascript" src="<?= $js ?>/c.js"></script>-->
                     </li>
@@ -712,151 +655,132 @@
 
             <!--推广-->
             <div class="widget-box widget wow fadeInDown" id="divproject">
-                <h3 class="widget-title"><i class="fa fa-th"></i>项目介绍</h3>
+                <h3 class="widget-title"><i class="fa fa-th"></i>项目介绍(筹备中)</h3>
                 <ul class="widget-content divproject">
-                    <li class="divproject-ebox divproject-01"><h4>网站建设</h4>
-                        <p>提供品牌官网解决方案</p><a class="btn btn-default btn-sm" rel="nofollow" target="_blank"
-                                            href="tencent://message/?uin=229693666&Site=Senlon.Net&Menu=yes">联系我们</a>
+                    <li class="divproject-ebox divproject-01">
+                        <h4>网站建设</h4>
+                        <p>提供品牌官网解决方案</p>
+                        <a class="btn btn-default btn-sm" rel="nofollow" target="_blank" href="">联系我们</a>
                     </li>
-                    <li class="divproject-ebox divproject-02"><h4>模板制作</h4>
-                        <p>仿站/效果图转模板</p><a class="btn btn-default btn-sm" rel="nofollow" target="_blank"
-                                           href="tencent://message/?uin=229693666&Site=Senlon.Net&Menu=yes">联系我们</a>
+                    <li class="divproject-ebox divproject-02">
+                        <h4>模板制作</h4>
+                        <p>仿站/效果图转模板</p>
+                        <a class="btn btn-default btn-sm" rel="nofollow" target="_blank" href="">联系我们</a>
                     </li>
                     <li class="divproject-ebox divproject-03"><h4>CSS布局调整</h4>
-                        <p>重新修改Web排版布局</p><a class="btn btn-default btn-sm" rel="nofollow" target="_blank"
-                                             href="tencent://message/?uin=229693666&Site=Senlon.Net&Menu=yes">联系我们</a>
+                        <p>重新修改Web排版布局</p>
+                        <a class="btn btn-default btn-sm" rel="nofollow" target="_blank" href="">联系我们</a>
                     </li>
-                    <li class="divproject-ebox divproject-04"><h4>其他问题解决</h4>
-                        <p>解决建站所遇到的问题</p><a class="btn btn-default btn-sm" rel="nofollow" target="_blank"
-                                            href="tencent://message/?uin=229693666&Site=Senlon.Net&Menu=yes">联系我们</a>
+                    <li class="divproject-ebox divproject-04">
+                        <h4>其他问题解决</h4>
+                        <p>解决建站所遇到的问题</p>
+                        <a class="btn btn-default btn-sm" rel="nofollow" target="_blank" href="">联系我们</a>
                     </li>
                     <li class="divproject-ebox divproject-100"><h4>定制开发流程</h4>
-                        <p>业务咨询 | 提交需求 | 开始实施 | 确认 | 售后服务</p><a class="btn btn-default btn-sm" rel="nofollow"
-                                                                target="_blank"
-                                                                href="tencent://message/?uin=229693666&Site=Senlon.Net&Menu=yes">联系我们</a>
+                        <p>业务咨询 | 提交需求 | 开始实施 | 确认 | 售后服务</p>
+                        <a class="btn btn-default btn-sm" rel="nofollow" target="_blank" href="">联系我们</a>
                     </li>
                 </ul>
             </div>
             <!--推广end-->
             <!--保留-->
-            <div class="widget-box widget wow fadeInDown" id="readers">
-                <h3 class="widget-title"><i class="fa fa-th"></i>读者墙</h3>
-                <ul class="widget-content readers">
-                    <li><a title="邹鹏"><img alt="邹鹏">邹鹏</a></li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"
-                           target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"
-                           target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"
-                           target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5saXVib3dhbmcuY29t" title="榴博网 点评"
-                           target="_blank" rel="external nofollow"><img alt="榴博网">榴博网</a></li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuYmFuZ3Rhb2xpLmNvbS8="
-                           title="老薛主机永久七折码 点评" target="_blank" rel="external nofollow"><img
-                            alt="老薛主机永久七折码">老薛主机</a>
-                    </li>
-                    <li><a title="shenj520"><img alt="shenj520">shen</a></li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5ndWFueXV3b21lbi5jb20="
-                           title="关于我们 点评" target="_blank" rel="external nofollow"><img alt="关于我们">关于我们</a>
-                    </li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5jcWJjYy5jb20v" title="重庆整形 点评"
-                           target="_blank" rel="external nofollow"><img alt="重庆整形">重庆整形</a></li>
-                    <li><a title="靠"><img alt="靠">靠</a></li>
-                    <li><a title="66"><img alt="66">66</a></li>
-                    <li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cueXh0NTIxLmNvbQ==" title="简单生活 点评"
-                           target="_blank" rel="external nofollow"><img alt="简单生活">简单生活</a></li>
-                </ul>
-            </div>
+            <!--<div class="widget-box widget wow fadeInDown" id="readers">-->
+            <!--<h3 class="widget-title"><i class="fa fa-th"></i>读者墙</h3>-->
+            <!--<ul class="widget-content readers">-->
+            <!--<li><a title="邹鹏"><img alt="邹鹏">邹鹏</a></li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"-->
+            <!--target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"-->
+            <!--target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuaG91ZmxpLmNvbQ==" title="ACG资源 点评"-->
+            <!--target="_blank" rel="external nofollow"><img alt="ACG资源">ACG资</a></li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5saXVib3dhbmcuY29t" title="榴博网 点评"-->
+            <!--target="_blank" rel="external nofollow"><img alt="榴博网">榴博网</a></li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cuYmFuZ3Rhb2xpLmNvbS8="-->
+            <!--title="老薛主机永久七折码 点评" target="_blank" rel="external nofollow"><img-->
+            <!--alt="老薛主机永久七折码">老薛主机</a>-->
+            <!--</li>-->
+            <!--<li><a title="shenj520"><img alt="shenj520">shen</a></li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5ndWFueXV3b21lbi5jb20="-->
+            <!--title="关于我们 点评" target="_blank" rel="external nofollow"><img alt="关于我们">关于我们</a>-->
+            <!--</li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cDovL3d3dy5jcWJjYy5jb20v" title="重庆整形 点评"-->
+            <!--target="_blank" rel="external nofollow"><img alt="重庆整形">重庆整形</a></li>-->
+            <!--<li><a title="靠"><img alt="靠">靠</a></li>-->
+            <!--<li><a title="66"><img alt="66">66</a></li>-->
+            <!--<li><a href="https://www.talklee.com/?urldecode=aHR0cHM6Ly93d3cueXh0NTIxLmNvbQ==" title="简单生活 点评"-->
+            <!--target="_blank" rel="external nofollow"><img alt="简单生活">简单生活</a></li>-->
+            <!--</ul>-->
+            <!--</div>-->
             <!---->
         </aside>
     </div>
     <div class="clear"></div>
-    <div class="home-con-ad wow fadeInDown" data-wow-delay="0.3s">
-        <div class="home-ad ad shadow-box">
-            <!-- 广告位：sy1200*99 -->
-            <script>
-                (function () {
-                    var s = "_" + Math.random().toString(36).slice(2);
-                    document.write('<div id="' + s + '"></div>');
-                    (window.slotbydup = window.slotbydup || []).push({
-                        id: '5539046',
-                        container: s,
-                        size: '1200,99',
-                        display: 'inlay-fix'
-                    });
-                })();
-            </script>
-        </div>
-    </div>
-    <div class="clear"></div>
+    <!--<div class="home-con-ad wow fadeInDown" data-wow-delay="0.3s">-->
+    <!--<div class="home-ad ad shadow-box">-->
+    <!--&lt;!&ndash; 广告位：sy1200*99 &ndash;&gt;-->
+    <!--<script>-->
+    <!--(function () {-->
+    <!--var s = "_" + Math.random().toString(36).slice(2);-->
+    <!--document.write('<div id="' + s + '"></div>');-->
+    <!--(window.slotbydup = window.slotbydup || []).push({-->
+    <!--id: '5539046',-->
+    <!--container: s,-->
+    <!--size: '1200,99',-->
+    <!--display: 'inlay-fix'-->
+    <!--});-->
+    <!--})();-->
+    <!--</script>-->
+    <!--</div>-->
+    <!--</div>-->
+        {block name="main-footer"}
+        <div class="clear"></div>
     <div class="mx-cms1 wow fadeInDown" data-wow-delay="0.3s">
         <!--黑科技-->
         <div class="mx-cat-box shadow-box">
-            <h3 class="mx-cat-title"><i class="icon-left fa fa-th-large"></i><a href="https://www.talklee.com/tech/"
-                                                                                title="">新鲜科技<i
-                    class="fa fa-caret-right"></i></a></h3>
+            <h3 class="mx-cat-title">
+                <i class="icon-left fa fa-th-large"></i>
+                <a href="https://www.talklee.com/tech/" title="">新鲜科技<i class="fa fa-caret-right"></i></a>
+            </h3>
             <div class="clear"></div>
             <div class="mx-cat-site">
                 <figure class="mx-line-thumbnail">
-                    <a href="https://www.talklee.com/blog/363.html" title="阅读：zblog博客怎么给导航加图标图文教程"><img
-                            alt="zblog博客怎么给导航加图标图文教程"></a>
+                    <a href="" :title="blogToolsList[0].title">
+                        <img :alt="blogToolsList[0].title" :src="blogToolsList[0].pic">
+                    </a>
                 </figure>
                 <ul class="mx-cat-list">
-                    <span class="mx-list-date">07/13</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/362.html" rel="bookmark"
-                            title="详细阅读：zblogphp怎么设置二级导航菜单(图文教程)">zblogphp怎么设置二级导航菜单(图文教程)</a></li>
-                    <span class="mx-list-date">06/25</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/359.html" rel="bookmark"
-                            title="详细阅读：记录下Windows2008服务器转Linux无法加载数据盘的情况">记录下Windows2008服务器转Linux无法加载数据盘的情况</a></li>
-                    <span class="mx-list-date">05/11</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/350.html" rel="bookmark" title="详细阅读：个人博客怎么做好优化">个人博客怎么做好优化</a>
-                    </li>
-                    <span class="mx-list-date">05/07</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/348.html" rel="bookmark"
-                            title="详细阅读：zblogphp最新版本退出时出现错误的临时解决办法">zblogphp最新版本退出时出现错误的临时解决办法</a></li>
-                    <span class="mx-list-date">04/25</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/345.html" rel="bookmark" title="详细阅读：做SEO多久才能看到效果？">做SEO多久才能看到效果？</a>
-                    </li>
+                    <span v-for="(item,key) in blogToolsList" v-if="key>0">
+                        <span class="mx-list-date">{{item.create_time}}</span>
+                        <li class="mx-list-title">
+                            <i class="fa fa-angle-right"></i>
+                            <a href="" rel="bookmark" :title="item.title">{{item.title}}</a>
+                        </li>
+                    </span>
                 </ul>
                 <div class="clear"></div>
             </div>
         </div>
         <div class="mx-cat-box shadow-box">
-            <h3 class="mx-cat-title"><i class="icon-left fa fa-th-large"></i><a href="https://www.talklee.com/info/"
-                                                                                title="">互联网<i
-                    class="fa fa-caret-right"></i></a></h3>
+            <h3 class="mx-cat-title">
+                <i class="icon-left fa fa-th-large"></i>
+                <a href="https://www.talklee.com/tech/" title="">互联网<i class="fa fa-caret-right"></i></a>
+            </h3>
             <div class="clear"></div>
             <div class="mx-cat-site">
                 <figure class="mx-line-thumbnail">
-                    <a href="https://www.talklee.com/blog/365.html" title="阅读：Google回归中国对SEO们意味着什么？"><img
-                            alt="Google回归中国对SEO们意味着什么？"></a>
+                    <a href="" :title="blogToolsList[0].title">
+                        <img :alt="blogToolsList[0].title" :src="blogToolsList[0].pic">
+                    </a>
                 </figure>
                 <ul class="mx-cat-list">
-                    <span class="mx-list-date">06/28</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/360.html" rel="bookmark" title="详细阅读：网站怎么防止SQL注入">网站怎么防止SQL注入</a>
-                    </li>
-                    <span class="mx-list-date">06/08</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/357.html" rel="bookmark" title="详细阅读：百度SEO和谷歌SEO的区别是什么">百度SEO和谷歌SEO的区别是什么</a>
-                    </li>
-                    <span class="mx-list-date">06/04</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/355.html" rel="bookmark" title="详细阅读：网站被DDOS攻击的防御方法">网站被DDOS攻击的防御方法</a>
-                    </li>
-                    <span class="mx-list-date">06/01</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/354.html" rel="bookmark" title="详细阅读：zblogPHP备份迁移的图文教程">zblogPHP备份迁移的图文教程</a>
-                    </li>
-                    <span class="mx-list-date">05/23</span>
-                    <li class="mx-list-title"><i class="fa fa-angle-right"></i><a
-                            href="https://www.talklee.com/blog/352.html" rel="bookmark"
-                            title="详细阅读：罗永浩回应一切：关于TNT 你们的质疑都是错的">罗永浩回应一切：关于TNT 你们的质疑都是错的</a></li>
+                    <span v-for="(item,key) in blogToolsList" v-if="key>0">
+                        <span class="mx-list-date">{{item.create_time}}</span>
+                        <li class="mx-list-title">
+                            <i class="fa fa-angle-right"></i>
+                            <a href="" rel="bookmark" :title="item.title">{{item.title}}</a>
+                        </li>
+                    </span>
                 </ul>
                 <div class="clear"></div>
             </div>
@@ -865,196 +789,63 @@
     </div>
     <!--个人-->
     <div id="mxlee-main" class="wow fadeInDown" data-wow-delay="0.3s">
-        <h3 class="mx-showcase-title showcase-title"><i class="icon-left fa fa-th-large"></i><a
-                href="https://www.talklee.com/talklee/" rel="category">胡言乱语</a><a class="mx3-cat-angle"
-                                                                                  href="https://www.talklee.com/talklee/"
-                                                                                  rel="category"><i
-                class="fa fa-angle-right"></i></a></h3>
+        <h3 class="mx-showcase-title showcase-title">
+            <i class="icon-left fa fa-th-large"></i>
+            <a href="" rel="category">胡言乱语</a>
+            <a class="mx3-cat-angle" href="" rel="category">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </h3>
         <div class="mx-cat-g3 shadow-box">
-            <article class="mx3-hentry nba">
+            <article class="mx3-hentry nba" v-for="item in blogOtherList">
                 <figure class="mx3-thumbnail">
-                    <a href="https://www.talklee.com/blog/361.html">
-                        <img alt="负载均衡和CDN技术有什么区别">
+                    <a href="">
+                        <img :alt="item.title" :src="item.pic">
                     </a>
                 </figure>
                 <header class="mx3-header">
-                    <h2 class="mx3-entry-title"><a href="https://www.talklee.com/blog/361.html" rel="bookmark">负载均衡和CDN技术有什么区别</a>
+                    <h2 class="mx3-entry-title"><a href="" rel="bookmark">{{item.title}}</a>
                     </h2>
                 </header>
                 <div class="mx3-entry-content">
-        <span class="mx3-entry-meta">
-          <span class="mx3-date"><i class="fa fa-calendar"></i> 06/29</span>
-          <span class="mx3-views"><i class="fa fa-paw"></i> 1607</span>
-          <span class="mx3-comment">
-            <a href="https://www.talklee.com/blog/361.html#comments" rel="mx3-external-nofollow"><i
-                    class="fa fa-comment"></i> 7</a>
-          </span>
-        </span>
+                    <span class="mx3-entry-meta">
+                          <span class="mx3-date"><i class="fa fa-calendar"></i> {{item.create_time}}</span>
+                          <span class="mx3-views"><i class="fa fa-paw"></i> {{item.see_count}}</span>
+                          <span class="mx3-comment">
+                            <a href="https://www.talklee.com/blog/361.html#comments" rel="mx3-external-nofollow">
+                                <i class="fa fa-comment"></i> {{item.comment_count}}
+                            </a>
+                        </span>
+                    </span>
                     <div class="clear"></div>
                 </div>
             </article>
-            <article class="mx3-hentry nba">
-                <figure class="mx3-thumbnail">
-                    <a href="https://www.talklee.com/blog/358.html">
-                        <img alt="玉林荔枝狗肉节：是美味还是罪恶？">
-                    </a>
-                </figure>
-                <header class="mx3-header">
-                    <h2 class="mx3-entry-title"><a href="https://www.talklee.com/blog/358.html" rel="bookmark">玉林荔枝狗肉节：是美味还是罪恶？</a>
-                    </h2>
-                </header>
-                <div class="mx3-entry-content">
-        <span class="mx3-entry-meta">
-          <span class="mx3-date"><i class="fa fa-calendar"></i> 06/21</span>
-          <span class="mx3-views"><i class="fa fa-paw"></i> 808</span>
-          <span class="mx3-comment">
-            <a href="https://www.talklee.com/blog/358.html#comments" rel="mx3-external-nofollow"><i
-                    class="fa fa-comment"></i> 8</a>
-          </span>
-        </span>
-                    <div class="clear"></div>
-                </div>
-            </article>
-            <article class="mx3-hentry nba">
-                <figure class="mx3-thumbnail">
-                    <a href="https://www.talklee.com/blog/356.html">
-                        <img alt="你的烦恼太多，其实都是想的太多">
-                    </a>
-                </figure>
-                <header class="mx3-header">
-                    <h2 class="mx3-entry-title"><a href="https://www.talklee.com/blog/356.html" rel="bookmark">你的烦恼太多，其实都是想的太多</a>
-                    </h2>
-                </header>
-                <div class="mx3-entry-content">
-        <span class="mx3-entry-meta">
-          <span class="mx3-date"><i class="fa fa-calendar"></i> 06/05</span>
-          <span class="mx3-views"><i class="fa fa-paw"></i> 696</span>
-          <span class="mx3-comment">
-            <a href="https://www.talklee.com/blog/356.html#comments" rel="mx3-external-nofollow"><i
-                    class="fa fa-comment"></i> 14</a>
-          </span>
-        </span>
-                    <div class="clear"></div>
-                </div>
-            </article>
-            <article class="mx3-hentry nba">
-                <figure class="mx3-thumbnail">
-                    <a href="https://www.talklee.com/blog/353.html">
-                        <img alt="聊聊梦想家（mxlee）主题盗版的情况">
-                    </a>
-                </figure>
-                <header class="mx3-header">
-                    <h2 class="mx3-entry-title"><a href="https://www.talklee.com/blog/353.html" rel="bookmark">聊聊梦想家（mxlee）主题盗版的情况</a>
-                    </h2>
-                </header>
-                <div class="mx3-entry-content">
-        <span class="mx3-entry-meta">
-          <span class="mx3-date"><i class="fa fa-calendar"></i> 05/25</span>
-          <span class="mx3-views"><i class="fa fa-paw"></i> 913</span>
-          <span class="mx3-comment">
-            <a href="https://www.talklee.com/blog/353.html#comments" rel="mx3-external-nofollow"><i
-                    class="fa fa-comment"></i> 16</a>
-          </span>
-        </span>
-                    <div class="clear"></div>
-                </div>
-            </article>
-            <article class="mx3-hentry nba">
-                <figure class="mx3-thumbnail">
-                    <a href="https://www.talklee.com/blog/351.html">
-                        <img alt="一张图弄明白从零维到十维空间！你能看懂几维？">
-                    </a>
-                </figure>
-                <header class="mx3-header">
-                    <h2 class="mx3-entry-title"><a href="https://www.talklee.com/blog/351.html" rel="bookmark">一张图弄明白从零维到十维空间！你能看懂几维？</a>
-                    </h2>
-                </header>
-                <div class="mx3-entry-content">
-        <span class="mx3-entry-meta">
-          <span class="mx3-date"><i class="fa fa-calendar"></i> 05/19</span>
-          <span class="mx3-views"><i class="fa fa-paw"></i> 795</span>
-          <span class="mx3-comment">
-            <a href="https://www.talklee.com/blog/351.html#comments" rel="mx3-external-nofollow"><i
-                    class="fa fa-comment"></i> 2</a>
-          </span>
-        </span>
-                    <div class="clear"></div>
-                </div>
-            </article>
-            <article class="mx3-hentry nba">
-                <figure class="mx3-thumbnail">
-                    <a href="https://www.talklee.com/blog/347.html">
-                        <img alt="销毁电脑硬盘数据的方法">
-                    </a>
-                </figure>
-                <header class="mx3-header">
-                    <h2 class="mx3-entry-title"><a href="https://www.talklee.com/blog/347.html" rel="bookmark">销毁电脑硬盘数据的方法</a>
-                    </h2>
-                </header>
-                <div class="mx3-entry-content">
-        <span class="mx3-entry-meta">
-          <span class="mx3-date"><i class="fa fa-calendar"></i> 05/03</span>
-          <span class="mx3-views"><i class="fa fa-paw"></i> 2011</span>
-          <span class="mx3-comment">
-            <a href="https://www.talklee.com/blog/347.html#comments" rel="mx3-external-nofollow"><i
-                    class="fa fa-comment"></i> 10</a>
-          </span>
-        </span>
-                    <div class="clear"></div>
-                </div>
-            </article>
+
         </div>
     </div>
     <!--个人 end -->
+        {/block}
 </div>
 <!--友情链接-->
-<div class="container-fluid links  wow fadeInDown">
+    <div class="container-fluid links  wow fadeInDown">
     <div class="links-box">
         <ul>
-            <li><a href="http://www.00521.cn/" target="_blank" title="521导航">521导航</a></li>
-            <li><a href="http://www.yetiandong.com/" target="_blank" title="叶天冬博客">叶天冬博客</a></li>
-            <li><a href="http://oss.so/" target="_blank" title="生命不息，折腾不止，关注前端，关注Z-BlogPHP">橙色阳光</a></li>
-            <li><a href="http://www.tusay.net/" target="_blank" title="关注IT技术和学习分享,提供ZBlogPHP主题模板插件定制！">涂涂研版</a></li>
-            <li><a href="http://www.dingchunhua.name/" target="_blank" title="丁春华博客">丁春华</a></li>
-            <li><a href="http://www.myxzy.com/" target="_blank" title="电脑技术、软件教程、代码资料、网站技术、原创文章">星知苑</a></li>
-            <li><a href="http://huhen.com/" target="_blank" title="小虎博客">小虎博客</a></li>
-            <li><a href="http://www.gridsmedia.com/" target="_blank" title="网格传媒">网格传媒</a></li>
-            <li><a href="http://www.paipk.com/" target="_blank" title="拍拍看科技">拍拍看科技</a></li>
-            <li><a href="http://www.songhaifeng.com/" target="_blank" title="小锋博客">小锋博客</a></li>
-            <li><a href="https://zhangge.net/" target="_blank" title="张戈博客">张戈博客</a></li>
-            <li><a href="https://www.feiniaomy.com" target="_blank" title="飞鸟慕鱼博客">飞鸟慕鱼博客</a></li>
-            <li><a href="https://www.imlgm.com/" target="_blank" title="大谋的zblog博客">大谋</a></li>
-            <li><a href="http://www.zixuephp.net/" target="_blank" title="php自学网">php自学网</a></li>
             <li class="link-title"><a href="/links/" target="_blank" title="申请友链">申请友链</a></li>
         </ul>
         <div class="clear"></div>
     </div>
 </div>
 <!--友情链接 end -->
+
 <!--底部-->
-<footer class="footer">
+    <footer class="footer">
     <div class="footer_container">
         <div class="clearfix">
             <div class="footer-col footer-col-logo">
-                <img alt="李洋个人博客"></div>
+                <img alt="Mikou个人博客"></div>
             <div class="footer-col footer-col-copy">
-                <ul class="footer-nav hidden-xs">
-                    <li class="menu-item"><a rel="nofollow" href="/archive/" target="_blank">文章归档</a><a rel="nofollow"
-                                                                                                        href="/sitemap.xml"
-                                                                                                        target="_blank">网站地图</a><a
-                            rel="nofollow" href="/comment/" target="_blank">举报中心</a><a class="beian-ico" target="_blank"
-                                                                                       href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=21011202000115"
-                                                                                       title="辽公网安备21011202000115号"><img
-                            alt="辽公网安备21011202000115号"></a> <a
-                            href="http://www.miibeian.gov.cn" rel="nofollow" target="_blank"
-                            title="ICP备案号：辽ICP备15015379号">辽ICP备15015379号</a></li>
-                </ul>
-                <div class="copyright">Copyright<i class="fa fa-copyright"></i>2015-2017<a href="/">李洋博客.</a>基于<a
-                        href="http://www.zblogcn.com/" title="RainbowSoft Z-BlogPHP" target="_blank">Z-BlogPHP</a>搭建.托管于<a
-                        href="http://www.qcloud.com/redirect.php?redirect=1004&cps_key=a2ad20fce47f8a6fb4600bfc80b3d4c7"
-                        title="腾讯云服务器安全可靠高性能，多种配置供您选择" rel="nofollow" target="_blank"><img class="qcloudimg"
 
-                                                                                           alt="运行腾讯云服务器">腾讯云.</a>
+                <div class="copyright">Copyright<i class="fa fa-copyright"></i>2015-2017<a href="/">Mikou博客.</a>
                     <script>
                         var _hmt = _hmt || [];
                         (function () {
@@ -1069,18 +860,18 @@
             <div class="footer-col footer-col-sns">
                 <div class="footer-sns">
                     <a class="sns-wx" target="_blank" title="邮件投稿"
-                       href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=2Lm2u7Stupiusaj2qan2u7e1">
+                       href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=MQMIAQUHCQICBHFAQB9SXlw">
                         <i class="fa fa-envelope"></i>
                     </a>
                     <a class="sns-wx" href="javascript:;">
                         <i class="fa fa-weixin"></i>
                         <span style=""></span>
                     </a>
-                    <a class="sns-wx" target="_blank" title="RSS订阅本站" href="https://www.talklee.com/feed.php">
+                    <a class="sns-wx" target="_blank" title="RSS订阅本站" href="">
                         <i class="fa fa-rss"></i>
                     </a>
-                    <a target="_blank" title="新浪微博地址" href="http://weibo.com/523912300/" rel="nofollow">
-                        <i class="fa fa-weibo"></i>
+                    <a target="_blank" title="Github地址" href="https://www.github.com/mikouhero/" rel="nofollow">
+                        <i class="fa fa-github"></i>
                     </a>
                 </div>
             </div>
@@ -1089,7 +880,7 @@
 </footer>
 <!--底部end -->
 <!--右侧-->
-<div id="backtop" class="backtop">
+    <div id="backtop" class="backtop">
     <div class="bt-box tnrt">
         <a href="javascript:;" id="zh_big">繁</a></div>
     <div class="bt-box weixin">
@@ -1101,7 +892,7 @@
     </div>
 </div>
 <!--右测end -->
-<div class="none">
+    <div class="none">
     <script type="text/javascript">var defaultEncoding = "2";
     var translateDelay = "50";
     var cookieDomain = "https://www.talklee.com/";
@@ -1134,7 +925,8 @@
     }
     ;translateInitilization();</script>
 </div>
-
-<script src="<?= $js?>/index/home.js"></script>
+    <script src="<?= $js?>/index/home.js"></script>
+    {block name="footer"}
+    {/block}
 </body>
 </html>

@@ -80,6 +80,11 @@ class Index extends Controller
 
     }
 
+    /**
+     * Decription :php
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
     public function getPhpBlog()
     {
         $list = Db::name('blog')
@@ -97,6 +102,11 @@ class Index extends Controller
         $this->ajaxReturnMsg(200, 'success', $list);
     }
 
+    /**
+     * Decription :Mysql
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
     public function getMySQLBlog()
     {
         $list = Db::name('blog')
@@ -114,6 +124,11 @@ class Index extends Controller
         $this->ajaxReturnMsg(200, 'success', $list);
     }
 
+    /**
+     * Decription :js
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
     public function getJsBlog()
     {
         $list = Db::name('blog')
@@ -130,6 +145,12 @@ class Index extends Controller
 
         $this->ajaxReturnMsg(200, 'success', $list);
     }
+
+    /**
+     * Decription :linux
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
     public function getLinuxBlog()
     {
         $list = Db::name('blog')
@@ -146,6 +167,12 @@ class Index extends Controller
 
         $this->ajaxReturnMsg(200, 'success', $list);
     }
+
+    /**
+     * Decription :ci
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
     public function getCiBlog()
     {
         $list = Db::name('blog')
@@ -158,6 +185,108 @@ class Index extends Controller
         foreach ($list as $k => $v ){
             $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
             $list[$k]['create_time'] = date('m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+    }
+
+    /**
+     * Decription :浏览数
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
+    public function getHotBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(9)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+    }
+
+    /**
+     * Decription :获取热评
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
+    public function getHotCommentBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(9)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+
+    }
+
+    /**
+     * Decription :获取图文
+     * @author: Mikou.hu
+     * Date: 2018/9/20
+     */
+    public function getImageBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time,p1.comment_count')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(3)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('Y-m-d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+
+    }
+
+    public function getToolsBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time,p1.comment_count')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(6)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m/d',strtotime($v['create_time']));
+        }
+
+        $this->ajaxReturnMsg(200, 'success', $list);
+    }
+
+    public function getOtherBlog()
+    {
+        $list = Db::name('blog')
+            ->alias('p1')
+            ->field('p1.id,p1.title,p1.content,p1.pic,p1.create_time,p1.see_count,p1.comment_count')
+            ->join('category p2','p2.id = p1.category_id','left')
+            ->where('p2.parent_id',2)
+            ->order('id','desc')
+            ->limit(6)->select();
+        foreach ($list as $k => $v ){
+            $list[$k]['content'] = preg_replace('/\s/','',strip_tags($v['content']));
+            $list[$k]['create_time'] = date('m/d',strtotime($v['create_time']));
         }
 
         $this->ajaxReturnMsg(200, 'success', $list);

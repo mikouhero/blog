@@ -9,4 +9,10 @@ var ajaxUrl = {
     getJsBlog:url+'/index/getJsBlog',
     getLinuxBlog:url+'/index/getLinuxBlog',
     getCiBlog:url+'/index/getCiBlog',
+    getHotBlog:url+'/index/getHotBlog',
+    getHotCommentBlog:url+'/index/getHotCommentBlog',
+    getImageBlog:url+'/index/getImageBlog',
+    getToolsBlog:url+'/index/getToolsBlog',
+    getOtherBlog:url+'/index/getOtherBlog',
+
 };

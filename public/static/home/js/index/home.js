@@ -1,7 +1,8 @@
 vm = new Vue({
     el: '.header',
     data: {
-        menuList: ''
+        menuList: '',
+        tmpclass:'',
     },
     methods: {
         getHomeMenu:function () {
@@ -14,15 +15,24 @@ vm = new Vue({
                     return false;
                 }
                 this.menuList = res.data.data;
-                console.log(this.menuList);
             }, function (res) {
                 alert(res);
             });
+        },
+        addmenuclass:function (key) {
+                var tmp  = key || localStorage.getItem('keyclass');
+                if(key === 0){
+                    tmp =0;
+                }
+                localStorage.setItem('keyclass',tmp);
+                this.tmpclass=localStorage.getItem('keyclass');
+
         }
     },
     mounted: function () {
         this.$nextTick(function () {
             this.getHomeMenu();
+            this.addmenuclass();
         });
     }
 });
@@ -60,7 +70,6 @@ vm = new Vue({
                     return false;
                 }
                 this.bannerList = res.data.data;
-                console.log(this.bannerList);
             }, function (res) {
                 alert(res);
             });
@@ -75,7 +84,6 @@ vm = new Vue({
                     return false;
                 }
                 this.blogrecommendList = res.data.data;
-                console.log(this.blogrecommendList);
             }, function (res) {
                 alert('系统崩掉了');
             });
@@ -177,6 +185,164 @@ vm = new Vue({
             this.getLinuxBlog();
             this.getCiBlog();
 
+        });
+    }
+});
+
+Vm2 = new Vue({
+    el: '.sidebar-right',
+    data: {
+        blogrecommendList: {
+            0:{'title':{}}  //防止异步请求报错
+        },
+        blogHotList: {
+            0:{'title':{}}  //防止异步请求报错
+        },
+        blogHotCommentList: {
+            0:{'title':{}}  //防止异步请求报错
+        },
+        blogImageList: {
+            0:{'title':{}}  //防止异步请求报错
+        },
+        blogToolsList:{
+            0:{'title':{}}  //防止异步请求报错
+        }
+    },
+    methods: {
+        getBlogRecommendList:function () {
+            this.$http.post(ajaxUrl.getBlogRecommendList, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogrecommendList = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+        getHotBlog:function () {
+            this.$http.post(ajaxUrl.getHotBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogHotList = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+        getHotCommentBlog:function () {
+            this.$http.post(ajaxUrl.getHotCommentBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogHotCommentList = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+        getImageBlog:function () {
+            this.$http.post(ajaxUrl.getImageBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogImageList = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        },
+        getToolsBlog:function () {
+            this.$http.post(ajaxUrl.getToolsBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogToolsList = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.getBlogRecommendList();
+            this.getHotBlog();
+            this.getHotCommentBlog();
+            this.getImageBlog();
+        });
+    }
+});
+
+Vm3 = new Vue({
+    el: '.mx-cms1',
+    data: {
+        blogToolsList:{
+            0:{'title':{}}  //防止异步请求报错
+        }
+    },
+    methods: {
+        getToolsBlog:function () {
+            this.$http.post(ajaxUrl.getToolsBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogToolsList = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.getToolsBlog();
+        });
+    }
+});
+Vm4 = new Vue({
+    el: '#mxlee-main',
+    data: {
+        blogOtherList:{}
+    },
+    methods: {
+        getOtherBlog:function () {
+            this.$http.post(ajaxUrl.getOtherBlog, {
+            }, {
+                emulateJSON: true
+            }).then(function (res) {
+                if (res.data.code != 200) {
+                    alert(res.data.msg);
+                    return false;
+                }
+                this.blogOtherList = res.data.data;
+            }, function (res) {
+                alert('系统崩掉了');
+            });
+        }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.getOtherBlog();
         });
     }
 });

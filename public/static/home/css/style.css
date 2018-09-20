@@ -1043,7 +1043,7 @@ li.weixin a:hover span {bottom:50px;display:block;-webkit-transition:all .2s eas
 li.weixin a span:after {position:absolute;bottom:-16px;left:50%;width:0;height:0;margin-left:-8px;line-height:0;border:8px solid transparent;border-top:8px solid #DDDDDD;content:'';}
 #zzxx-box .feed a:hover {background:#d28300;border:1px solid #d28300}
 #zzxx-box .weixin a:hover {background:#248a34;border:1px solid #248a34}
-#zzxx-box .tsina a:hover {background:#c40000;border:1px solid #c40000}
+#zzxx-box .tgithub a:hover {background:#222222;border:1px solid #222222}
 #zzxx-box .tqq a:hover {background:#4e91d1;border:1px solid #4e91d1}
 #divPrevious ul li a:hover {margin-left:8px;}
 /*side*/
