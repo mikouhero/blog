@@ -2,8 +2,8 @@
 
 namespace app\index\controller;
 
-use gmars\rbac\Rbac;
 use think\Controller;
+use think\Request;
 use think\config;
 
 class Index extends Controller
@@ -24,32 +24,34 @@ class Index extends Controller
     }
     public function index()
     {
-
         return view('index@index/index');
     }
 
     public function php()
     {
         return view('index@index/details');
-
     }
 
     public function web()
     {
         return view('index@index/details1');
-
     }
 
     public function database()
     {
         return view('index@index/details2');
-
     }
 
     public function linux()
     {
         return view('index@index/details3');
-
     }
+
+    public function blog(Request $request)
+    {
+        return view('index@index/blog');
+    }
+
+
 
 }

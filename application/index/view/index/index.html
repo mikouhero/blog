@@ -302,7 +302,7 @@
             <div class="deanpol aiv cl">
                 <div class="article-item" v-cloak>
                     <div class="item-pic pull-left">
-                        <a href="" :title="blogrecommendList[0].title">
+                        <a  @click="blog(blogrecommendList[0].id)" :title="blogrecommendList[0].title">
                             <img :src="blogrecommendList[0].pic" width="200" height="120"
                                  :alt="blogrecommendList[0].title">
                         </a>

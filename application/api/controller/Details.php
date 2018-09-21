@@ -43,7 +43,6 @@ class Details extends Controller
         $this->ajaxReturnMsg(200, 'success', $res);
     }
 
-
     public function getAllWebList(Request $request)
     {
         $data = $request->post();
@@ -127,6 +126,7 @@ class Details extends Controller
         );
         $this->ajaxReturnMsg(200, 'success', $res);
     }
+
 
     private function ajaxReturnMsg($code = 200, $msg, $data, $api_id = 0)
     {

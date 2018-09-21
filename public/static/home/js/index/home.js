@@ -172,6 +172,10 @@ vm = new Vue({
                 alert('系统崩掉了');
             });
         },
+        blog:function (id) {
+            // location.href=homeurl + "/blog/" + id;
+            // window.open(homeurl + "/blog/" + id);
+        }
 
     },
     mounted: function () {
