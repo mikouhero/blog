@@ -15,7 +15,7 @@ Vm2 = new Vue({
             // console.log("当前页：" + this.pageNo);
         },
         getAllList:function () {
-            this.$http.post(ajaxUrl.getAllPhpList, {
+            this.$http.post(ajaxUrl.getAllDatabaseList, {
                 current_page: this.pageNo
             }, {
                 emulateJSON: true

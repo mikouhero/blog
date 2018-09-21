@@ -56,8 +56,6 @@
     <script src="<?= $js ?>/vue.js"></script>
     <script src="<?= $js ?>/vue-resource.js"></script>
     <script src="<?= $js ?>/common.js"></script>
-    <script src="<?= $js ?>/pagination.js"></script>
-
     <script src="<?= $js ?>/3dtag.js"></script>
     {block name="header"}
     {/block}
@@ -915,7 +913,7 @@
     <!--</div>-->
         {block name="main-footer"}
         <div class="clear"></div>
-    <div class="mx-cms1 wow fadeInDown" data-wow-delay="0.3s">
+        <div class="mx-cms1 wow fadeInDown" data-wow-delay="0.3s">
         <!--黑科技-->
         <div class="mx-cat-box shadow-box">
             <h3 class="mx-cat-title">
@@ -968,7 +966,7 @@
         <!--黑科技end-->
     </div>
     <!--个人-->
-    <div id="mxlee-main" class="wow fadeInDown" data-wow-delay="0.3s">
+         <div id="mxlee-main" class="wow fadeInDown" data-wow-delay="0.3s">
         <h3 class="mx-showcase-title showcase-title">
             <i class="icon-left fa fa-th-large"></i>
             <a href="" rel="category">胡言乱语</a>
@@ -1004,9 +1002,11 @@
         </div>
     </div>
     <!--个人 end -->
+        {/block}
 
 </div>
 <!--友情链接-->
+    {block name="footer-link"}
     <div class="container-fluid links  wow fadeInDown">
     <div class="links-box">
         <ul>
@@ -1014,9 +1014,11 @@
         </ul>
         <div class="clear"></div>
     </div>
-</div>
-<!--友情链接 end -->
+    </div>
     {/block}
+
+    <!--友情链接 end -->
+
 
 <!--底部-->
     <footer class="footer">

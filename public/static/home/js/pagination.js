@@ -4,8 +4,8 @@
  * title: 分页组件
  */
 var pageComponent = Vue.extend({
-    template: '<nav aria-label="Page navigation">'+
-                    '<ul class="">'+
+    template: '<nav aria-label="Page pagination">'+
+                    '<ul class="pagination" style="width:100%">'+
                         '<li :class="{\'disabled\':curPage==1}">'+
                            '<a href="javascript:;" @click="goPage(curPage==1?1:curPage-1)" aria-label="Previous">'+
                                 '<span aria-hidden="true">上一页</span>'+

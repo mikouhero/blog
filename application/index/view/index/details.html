@@ -1,0 +1,61 @@
+﻿{extend name="index/index" /}
+{block name="header"}
+<link href="<?= $css ?>/bootstrap.min.css" rel="stylesheet"/>
+<script src="<?= $js?>/pagination.js"></script>
+
+{/block}
+{block name="main"}
+        <nav class="navcates">
+            当前位置：<i class="fa fa-home"></i><a href="/">首页</a><i class="fa fa-angle-right"></i><a
+                href="">PHP</a></nav>
+        <div class="site-main">
+            <!--文章列表-->
+
+            <div class="widget-box blog-layout">
+                <div class="post_box_title">
+                    <h3><i class="fa fa-cube"></i>PHP</h3>
+                </div>
+                <article class="post_box wow fadeInDown"  v-for="(item,key) in allPhpList">
+                    <div class="post-img col-xs-4">
+                        <a href="" style="display: block;zoom:1;">
+                            <img class="img-responsive img-rounded imgs" :src="item.pic"
+                                 :alt="item.title" :title="item.title" style="display: block;"><em></em>
+                        </a>
+                    </div>
+                    <div class="post-left">
+                        <h3><a href="" :title="item.title">{{item.title}}</a>
+                        </h3>
+                        <div class="post-con">
+                            <a href="" :title="item.title" style=" display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">
+                                {{item.content}}
+                            </a>
+                        </div>
+                        <aside class="item-meta">
+                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="https://www.talklee.com/info/"> {{item.category}}</a></span>
+                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i> {{item.create_time}}</span>
+                            <span class="mu-ml-eye"><i class="fa fa-paw"></i> {{item.see_count}}次浏览</span>
+                            <span class="mu-ml-comment"><i class="fa fa-comment"></i><a
+                                    href="https://www.talklee.com/blog/365.html#comments"> {{item.comment_count}}条评论</a></span>
+                            <a class="read-more right" href=""
+                               title="item.title">阅读全文</a>
+                        </aside>
+                    </div>
+                </article>
+                <!--页码-->
+
+            </div>
+            <div class="clear" style="margin-top: 10px" >
+                <div class="page-list">
+                    <navigation :pages="pages" :current.sync="pageNo" @navpage="pageList"></navigation>
+                </div>
+            </div>
+        </div>
+
+{/block}
+{block name="footer-link"}
+{/block}
+{block name="main-footer"}
+{/block}
+{block name="footer"}
+<script src="<?= $js?>/detail/details.js"></script>
+{/block}

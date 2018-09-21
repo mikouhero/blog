@@ -15,4 +15,8 @@ var ajaxUrl = {
     getToolsBlog:url+'/index/getToolsBlog',
     getOtherBlog:url+'/index/getOtherBlog',
     getAllPhpList:url+'/details/getAllPhpList',
+    getAllWebList:url+'/details/getAllWebList',
+    getAllDatabaseList:url+'/details/getAllDatabaseList',
+    getAllLinuxList:url+'/details/getAllLinuxList',
+
 };

@@ -30,7 +30,25 @@ class Index extends Controller
 
     public function php()
     {
-        return view('index@index/php');
+        return view('index@index/details');
+
+    }
+
+    public function web()
+    {
+        return view('index@index/details1');
+
+    }
+
+    public function database()
+    {
+        return view('index@index/details2');
+
+    }
+
+    public function linux()
+    {
+        return view('index@index/details3');
 
     }
 
