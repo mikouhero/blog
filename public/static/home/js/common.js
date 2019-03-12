@@ -1,5 +1,5 @@
-var homeurl ="http://tp5.com";
-var url = 'http://tp5.com/api';
+var homeurl ="/";
+var url = '/api';
 var ajaxUrl = {
     getMenuList: url + '/index/getMenuList',
     getBannerList: url + '/index/getBannerList',
